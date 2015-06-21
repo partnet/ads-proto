@@ -1,0 +1,48 @@
+<!--Copyright (c) 2015 Partnet, Inc. Confidential and Proprietary.-->
+
+<div class="container">
+  <div>
+    <h2>Search FDA Adverse Drug Events</h2>
+  </div>
+  <div class="col-sm-3">
+    <form name="adeSearchForm" ng-submit="drugEvents.doSearch()">
+      <fieldset class="search-fields">
+        <div class="form-group">
+          <label for="drug-id">Drug Name</label>
+          <input id="drug-id" class="form-control" name="drugId" type="text" ng-model="drugEvents.drugId">
+        </div>
+        <div class="form-group">
+          <label for="age-id">Patient Age</label>
+          <input id="age-id" class="form-control" name="age" type="text" value="" ng-model="drugEvents.age">
+        </div>
+        <div class="form-group">
+          <label class="gender">Patient Gender</label>
+          <label>
+            <input type="radio" ng-model="drugEvents.gender" value="M">Male
+          </label>
+          <label>
+            <input type="radio" ng-model="drugEvents.gender" value="F">Female
+          </label>
+        </div>
+        <div class="form-group">
+          <label for="weight-id">Patient Weight</label>
+          <input id="weight-id" class="form-control" name="weight" type="text" value="" ng-model="drugEvents.weight">
+        </div>
+      </fieldset>
+      <div class="btn-holder">
+        <button id="reg-button-id" type="submit" class="btn btn-primary">Search</button>
+      </div>
+      <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}">
+        <span ng-if="alert.html" ng-bind-html="alert.msg"></span>
+        <span ng-if="!alert.html">{{alert.msg}}</span>
+      </alert>
+    </form>
+  </div>
+  <div class="col-sm-4">
+    <ads-bubble ng-if="drugEvents.searchResults" data="drugEvents.searchResults"></ads-bubble>
+  </div>
+  <div class="col-sm-4">
+    <ads-zoom-sunburst ng-if="drugEvents.searchResults" data="drugEvents.searchResults"></ads-zoom-sunburst>
+  </div>
+</div>
+
