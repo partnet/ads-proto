@@ -1,0 +1,8 @@
+---
+# Create the configuration account group
+- name: Create the configuration management group
+  group: name={{cfg_group}} state=present
+
+# Create the configuration account user
+- name: Create the configuration management user
+  user: name={{cfg_user}} group={{cfg_group}}

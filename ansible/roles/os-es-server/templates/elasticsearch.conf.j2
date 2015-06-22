@@ -1,0 +1,13 @@
+# Elasticsearch init configuration
+# See http://www.elastic.co/guide/en/elasticsearch/reference/1.x/setup-service.html
+
+# The user to run the service as
+ES_USER={{CFG_USER}}
+
+JAVA_HOME="/home/{{CFG_USER}}/jdk/current"
+
+LOG_DIR=/home/{{CFG_USER}}/elasticsearch/current/logs
+DATA_DIR=/home/{{CFG_USER}}/elasticsearch/current/data
+WORK_DIR=/home/{{CFG_USER}}/elasticsearch/current/work
+CONF_DIR=/home/{{CFG_USER}}/elasticsearch/current/config
+CONF_FILE=/home/{{CFG_USER}}/elasticsearch/current/config/elasticsearch.yml

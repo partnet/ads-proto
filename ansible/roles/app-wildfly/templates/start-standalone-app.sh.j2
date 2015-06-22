@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+cd /home/{{CFG_USER}}/wildfly/current/bin
+/usr/bin/nohup ./standalone.sh --server-config=standalone-app.xml > startWildfly.out 2>&1 &

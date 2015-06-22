@@ -1,0 +1,25 @@
+---
+# Stage common (all hosts) application artifacts to the control host
+# For example, binary files from artifactory that are normally excluded from git repos
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Create artifacts directory
+      file: path={{ARTIFACT_DIR}} mode=0755 state=directory
+    - name: Stage artifacts on the control host
+      run_once: true
+      get_url: url={{item.url}} dest={{ARTIFACT_DIR}}/{{item.name}} mode=0666 validate_certs=no force=no
+      with_items:
+        - { url: "{{ELASTICSEARCH_BASE_URL}}/{{ELASTICSEARCH_VERSION}}/{{ELASTICSEARCH_ARCHIVE}}", name: "{{ELASTICSEARCH_ARCHIVE}}" }
+        - { url: "{{JDK_URL}}/{{JDK_ARCHIVE}}", name: "{{JDK_ARCHIVE}}" }
+
+# Perform application configuration of the elasitc search servers
+- hosts: app-servers
+  sudo: yes
+  sudo_user: "{{CFG_USER}}"
+  connection: ssh
+  gather_facts: yes
+  roles:
+    - app-common
+    - app-es

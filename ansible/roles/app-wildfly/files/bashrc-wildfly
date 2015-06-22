@@ -1,0 +1,4 @@
+wildflyDir=~/wildfly/current
+if [ -d "$wildflyDir" ]; then
+  export PATH=$PATH:$wildflyDir/bin
+fi

@@ -1,0 +1,60 @@
+# Setup Wildfly
+- name: Copy Wildfly archive to remote host
+  copy: src={{ARTIFACT_DIR}}/{{WILDFLY_ARCHIVE}} dest=/home/{{CFG_USER}}/archive/{{WILDFLY_ARCHIVE}} owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Create Wildfly directory
+  file: path=/home/{{CFG_USER}}/wildfly owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Unpack Wildfly archive
+  unarchive: copy=no src=/home/{{CFG_USER}}/archive/{{WILDFLY_ARCHIVE}} dest=/home/{{CFG_USER}}/wildfly owner={{CFG_USER}} group={{CFG_GROUP}} mode=g-w,o-rwx creates=/home/{{CFG_USER}}/wildfly/wildfly-{{WILDFLY_VERSION}}
+
+- name: Softlink archive as current
+  file: src=/home/{{CFG_USER}}/wildfly/{{WILDFLY_UNPACKED_DIR}} dest=/home/{{CFG_USER}}/wildfly/current owner={{CFG_USER}} group={{CFG_GROUP}} state=link
+
+- name: Deploy Wildfly bashrc extension
+  copy: src=bashrc-wildfly dest=/home/{{CFG_USER}}/.bashrc-ext owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Create and copy standalone application configuration for Wildfly server
+  template: src=standalone-app.xml.j2 dest=/home/{{CFG_USER}}/wildfly/current/standalone/configuration/standalone-app.xml
+            owner={{CFG_USER}} group={{CFG_GROUP}}
+
+- name: Create and Copy Wildfly server start and stop scripts to remote machine
+  template: src={{item}}.j2 dest=/home/{{CFG_USER}}/wildfly/current/bin/{{item}}
+            owner={{CFG_USER}} group={{CFG_GROUP}} mode=0750
+  with_items:
+    - start-standalone-app.sh
+    - stop-standalone-app.sh
+
+- name: Stop Wildfly server
+  shell: "/home/{{CFG_USER}}/wildfly/current/bin/stop-standalone-app.sh"
+  args:
+    removes: "/home/{{CFG_USER}}/wildfly/current/bin/startWildfly.out"
+
+- name: Start Wildfly server
+  shell: "/home/{{CFG_USER}}/wildfly/current/bin/start-standalone-app.sh"
+  environment: "{{wildfly_env}}"
+  args:
+    creates: "/home/{{CFG_USER}}/wildfly/current/bin/startWildfly.out"
+  async: 31536000
+  poll: 0
+
+- name: Wait for Wildfly server to be ready for admin commands
+  wait_for: host={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}} port=9990 delay=10
+  
+- name: Add admin user
+  shell: "/home/{{CFG_USER}}/wildfly/current/bin/add-user.sh --silent {{WILDFLY_APP_ADMIN_USER_NAME}} {{wildfly_app_admin_password}}"
+  environment: "{{wildfly_env}}"
+
+- name: Stop Wildfly server
+  shell: "/home/{{CFG_USER}}/wildfly/current/bin/stop-standalone-app.sh"
+  args:
+    removes: "/home/{{CFG_USER}}/wildfly/current/bin/startWildfly.out"
+
+- name: Start Wildfly server
+  shell: "/home/{{CFG_USER}}/wildfly/current/bin/start-standalone-app.sh"
+  environment: "{{wildfly_env}}"
+  args:
+    creates: "/home/{{CFG_USER}}/wildfly/current/bin/startWildfly.out"
+  async: 31536000
+  poll: 0
+  

@@ -1,0 +1,34 @@
+# Perform application configuration of the elastic search servers
+- name: Create elasticsearch directory
+  file: path=/home/{{CFG_USER}}/elasticsearch owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Deploy elasticsearch archive
+  copy: src={{ARTIFACT_DIR}}/{{ELASTICSEARCH_ARCHIVE}} dest=/home/{{CFG_USER}}/archive owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Unpack elasticsearch archive
+  unarchive: copy=no src=/home/{{CFG_USER}}/archive/{{ELASTICSEARCH_ARCHIVE}} dest=/home/{{CFG_USER}}/elasticsearch owner={{CFG_USER}} group={{CFG_GROUP}} mode=g-w,o-rwx creates=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}
+
+- name: Softlink elasticsearch archive as current
+  file: src=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}} dest=/home/{{CFG_USER}}/elasticsearch/current owner={{CFG_USER}} group={{CFG_GROUP}} state=link
+
+- name: Deploy elasticsearch configuration template
+  template: src=elasticsearch.yml.j2 dest=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}/config/elasticsearch.yml owner={{CFG_USER}} group={{CFG_GROUP}} mode=0644
+
+- name: Deploy elasticsearch bashrc extension
+  copy: src=bashrc-es dest=/home/{{CFG_USER}}/.bashrc-ext owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Stop elasticsearch server
+  shell: "pkill | xargs es.pid && rm es.pid"
+  args:
+    chdir: "/home/{{CFG_USER}}/elasticsearch/current/bin"
+    removes: "/home/{{CFG_USER}}/elasticsearch/current/bin/es.pid"
+
+- name: Start elasticsearch server
+  shell: /home/{{CFG_USER}}/elasticsearch/current/bin/elasticsearch -d -p /home/{{CFG_USER}}/elasticsearch/current/bin/es.pid
+  environment: "{{es_env}}"
+  args:
+    chdir: /home/{{CFG_USER}}/elasticsearch/current/bin
+    creates: es.pid
+  async: 31536000
+  poll: 0
+
