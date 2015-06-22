@@ -1,0 +1,38 @@
+apply plugin: 'java'
+apply plugin: 'maven'
+
+group = 'com.partnet'
+version = '1.0-SNAPSHOT'
+
+description = """ads Functional Test Automation Suite"""
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+
+task fta(type: Test){
+    maxParallelForks = 3
+
+    //https://stackoverflow.com/questions/19080768/how-to-unit-test-cdi-with-weld-se
+    fta.doFirst {
+        copy {
+            from 'build/resources/main/META-INF/beans.xml'
+            into 'build/classes/main/META-INF/'
+        }
+        copy {
+            from 'build/resources/test/META-INF/beans.xml'
+            into 'build/classes/test/META-INF/'
+        }
+    }
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+        logger.lifecycle("Running test: " + descriptor)
+    }
+}
+
+repositories {
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'com.partnet', name: 'seauto-junit', version:'0.9.1'
+}
