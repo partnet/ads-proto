@@ -12,7 +12,7 @@
  * configuration and routing.
  */
 (function () {
-  var app = angular.module('ADSProtoApp', ['components', 'drugEvents', 'ngRoute']);
+  var app = angular.module('ADSProtoApp', ['components', 'drugEvents', 'ngRoute', 'ngResource']);
 
   app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider

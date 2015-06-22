@@ -25,7 +25,28 @@
       init();
 
       _this.doSearch = function () {
-        DrugEventsService.searchEvents().then(function(response){
+        var query;
+
+        if (angular.isDefined(_this.drugId)) {
+          query = {
+            api_key: DrugEventsService.apiKey,
+          };
+
+          var searchQuery = 'patient.drug.openfda.generic_name:' + _this.drugId + '+AND+patient.patientsex' + _this.gender;
+
+          if (!isNaN(_this.age)) {
+            searchQuery += '+AND+patient.patientonsetage:' + _this.age;
+          }
+
+          if (!isNaN(_this.weight)) {
+            searchQuery += '+AND+patient.patientweight:' + _this.weight;
+          }
+          query['search'] = searchQuery;
+          query['count'] = 'patient.reaction.reactionmeddrapt.exact';
+        } else {
+          query = 'true'
+        }
+        DrugEventsService.searchEvents(query).then(function (response) {
           _this.searchResults = response;
         });
       };

@@ -9,12 +9,16 @@
  *
  * @description
  * # DrugEventsService
- * The GSAADSApp service that handles user request data and provides FDA adverse events information.
+ * The ADSProtoApp service that handles user request data and provides FDA adverse events information.
  */
 (function () {
   'use strict';
   angular.module('drugEvents')
-    .factory('DrugEventsService', ['$q', function ($q) {
+    .factory('DrugEventsService', ['$q', '$resource', function ($q, $resource) {
+      var restServerURI = 'https://api.fda.gov/drug/event.json'
+
+      var DrugEvents = $resource(restServerURI, {});
+
       var jsonData = {
         "name": "flare",
         "children": [
@@ -396,12 +400,19 @@
         ]
       };
 
-      var drugEventsFact = {};
+      var drugEventsFact = {
+        apiKey: '49N1YfEbCwRbQFIgCsSYSIohxMWkMryPpvSgRXbd'
+      };
 
-      drugEventsFact.searchEvents = function () {
-        var deferred = $q.defer();
-        deferred.resolve(jsonData);
-        return deferred.promise;
+      drugEventsFact.searchEvents = function (query) {
+        if (query === 'true') {
+          var deferred = $q.defer();
+          deferred.resolve(jsonData);
+          return deferred.promise;
+        } else {
+          console.log('Query: ' + query);
+          return DrugEvents.get(query);
+        }
       };
 
       return drugEventsFact;
