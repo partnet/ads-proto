@@ -1,0 +1,5 @@
+---
+# Perform site wide configuration and deployment
+- include: site-os-config.yml
+- include: site-app-config.yml
+#- include: site-app-deploy.yml

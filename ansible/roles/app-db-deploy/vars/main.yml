@@ -1,0 +1,5 @@
+liquibase_env:
+  JAVA_HOME: "/home/{{CFG_USER}}/jdk/current"
+  PATH: "/home/{{CFG_USER}}/jdk/current/bin:/bin"
+  LIQUIBASE_HOME: "/home/{{CFG_USER}}/liquibase/current"
+  

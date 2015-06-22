@@ -1,0 +1,15 @@
+---
+- name: Create liquibase changelogs directory
+  file: path=/home/{{CFG_USER}}/liquibase/changelogs owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Copy liquibase changelogs to remote host
+  copy: src={{item}} dest=/home/{{CFG_USER}}/liquibase/changelogs/{{item | basename}} owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+  with_items: LIQUIBASE_CHANGELOGS
+  register: changelogs
+
+- name: Deploy changelogs
+  shell: "/home/{{CFG_USER}}/liquibase/current/liquibase --username {{WILDFLY_APP_DS_DBO_USER_NAME}} --password {{wildfly_app_ds_dbo_password}} --url jdbc:postgresql://{{wildfly_app_ds_server}}:{{wildfly_app_ds_port}}/{{WILDFLY_APP_DS_DB_NAME}} --changeLogFile {{LIQUIBASE_CHANGELOGS[0] | basename}} update"
+  args:
+    chdir: "/home/{{CFG_USER}}/liquibase/changelogs"
+  environment: "{{liquibase_env}}"
+  when: changelogs.changed

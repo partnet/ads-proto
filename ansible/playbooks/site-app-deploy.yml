@@ -1,0 +1,4 @@
+---
+# Perform site wide application deployment
+- include: app-db-deploy.yml
+- include: app-app-deploy.yml

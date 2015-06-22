@@ -1,0 +1,5 @@
+---
+# Perform site wide OS configuration
+- include: ../../../ansible/playbooks/os-wildfly-server.yml
+- include: ../../../ansible/playbooks/os-es-server.yml
+- include: ../../../ansible/playbooks/os-postgres-server.yml

@@ -1,0 +1,19 @@
+---
+# Variable definitions for the test group
+
+# Use vagrant as the default ssh user in the test environment, default to
+# normal user elsewhere
+wildfly_app_admin_password: YourM0m!
+
+# Application datasource
+wildfly_app_ds_server: 172.16.64.7
+wildfly_app_ds_port: 5432
+wildfly_app_ds_db_password: '.u4Ze6k9cHV\,:Bi'
+wildfly_app_ds_dbo_password: '64J,euIFo1:zgA9'
+
+# Application listening addresses
+wildfly_bind_addr: 172.16.64.25
+es_bind_addr: 172.16.64.25
+
+# The property file to use (copied to application.properties file)
+CONFIG_SRC: "stage.properties"

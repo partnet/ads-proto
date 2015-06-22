@@ -1,0 +1,5 @@
+---
+# Perform site wide application configuration
+- include: ../../../ansible/playbooks/app-wildfly.yml
+- include: ../../../ansible/playbooks/app-es.yml
+- include: ../../../ansible/playbooks/app-liquibase.yml
