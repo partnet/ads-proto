@@ -1,4 +1,5 @@
 .gradle/
+ansible/artifacts
 client/dist/
 client/node_modules/
 client/bower_components/
@@ -8,3 +9,6 @@ client/.tmp/
 .classpath
 *.iml
 client/app/styles/
+.settings
+.vagrant
+
