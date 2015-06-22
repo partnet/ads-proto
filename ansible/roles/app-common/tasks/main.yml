@@ -1,0 +1,13 @@
+# Setup environment
+- name: Create bin directory
+  file: path=/home/{{CFG_USER}}/bin owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Create archive directory
+  file: path=/home/{{CFG_USER}}/archive owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Deploy custom .bashrc
+  copy: src=.bashrc dest=/home/{{CFG_USER}} owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Create bashrc extension directory
+  file: path=/home/{{CFG_USER}}/.bashrc-ext owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+

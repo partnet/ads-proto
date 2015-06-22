@@ -1,0 +1,5 @@
+elasticsearchDir=~/elasticsearch/current/bin
+if [ -d "$elasticsearchDir" ]; then
+  alias cdelasticsearch="cd ~/elasticsearch"
+  export PATH=$PATH:$elasticsearchDir
+fi

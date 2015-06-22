@@ -1,0 +1,17 @@
+---
+# Variable definitions for the dev-virt group
+
+# Override the default indicating we are running in a VM
+vm: false
+
+wildfly_app_admin_password: YourM0m!
+
+# Application listening addresses
+wildfly_bind_addr: 0.0.0.0
+es_bind_addr: 0.0.0.0
+
+#dev env jdk securerandom.source value
+jdk_securerandom_source: "securerandom.source=file:/dev/random"
+
+# The property file to use (copied to application.properties file)
+CONFIG_SRC: "prod.properties"

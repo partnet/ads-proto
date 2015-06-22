@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+cd /home/{{CFG_USER}}/wildfly/current/bin
+WFS_PID=`ps x -o "%p %a" | grep -m 1 "\[Standalone\]" | awk {'print $1'}`
+kill -TERM $WFS_PID
+rm -rf startWildfly.out

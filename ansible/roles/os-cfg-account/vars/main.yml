@@ -1,0 +1,4 @@
+---
+# Default user and group values
+user: cfgmgr
+group: cfgmgr

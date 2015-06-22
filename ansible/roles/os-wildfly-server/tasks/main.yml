@@ -1,0 +1,25 @@
+---
+# Install unzip to support unarchiving Wildfly
+- name: Install unzip
+  yum: name=unzip state=latest
+
+# Install wildfly init config
+- name: Create and copy init configuration for Wildfly server
+  template: src=wildfly.conf.j2 dest=/etc/sysconfig/wildfly-{{CFG_USER}} mode=0644
+
+- name: Update wildfly sysconfig cfor development build
+  lineinfile: dest=/etc/sysconfig/wildfly-{{CFG_USER}} line="JAVA_OPTS=\"{{wildfly_app_dev_java_opts}}\""
+  when: wildfly_app_dev_java_opts is defined
+
+# Install wildfly init script
+- name: Create and copy init script for Wildfly server
+  template: src=wildfly-init-redhat.sh.j2 dest=/etc/init.d/wildfly-{{CFG_USER}} mode=0755
+
+# Enable wildfly init
+- name: Enable the Wildfly init service
+  service: name=wildfly-{{CFG_USER}} enabled=yes
+
+  # Give CFG_GROUP users permission to run init scripts as root
+- name: Add sudoers permission for CFG_GROUP users to execute wildfly init scripts
+  template: dest=/etc/sudoers.d/wildfly-{{CFG_GROUP}} src=wildfly.sudoers.j2 owner=root group=root mode=0440
+  sudo_user: root

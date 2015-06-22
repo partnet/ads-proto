@@ -1,0 +1,17 @@
+---
+# Install elasticsearch init config
+- name: Create and copy init configuration for elasticsearch
+  template: src=elasticsearch.conf.j2 dest=/etc/sysconfig/elasticsearch-{{CFG_USER}} mode=0644
+
+# Install elasticsearch init script
+- name: Create and copy init script for elasticsearch
+  template: src=elasticsearch-init.sh.j2 dest=/etc/init.d/elasticsearch-{{CFG_USER}} mode=0755
+  
+# Enable elasticsearch init
+- name: Enable the elasticsearch init service
+  service: name=elasticsearch-{{CFG_USER}} enabled=yes
+
+# Give CFG_GROUP users permission to run init scripts as root
+- name: Add sudoers permission for CFG_GROUP users to execute elasticsearch init scripts
+  template: dest=/etc/sudoers.d/elasticsearch-{{CFG_GROUP}} src=elasticsearch.sudoers.j2 owner=root group=root mode=0440
+  sudo_user: root

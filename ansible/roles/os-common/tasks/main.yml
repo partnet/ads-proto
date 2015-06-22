@@ -1,0 +1,4 @@
+---
+# Install python selinux libaries to support ansible
+- name: Install python selinux support
+  yum: name=libselinux-python state=latest

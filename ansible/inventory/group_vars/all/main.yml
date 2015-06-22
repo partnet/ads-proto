@@ -20,36 +20,13 @@ JDK_URL: "{{ARTIFACTORY_BASE_URL}}/software-installations/oracle/jdk-{{JDK_ARCH}
 JDK_ARCHIVE: "jdk-{{JDK_ARCH}}-{{JDK_VERSION}}.gz"
 JDK_UNPACKED_DIR: jdk1.8.0_31
 
-# Postgresql JDBC driver archive variables
-# These variables reflect the conventions for uploading a new JDBC version to artifactory.
-POSTGRESQL_JDBC_DRIVER_VERSION: 9.4
-POSTGRESQL_JDBC_DRIVER_URL: "{{ARTIFACTORY_BASE_URL}}/software-installations/postgresql/postgresql/{{POSTGRESQL_JDBC_DRIVER_VERSION}}"
-POSTGRESQL_JDBC_DRIVER_ARCHIVE: "postgresql-{{POSTGRESQL_JDBC_DRIVER_VERSION}}-jdbc41.jar"
-
 # Wildfly archive variables
 # These variables reflect the conventions for uploading a new Wildfly version to artifactory.
 WILDFLY_VERSION: 8.2.0.Final
 WILDFLY_URL: "{{ARTIFACTORY_BASE_URL}}/software-installations/redhat/wildfly/{{WILDFLY_VERSION}}"
 WILDFLY_ARCHIVE: "wildfly-{{WILDFLY_VERSION}}.zip"
 WILDFLY_UNPACKED_DIR: "wildfly-{{WILDFLY_VERSION}}"
-WILDFLY_APP_DS_JNDI_NAME: "java:jboss/datasources/ADS-XADS"
-WILDFLY_APP_DS_POOL_NAME: "ADS-XADS"
-WILDFLY_APP_DS_SERVER: "localhost"
-WILDFLY_APP_DS_PORT: 5432
-WILDFLY_APP_DS_DB_NAME: "ads"
-WILDFLY_APP_DS_DB_USER_NAME: "ads"
-WILDFLY_APP_DS_DBO_USER_NAME: "ads_dbo"
-WILDFLY_APP_DS_DB_ROLE_NAME: "ads_role"
 WILDFLY_APP_ADMIN_USER_NAME: "admin"
-
-LIQUIBASE_VERSION: 3.3.2
-LIQUIBASE_BASE_URL: "{{ARTIFACTORY_BASE_URL}}/software-installations/liquibase/liquibase/{{LIQUIBASE_VERSION}}"
-LIQUIBASE_ARCHIVE: liquibase-{{LIQUIBASE_VERSION}}-bin.tar.gz
-
-# The first changelog should be a master changelog, and will be the only changelog run directly.
-LIQUIBASE_CHANGELOGS:
-  - "{{inventory_dir}}/../../server/src/main/resources/sql/db.changelog-master.yml"
-  - "{{inventory_dir}}/../../server/src/main/resources/sql/db.changelog-MVP.yml"
 
 # Elasticsearch archive variables
 # These variables reflect the conventions for uploading a new Elasticsearch version to artifactory.
