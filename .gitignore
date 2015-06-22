@@ -8,3 +8,7 @@ client/.tmp/
 .classpath
 *.iml
 client/app/styles/
+
+fta/build/
+fta/target/
+fta/selenium-drivers
