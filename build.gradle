@@ -1,15 +1,7 @@
-plugins {
-  id "com.moowork.grunt" version "0.10"
+allprojects {
+  task ping << { task -> println "$task.project.name included in multi-project" }
 }
 
-apply plugin: 'com.moowork.grunt'
-
-task dist(dependsOn: "grunt_build") << {
-
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.4'
 }
-
-task test(dependsOn: "grunt_test")
-
-task clean(dependsOn: "grunt_clean")
-
-task check(dependsOn: "grunt_jshint")
