@@ -38,11 +38,3 @@ ELASTICSEARCH_ARCHIVE: "elasticsearch-{{ELASTICSEARCH_VERSION}}.tar.gz"
 APPLICATION_WARS:
   - { url: "{{ARTIFACTORY_BASE_URL}}/ads-pubs/ads-app/ads-app/%5bRELEASE%5D/ads-app-%5BRELEASE%5D.war", name: "server.war" }
 APPLICATION_PREFIX: "com.partnet.ads"
-
-# Configuration property files (from Artifactory)
-CONFIG_PROP_FILES:
-  - { url: "{{ARTIFACTORY_BASE_URL}}/ads-pubs/ads-app/prod/%5bRELEASE%5D/prod-%5BRELEASE%5D.properties", name: "prod.properties" }
-  - { url: "{{ARTIFACTORY_BASE_URL}}/ads-pubs/ads-app/dev/%5bRELEASE%5D/dev-%5BRELEASE%5D.properties", name: "dev.properties" }
-
-# The property file to use (copied to application.properties file)
-CONFIG_SRC: "prod.properties"

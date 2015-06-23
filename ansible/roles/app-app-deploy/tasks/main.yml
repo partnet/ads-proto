@@ -12,41 +12,6 @@
   with_items: APPLICATION_WARS
   when: not vm
 
-- name: Create and copy application.properties to remote host
-  copy: src={{ARTIFACT_DIR}}/{{CONFIG_SRC}} dest=/home/{{CFG_USER}}/archive/application.properties owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
-  register: properties
-
-- name: Copy module.xml for application.properties to remote host
-  copy: src=application-properties-module.xml dest=/home/{{CFG_USER}}/archive/application-properties-module.xml
-        owner={{CFG_USER}} group={{CFG_USER}}
-
-- name: Create and copy application.properties CLI script to remote host
-  template: src=create-application-properties-module.cli.j2 dest=/home/{{CFG_USER}}/wildfly/current/bin/create-application-properties-module.cli
-            owner={{CFG_USER}} group={{CFG_USER}}
-
-#- name: Wait for Wildfly server to be ready for admin commands
-#  wait_for: host={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}} port=9990 delay=10
-
-- name: Remove existing application.properties module if it exists and properties have changed
-  shell: >
-    /home/{{CFG_USER}}/wildfly/current/bin/jboss-cli.sh
-    --controller={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}}
-    --command='module remove --name={{APPLICATION_PREFIX}}.configuration'
-  environment: "{{wildfly_env}}"
-  when: properties.changed
-  args:
-    removes: "/home/{{CFG_USER}}/wildfly/current/modules/{{APPLICATION_PREFIX | replace('.', '/')}}/configuration"
-
-- name: Create application.properties module
-  shell: >
-    /home/{{CFG_USER}}/wildfly/current/bin/jboss-cli.sh
-    --controller={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}}
-    --file='/home/{{CFG_USER}}/wildfly/current/bin/create-application-properties-module.cli'
-  environment: "{{wildfly_env}}"
-  args:
-    creates: "/home/{{CFG_USER}}/wildfly/current/modules/{{APPLICATION_PREFIX | replace('.', '/')}}/configuration"
-
-
 - name: Deploy wars
   shell: "/home/{{CFG_USER}}/wildfly/current/bin/jboss-cli.sh --controller={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}} --connect --command='deploy /home/{{CFG_USER}}/archive/{{item.name}} --force'"
   with_items: APPLICATION_WARS
