@@ -10,11 +10,12 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 
-task fta(type: Test){
+test {
     maxParallelForks = 3
+    systemProperties = System.getProperties()
 
     //https://stackoverflow.com/questions/19080768/how-to-unit-test-cdi-with-weld-se
-    fta.doFirst {
+    doFirst {
         copy {
             from 'build/resources/main/META-INF/beans.xml'
             into 'build/classes/main/META-INF/'
