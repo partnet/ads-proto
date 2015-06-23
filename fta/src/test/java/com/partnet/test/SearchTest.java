@@ -46,7 +46,17 @@ public class SearchTest
   {
     searchSteps.givenIAmOnTheSearchPage();
     searchSteps.thenIWillNotHaveSearchResults();
-    searchSteps.whenIPerformAnEmptySearch();
-    searchSteps.thenIWillHaveSearchResults();
+    searchSteps.whenIPerformASearchForOnlyTheDrugName();
+    //searchSteps.thenIWillHaveSearchResults();
+  }
+
+  @Test
+  @Firefox
+  public void genericSearch()
+  {
+    searchSteps.givenIAmOnTheSearchPage();
+    searchSteps.thenIWillNotHaveSearchResults();
+    searchSteps.whenIPerformAGenericSearch();
+    //searchSteps.thenIWillHaveSearchResults();
   }
 }

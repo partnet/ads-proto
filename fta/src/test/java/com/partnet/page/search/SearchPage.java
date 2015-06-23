@@ -6,6 +6,7 @@ import com.partnet.automation.page.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,7 +20,7 @@ public class SearchPage
 {
 
   @FindBy(id = "drug-id")
-  private WebElement drugNameTxtBox;
+  private WebElement drugNameDrpDwn;
 
   @FindBy(id = "age-id")
   private WebElement ageTxtBox;
@@ -52,6 +53,36 @@ public class SearchPage
 
   public enum Gender {MALE, FEMALE};
 
+  public enum DrugOptions {
+    SYNTHROID("Synthroid"),
+    CRESTOR("Crestor"),
+    NEXIUM("Nexium"),
+    VENTOLIN_HFA("Ventolin HFA"),
+    ADVAIR_DISKUS("Advair Diskus"),
+    DIOVAN("Diovan"),
+    LANTUS_SOLOSTAR("Lantus Solostar"),
+    CYMBALTA("Cymbalta"),
+    VYVANSE("Vyvanse"),
+    LYRICA("Lyrica"),
+    SPIRIVA_HANDIHALER("Spiriva Handihaler"),
+    LANTUS("Lantus"),
+    CELEBREX("Celebrex"),
+    ABILIFY("Abilify"),
+    JANUVIA("Januvia"),
+    NAMENDA("Namenda"),
+    VIAGRA("Viagra"),
+    CIALIS("Cialis");
+
+    private final String value;
+    DrugOptions(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+  }
+
   public void goTo() {
     super.webDriver.get(RuntimeConfiguration.getInstance().getUrl() + "/");
   }
@@ -61,8 +92,9 @@ public class SearchPage
     //super.verifyByWebElement(searchBtn);
   }
 
-  public SearchPage setDrugName(String name) {
-    super.setValue(drugNameTxtBox, name);
+  public SearchPage setDrug(DrugOptions option) {
+    Select dropdown = new Select(drugNameDrpDwn);
+    super.selectByVisibleText(drugNameDrpDwn, option.getValue());
     return this;
   }
 
