@@ -23,7 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vagrant.vm.box_download_insecure = true
 
       vagrant.vm.hostname = "ads-server"
-      vagrant.vm.network "forwarded_port", guest: 8080, host: 8080  # wildfly/jboss
+      vagrant.vm.network "forwarded_port", guest: 8080, host: 8880  # wildfly/jboss
       vagrant.vm.network "forwarded_port", guest: 8443, host: 8443  # wildfly/jboss SSL (not currently in use)
       vagrant.vm.network "forwarded_port", guest: 9990, host: 9990  # wildfly/jboss web management interface
       vagrant.vm.network "private_network", ip: "192.168.7.2"

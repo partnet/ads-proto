@@ -9,16 +9,22 @@
       <fieldset class="search-fields">
         <div class="form-group">
           <label for="drug-id">Drug Name</label>
-          <input id="drug-id" class="form-control" name="drugId" type="text" ng-model="drugEvents.drugId">
+          <select id="drug-id" class="form-control" ng-model="drugEvents.drugId"
+                  ng-options="drugId as drugId for drugId in drugEvents.availableDrugIds" required>
+            <option value="">--Select--</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="age-id">Patient Age</label>
-          <input id="age-id" class="form-control" name="age" type="text" value="" ng-model="drugEvents.age">
+          <input id="age-id" class="form-control" type="number" min="0" max="120" name="age" type="text" value="" ng-model="drugEvents.age">
+          <div ng-show="adeSearchForm.age.$invalid">
+            <div class="help-block">Age must be a integer value between from 0 to 120</div>
+          </div>
         </div>
         <div class="form-group">
           <label class="gender">Patient Gender</label>
           <label>
-            <input type="radio" ng-model="drugEvents.gender" value="1" checked>Male
+            <input type="radio" ng-model="drugEvents.gender" value="1">Male
           </label>
           <label>
             <input type="radio" ng-model="drugEvents.gender" value="2">Female
@@ -26,15 +32,18 @@
         </div>
         <div class="form-group">
           <label for="weight-id">Patient Weight</label>
-          <input id="weight-id" class="form-control" name="weight" type="text" value="" ng-model="drugEvents.weight">
+          <input id="weight-id" class="form-control" type="number" min="0" name="weight" type="text" value="" ng-model="drugEvents.weight">
+          <div ng-show="adeSearchForm.weight.$invalid">
+            <div class="help-block">Weight must be a integer value</div>
+          </div>
         </div>
       </fieldset>
       <div class="btn-holder">
-        <button id="reg-button-id" type="submit" class="btn btn-primary">Search</button>
+        <button id="reg-button-id" type="submit" class="btn btn-primary"
+                ng-disabled="!adeSearchForm.$valid">Search</button>
       </div>
       <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}">
-        <span ng-if="alert.html" ng-bind-html="alert.msg"></span>
-        <span ng-if="!alert.html">{{alert.msg}}</span>
+        <span>{{alert.msg}}</span>
       </alert>
     </form>
   </div>

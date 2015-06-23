@@ -8,13 +8,6 @@ vm: true
 # normal user elsewhere
 ansible_ssh_user: vagrant
 wildfly_app_admin_password: YourM0m!
-wildfly_app_ds_db_password: "fmd"
-wildfly_app_ds_dbo_password: "fmd"
-
-# Application datasource
-wildfly_app_ds_server: "localhost"
-wildfly_app_ds_port: 5432
-wildfly_app_ds_db_password: "fmd"
 
 # Application listening addresses
 wildfly_bind_addr: 0.0.0.0

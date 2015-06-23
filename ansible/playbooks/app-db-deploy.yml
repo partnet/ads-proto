@@ -1,9 +1,0 @@
----
-# Perform application configuration of the application servers
-- hosts: lb-servers
-  sudo: yes
-  sudo_user: "{{CFG_USER}}"
-  connection: ssh
-  gather_facts: no
-  roles:
-    - app-db-deploy

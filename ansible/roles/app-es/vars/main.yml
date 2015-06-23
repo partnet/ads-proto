@@ -1,0 +1,3 @@
+es_env:
+  JAVA_HOME: "/home/{{CFG_USER}}/jdk/current"
+  JAVA: "/home/{{CFG_USER}}/jdk/current/bin/java"

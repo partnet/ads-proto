@@ -1,0 +1,5 @@
+jdkDir=~/jdk/current
+if [ -d "$jdkDir" ]; then
+  export JAVA_HOME=$jdkDir
+  export PATH=$PATH:$jdkDir/bin
+fi

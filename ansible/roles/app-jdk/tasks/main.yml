@@ -1,0 +1,22 @@
+# Setup JDK
+- name: Create jdk archive directory
+  file: path=/home/{{CFG_USER}}/archive owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Copy jdk archive to remote host
+  copy: src={{ARTIFACT_DIR}}/{{JDK_ARCHIVE}} dest=/home/{{CFG_USER}}/archive/{{JDK_ARCHIVE}} owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Create jdk directory
+  file: path=/home/{{CFG_USER}}/jdk owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Unpack jdk archive
+  unarchive: copy=no src=/home/{{CFG_USER}}/archive/{{JDK_ARCHIVE}} dest=/home/{{CFG_USER}}/jdk owner={{CFG_USER}} group={{CFG_GROUP}} mode=g-w,o-rwx creates=/home/{{CFG_USER}}/jdk/{{JDK_UNPACKED_DIR}}
+
+- name: Softlink archive as current
+  file: src=/home/{{CFG_USER}}/jdk/{{JDK_UNPACKED_DIR}} dest=/home/{{CFG_USER}}/jdk/current owner={{CFG_USER}} group={{CFG_GROUP}} state=link
+
+- name: Deploy JDK bashrc extension
+  copy: src=bashrc-jdk dest=/home/{{CFG_USER}}/.bashrc-ext owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Update java.security to decrease entropy requirement for development
+  replace: dest=/home/{{CFG_USER}}/jdk/current/jre/lib/security/java.security regexp='^securerandom.source=file:/dev/random$' replace={{jdk_securerandom_source}} backup=yes
+  when: jdk_securerandom_source is defined

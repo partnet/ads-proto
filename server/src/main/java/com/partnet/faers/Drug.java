@@ -9,8 +9,17 @@ public class Drug {
 
   public Integer drugcharacterization;
   public String medicinalproduct;
+  public String activesubstancename;
+  public Float drugstructuredosagenumb;
+  public Integer drugstructuredosageunit;
   public String drugindication;
-  
+  public Integer drugstartdateformat;
+  public Integer drugstartdate;
+  public Integer drugenddateformat;
+  public Integer drugenddate;
+  public Float drugtreatmentduration;
+  public Integer drugtreatmentdurationunit;
+
   public Drug()
   {
     
