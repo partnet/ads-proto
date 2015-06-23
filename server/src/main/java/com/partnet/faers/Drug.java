@@ -6,6 +6,7 @@ package com.partnet.faers;
  * @author jwhite
  */
 public class Drug {
+
   public Integer drugcharacterization;
   public String medicinalproduct;
   public String activesubstancename;
@@ -19,4 +20,12 @@ public class Drug {
   public Float drugtreatmentduration;
   public Integer drugtreatmentdurationunit;
 
+  public Drug()
+  {
+    
+  }
+  
+  public Drug(String medicinalproduct) {
+    this.medicinalproduct = medicinalproduct;
+  }
 }

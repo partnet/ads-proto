@@ -75,7 +75,7 @@ cargo {
 /**
  *  This task depends on the war task and will deploy the resulting artifact to a running instance of the JBOSS Wildfly
  */
-task wildflyDeployWarRemote(dependsOn: ['war','cargoRedeployRemote']) {
+task deployRemote(dependsOn: ['war','cargoRedeployRemote']) {
 }
 
 test {
