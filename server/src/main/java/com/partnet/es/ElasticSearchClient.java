@@ -5,6 +5,7 @@ import com.partnet.faers.Drug;
 import com.partnet.faers.Reaction;
 import com.partnet.faers.ReactionsSearchResult;
 import com.partnet.faers.SafetyReport;
+import com.partnet.util.Range;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthStatus;
@@ -37,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
+import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
 
 /**
@@ -118,31 +120,20 @@ public class ElasticSearchClient {
     return new Gson().fromJson(response.getSourceAsString(), SafetyReport.class);
   }
 
-  public List<SafetyReport> getSafetyReports(String medicinalproduct, Integer patientsex) {
+  public List<SafetyReport> getSafetyReports(String medicinalproduct, Integer patientsex,
+                                             Range ageRange, Range weightRange) {
 
     BoolFilterBuilder filter = boolFilter();
 
     if (patientsex != null) {
       filter.must(termFilter("patientsex", patientsex));
     }
-
-//    if (refinements.getVendorId() != null) {
-//      filter.must(termFilter("vendorId", refinements.getVendorId()));
-//    }
-//    if (refinements.getCategoryId() != null) {
-//      filter.must(termFilter("categoryId", refinements.getCategoryId()));
-//    }
-//    if (refinements.getSubCategoryId() != null) {
-//      filter.must(termFilter("subcategoryId", refinements.getSubCategoryId()));
-//    }
-//    if (refinements.getMarketId() != null) {
-//      filter.must(termFilter("marketIds", refinements.getMarketId()));
-//    }
-//    if (refinements.getAttributeIds() != null && !refinements.getAttributeIds().isEmpty()) {
-//      for(String attributeId : refinements.getAttributeIds()) {
-//        filter.must(termFilter("attributeIds", attributeId));
-//      }
-//    }
+    if (ageRange != null) {
+      filter.must(rangeFilter("patientonsetage").from(ageRange.getLow()).to(ageRange.getHigh()));
+    }
+    if (weightRange != null) {
+      filter.must(rangeFilter("patientweight").from(weightRange.getLow()).to(weightRange.getHigh()));
+    }
 
     QueryBuilder qb = QueryBuilders.termQuery("medicinalproduct", medicinalproduct);
 
@@ -177,8 +168,10 @@ public class ElasticSearchClient {
     return safetyReports;
   }
 
-  public ReactionsSearchResult getReactions(String medicinalproduct, Integer patientsex) {
-    final List<SafetyReport> safetyReports = getSafetyReports(medicinalproduct, patientsex);
+  public ReactionsSearchResult getReactions(String medicinalproduct, Integer patientsex,
+                                            Range ageRange, Range weightRange) {
+
+    final List<SafetyReport> safetyReports = getSafetyReports(medicinalproduct, patientsex, ageRange, weightRange);
 
     Map<String, ReactionsSearchResult.ReactionCount> reactionCounts = new HashMap<>();
 

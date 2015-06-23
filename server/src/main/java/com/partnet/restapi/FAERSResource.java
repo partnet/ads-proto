@@ -2,6 +2,7 @@ package com.partnet.restapi;
 
 import com.google.gson.Gson;
 import com.partnet.es.ElasticSearchClient;
+import com.partnet.util.Range;
 import com.partnet.faers.ReactionsSearchResult;
 
 import javax.inject.Inject;
@@ -42,13 +43,23 @@ public class FAERSResource
   @Path("/drugs/{medicinalProduct}/reactions")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getReactionOccuranceByDrug(@PathParam("medicinalProduct") String medicinalProduct, 
-		  @QueryParam("patient.patientsex") String patientSex, @QueryParam("patient.patientonsetage") String patientage, 
-		  @QueryParam("patient.patientweight") String patientWeight)
+		  @QueryParam("patient.sex") String patientSex, @QueryParam("patient.age.low") String patientAgeLow,
+      @QueryParam("patient.age.high") String patientAgeHigh, @QueryParam("patient.weight.low") String patientWeightLow,
+      @QueryParam("patient.weight.high") String patientWeightHigh)
   {
-    Integer patientsex = patientSex != null ? Integer.valueOf(patientSex) : null;
+    try {
+      Integer patientsex = patientSex != null ? Integer.valueOf(patientSex) : null;
+      Range ageRange = (patientAgeLow != null && patientAgeHigh != null) ?
+          new Range(Float.valueOf(patientAgeLow), Float.valueOf(patientAgeHigh)) : null;
+      Range weightRange = (patientWeightLow != null && patientAgeHigh != null) ?
+          new Range(Float.valueOf(patientWeightLow), Float.valueOf(patientWeightHigh)) : null;
 
-    ReactionsSearchResult reactSearchResult = searchClient.getReactions(medicinalProduct, patientsex);
-    return Response.ok(new Gson().toJson(reactSearchResult)).build();
+      ReactionsSearchResult reactSearchResult = searchClient.getReactions(medicinalProduct, patientsex, ageRange, weightRange);
+      return Response.ok(new Gson().toJson(reactSearchResult)).build();
+
+    } catch (NumberFormatException e) {
+      return Response.status(Response.Status.BAD_REQUEST).build();
+    }
   }
 
 }
