@@ -19,6 +19,6 @@
         return {
           restrict: 'E',
           templateUrl: 'drug-events/drug-events-table.html'
-        }
+        };
       }]);
 }());
