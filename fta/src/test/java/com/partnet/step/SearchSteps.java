@@ -22,6 +22,8 @@ import com.partnet.config.framework.StoryContext;
 import com.partnet.page.search.SearchPage;
 import org.junit.Assert;
 
+import java.util.Map;
+
 /**
  * @author <a href="mailto:bbarker@part.net">bbarker</a>
  */
@@ -32,12 +34,24 @@ public class SearchSteps
   private StoryContext context;
   
   public void givenIAmOnTheSearchPage() {
-    context.getPage(SearchPage.class).goTo();
+    context.site().open();
+    context.getPage(SearchPage.class).verify();
   }
 
-  public void thenIWillNotHaveSearchResults() {
-    Assert.assertFalse(context.getPage(SearchPage.class).hasSearchResults());
 
+  public void thenIWillReceiveANoResultErrorMessage(){
+    String msg = context.getPage(SearchPage.class).waitForSearchResultsErrorMsg();
+    Assert.assertEquals("No results were found for the search criteria submitted.", msg);
+  }
+
+  public void thenIWillNotHaveAnySearchResults(){
+    Map<String, Integer> results = context.getPage(SearchPage.class).getTabularSearchResults();
+    Assert.assertEquals("Unexpected search results were found!", 0, results.size());
+  }
+
+  public void thenIWillHaveSearchResults(){
+    Map<String, Integer> results = context.getPage(SearchPage.class).waitForTabularSearchResults().getTabularSearchResults();
+    Assert.assertTrue("No search results were found!", results.size() > 0);
   }
 
   public void whenIPerformAGenericSearch() {
@@ -53,16 +67,6 @@ public class SearchSteps
     context.getPage(SearchPage.class)
         .setDrug(SearchPage.DrugOptions.ADVAIR_DISKUS)
         .clickSearch();
-  }
-
-  public void thenIWillHaveSearchResults(){
-    context.getPage(SearchPage.class).waitForSearchResults();
-    Assert.assertTrue(context.getPage(SearchPage.class).hasSearchResults());
-  }
-
-  public void thenIWillNotHaveAnySearchResults(){
-    String msg = context.getPage(SearchPage.class).waitForSearchResultsErrorMsg();
-    Assert.assertEquals("No results were found for the search criteria submitted.", msg);
   }
 
   public void whenIPerformASearchWithNoResults() {
