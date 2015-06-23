@@ -41,6 +41,14 @@ public class ReactionsSearchResult
       
     }
 
+    public int getCount() {
+      return count;
+    }
+
+    public void incrementCount() {
+      count++;
+    }
+
     /**
      *  PRR = (m/n)/( (M-m)/(N-n) )
      *  Where
@@ -71,8 +79,8 @@ public class ReactionsSearchResult
       //TODO implement
       return null;
     }
-    
-   
+
+
   }
   
   public static class MetaData
