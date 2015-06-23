@@ -2,4 +2,4 @@
 // -- Because gradle by default, uses the checked out directory as the project name. On jenkins, this turns out to be "workspace".
 rootProject.name='ads-proto'
 include 'client'
-include 'server'
+include 'fta'
