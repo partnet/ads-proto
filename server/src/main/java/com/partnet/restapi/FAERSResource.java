@@ -46,7 +46,8 @@ public class FAERSResource
   @Path("/drugs/{medicinalProduct}/reactions")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getReactionOccuranceByDrug(@PathParam("medicinalProduct") String medicinalProduct, 
-		  @QueryParam("patient.patientsex") String patientSex, @QueryParam("patient.patientweight") String patientWeight)
+		  @QueryParam("patient.patientsex") String patientSex, @QueryParam("patient.patientonsetage") String patientage, 
+		  @QueryParam("patient.patientweight") String patientWeight)
   {
     MetaData meta = new MetaData(new Date());
     Drug drug = new Drug(medicinalProduct);
