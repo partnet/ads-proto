@@ -6,7 +6,17 @@ package com.partnet.faers;
  * @author jwhite
  */
 public class Drug {
+
   public Integer drugcharacterization;
   public String medicinalproduct;
   public String drugindication;
+  
+  public Drug()
+  {
+    
+  }
+  
+  public Drug(String medicinalproduct) {
+    this.medicinalproduct = medicinalproduct;
+  }
 }
