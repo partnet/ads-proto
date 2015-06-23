@@ -3,7 +3,7 @@
  */
 
 /**
- * @ngdoc function
+ * @ngdoc overview
  * @author brandony-pn
  * @name components:ads-bubble-directive.js
  *

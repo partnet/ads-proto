@@ -47,13 +47,15 @@
 
           query.search = searchQuery;
           query.count = 'patient.reaction.reactionmeddrapt.exact';
+          query.limit = '20';
         } else {
           query = 'true';
         }
 
         DrugEventsService.searchEvents(query).then(function (response) {
-          //_this.searchResults = response;
-          console.log('RESULT: ' + JSON.stringify(response));
+          _this.reactionResults = response.results;
+          console.log('Query RESULT: ' + JSON.stringify(response));
+          console.log('reaction RESULTs: ' + JSON.stringify(_this.reactionResults));
         }, function(response){
           switch (response.status) {
             case 404:
