@@ -18,16 +18,11 @@ package com.partnet.test;
 
 import javax.inject.Inject;
 
-import com.partnet.junit.annotations.browser.Firefox;
 import com.partnet.step.SearchSteps;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import com.partnet.junit.SeAuto;
-import com.partnet.junit.annotations.browser.Chrome;
-import com.partnet.junit.annotations.browser.HTMLUnit;
 import com.partnet.junit.annotations.browser.PhantomJs;
 
 /**
@@ -42,12 +37,17 @@ public class SearchTest
   
   @Test
   @PhantomJs
-  public void test_emptySearch()
+  public void test_basicSearch()
   {
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.thenIWillNotHaveSearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResults();
     searchSteps.whenIPerformASearchForOnlyTheDrugName();
-    //searchSteps.thenIWillHaveSearchResults();
+    searchSteps.thenIWillHaveSearchResults();
+    try {
+      Thread.sleep(5L);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 
   @Test
@@ -55,9 +55,9 @@ public class SearchTest
   public void test_genericSearch()
   {
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.thenIWillNotHaveSearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResults();
     searchSteps.whenIPerformAGenericSearch();
-    //searchSteps.thenIWillHaveSearchResults();
+    searchSteps.thenIWillHaveSearchResults();
   }
 
 
@@ -66,8 +66,9 @@ public class SearchTest
   public void test_noSearchResults()
   {
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.thenIWillNotHaveSearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResults();
     searchSteps.whenIPerformASearchWithNoResults();
+    searchSteps.thenIWillReceiveANoResultErrorMessage();
     searchSteps.thenIWillNotHaveAnySearchResults();
   }
 }
