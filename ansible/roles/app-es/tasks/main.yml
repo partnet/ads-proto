@@ -8,6 +8,15 @@
 - name: Unpack elasticsearch archive
   unarchive: copy=no src=/home/{{CFG_USER}}/archive/{{ELASTICSEARCH_ARCHIVE}} dest=/home/{{CFG_USER}}/elasticsearch owner={{CFG_USER}} group={{CFG_GROUP}} mode=g-w,o-rwx creates=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}
 
+- name: Deploy elasticsearch safetyreports index archive
+  copy: src={{ARTIFACT_DIR}}/{{ELASTICSEARCH_DATASET}} dest=/home/{{CFG_USER}}/archive owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+
+- name: Create index directory to unarchive search index
+  file: path=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}/data/product-data/nodes/0 owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
+
+- name: Unpack elasticsearch safetyreport index
+  unarchive: copy=no src=/home/{{CFG_USER}}/archive/{{ELASTICSEARCH_DATASET}} dest=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}/data/product-data/nodes/0 owner={{CFG_USER}} group={{CFG_GROUP}} mode=g-w,o-rwx creates=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}/data/product-data/nodes/0/indices/safetyreports
+
 - name: Softlink elasticsearch archive as current
   file: src=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}} dest=/home/{{CFG_USER}}/elasticsearch/current owner={{CFG_USER}} group={{CFG_GROUP}} state=link
 

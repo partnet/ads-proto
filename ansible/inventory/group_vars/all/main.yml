@@ -33,6 +33,8 @@ WILDFLY_APP_ADMIN_USER_NAME: "admin"
 ELASTICSEARCH_BASE_URL: "{{ARTIFACTORY_BASE_URL}}/software-installations/elasticsearch/elasticsearch"
 ELASTICSEARCH_VERSION: 1.4.2
 ELASTICSEARCH_ARCHIVE: "elasticsearch-{{ELASTICSEARCH_VERSION}}.tar.gz"
+ELASTICSEARCH_DATASET: "datasets-safetyreports.tar.gz"
+ELASTICSEARCH_DATASET_URL: "{{ARTIFACTORY_BASE_URL}}/software-installations/elasticsearch/datasets/safetyreports/{{ELASTICSEARCH_DATASET}}"
 
 # Wildfly deployed applications
 APPLICATION_WARS:
