@@ -9,7 +9,9 @@ import java.util.List;
  * @author jwhite
  */
 public class Patient {
+  public Integer patientonsetageunit;
   public Float patientonsetage;
+  public Integer patientagegroup;
   public Float patientweight;
   public Integer patientsex;
 
