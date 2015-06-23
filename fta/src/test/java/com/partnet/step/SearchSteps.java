@@ -59,4 +59,18 @@ public class SearchSteps
     context.getPage(SearchPage.class).waitForSearchResults();
     Assert.assertTrue(context.getPage(SearchPage.class).hasSearchResults());
   }
+
+  public void thenIWillNotHaveAnySearchResults(){
+    String msg = context.getPage(SearchPage.class).waitForSearchResultsErrorMsg();
+    Assert.assertEquals("No results were found for the search criteria submitted.", msg);
+  }
+
+  public void whenIPerformASearchWithNoResults() {
+    context.getPage(SearchPage.class)
+        .setDrug(SearchPage.DrugOptions.CELEBREX)
+        .setAge("34")
+        .setGender(SearchPage.Gender.FEMALE)
+        .setWeight("1500")
+        .clickSearch();
+  }
 }

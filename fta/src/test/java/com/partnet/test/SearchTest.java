@@ -41,8 +41,8 @@ public class SearchTest
   private SearchSteps searchSteps;
   
   @Test
-  @Firefox
-  public void emptySearch()
+  @PhantomJs
+  public void test_emptySearch()
   {
     searchSteps.givenIAmOnTheSearchPage();
     searchSteps.thenIWillNotHaveSearchResults();
@@ -51,12 +51,23 @@ public class SearchTest
   }
 
   @Test
-  @Firefox
-  public void genericSearch()
+  @PhantomJs
+  public void test_genericSearch()
   {
     searchSteps.givenIAmOnTheSearchPage();
     searchSteps.thenIWillNotHaveSearchResults();
     searchSteps.whenIPerformAGenericSearch();
     //searchSteps.thenIWillHaveSearchResults();
+  }
+
+
+  @Test
+  @PhantomJs
+  public void test_noSearchResults()
+  {
+    searchSteps.givenIAmOnTheSearchPage();
+    searchSteps.thenIWillNotHaveSearchResults();
+    searchSteps.whenIPerformASearchWithNoResults();
+    searchSteps.thenIWillNotHaveAnySearchResults();
   }
 }

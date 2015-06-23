@@ -39,6 +39,8 @@ public class SearchPage
 
   private By searchResultsBubbleLocator = By.cssSelector("svg.bubble");
 
+  private By searchResultsAlertLocator = By.cssSelector("div.alert div span");
+
   private static final Logger LOG = LoggerFactory.getLogger(SearchPage.class);
 
   /**
@@ -128,6 +130,10 @@ public class SearchPage
 
   public void waitForSearchResults() {
     super.waitForPresenceOfElement(searchResultsBubbleLocator, 30);
+  }
+
+  public String waitForSearchResultsErrorMsg() {
+    return super.waitForPresenceOfElement(searchResultsAlertLocator, 30).getText();
   }
 
   public boolean hasSearchResults() {
