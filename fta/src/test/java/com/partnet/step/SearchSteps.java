@@ -42,15 +42,16 @@ public class SearchSteps
 
   public void whenIPerformAGenericSearch() {
     context.getPage(SearchPage.class)
-        .setDrugName("ibprofine")
+        .setDrug(SearchPage.DrugOptions.CELEBREX)
         .setAge("34")
         .setGender(SearchPage.Gender.FEMALE)
         .setWeight("150")
         .clickSearch();
   }
 
-  public void whenIPerformAnEmptySearch() {
+  public void whenIPerformASearchForOnlyTheDrugName() {
     context.getPage(SearchPage.class)
+        .setDrug(SearchPage.DrugOptions.ADVAIR_DISKUS)
         .clickSearch();
   }
 
