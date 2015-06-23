@@ -27,6 +27,7 @@
       init();
 
       _this.doSearch = function () {
+        _this.searchAlerts = [];
         var query;
 
         if (angular.isDefined(_this.drugId)) {
@@ -58,7 +59,7 @@
             case 404:
               _this.searchAlerts.splice(0, 1, {
                 type: 'danger',
-                msg: 'No results were found for the search critieria submitted.'
+                msg: 'No results were found for the search criteria submitted.'
               });
           }
         });
