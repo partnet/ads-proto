@@ -15,6 +15,3 @@ es_bind_addr: 0.0.0.0
 
 #dev env jdk securerandom.source value
 jdk_securerandom_source: "securerandom.source=file:/dev/./urandom"
-
-# The property file to use (copied to application.properties file)
-CONFIG_SRC: "dev.properties"
