@@ -88,24 +88,26 @@
       var drugEventsFact = {
         apiKey: '49N1YfEbCwRbQFIgCsSYSIohxMWkMryPpvSgRXbd',
         searchableDrugIds: Object.freeze([
-          'Synthroid',
-          'Crestor',
-          'Nexium',
-          'Ventolin HFA',
           'Advair Diskus',
-          'Diovan',
-          'Lantus Solostar',
+          'Advil',
+          'Aleve',
+          'Cepacol',
+          'Childrens Dimetapp',
+          'Claritin',
+          'Colace',
+          'Cortaid',
+          'Crestor',
           'Cymbalta',
-          'Vyvanse',
+          'Diovan',
+          'Dulcolax',
+          'Excedrin',
+          'Gaviscon',
+          'Lantus Solostar',
           'Lyrica',
-          'Spiriva Handihaler',
-          'Lantus',
-          'Celebrex',
-          'Abilify',
-          'Januvia',
-          'Namenda',
-          'Viagra',
-          'Cialis'
+          'Nexium',
+          'Synthroid',
+          'Ventolin HFA',
+          'Vyvanse'
         ])
       };
 
