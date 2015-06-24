@@ -2,6 +2,7 @@ package com.partnet.restapi;
 
 import com.google.gson.Gson;
 import com.partnet.es.ElasticSearchClient;
+import com.partnet.faers.DrugSearchResult;
 import com.partnet.util.Range;
 import com.partnet.faers.ReactionsSearchResult;
 
@@ -13,6 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 
 
 /**
@@ -30,15 +32,17 @@ public class FAERSResource
 	@Path("/drugs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDrugs() {
-		return Response.ok(new Gson().toJson("Hello")).build();
-	}
+    return Response.ok(new Gson().toJson("not implemented")).build();
+  }
 
 	@GET
 	@Path("/drugs/{medicinalProduct}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDrugDetails(@PathParam("medicinalProduct") String medicinalProduct) {
-		return Response.ok(new Gson().toJson("Hello")).build();
+    final DrugSearchResult drugSearchResult = searchClient.getDrugs(medicinalProduct);
+    return Response.ok(new Gson().toJson(drugSearchResult)).build();
 	}
+
   @GET
   @Path("/drugs/{medicinalProduct}/reactions")
   @Produces(MediaType.APPLICATION_JSON)

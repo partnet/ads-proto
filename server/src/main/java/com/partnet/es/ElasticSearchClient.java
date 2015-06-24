@@ -2,6 +2,7 @@ package com.partnet.es;
 
 import com.google.gson.Gson;
 import com.partnet.faers.Drug;
+import com.partnet.faers.DrugSearchResult;
 import com.partnet.faers.Reaction;
 import com.partnet.faers.ReactionsSearchResult;
 import com.partnet.faers.SafetyReport;
@@ -36,6 +37,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
@@ -135,7 +137,7 @@ public class ElasticSearchClient {
       filter.must(rangeFilter("patientweight").from(weightRange.getLow()).to(weightRange.getHigh()));
     }
 
-    QueryBuilder qb = QueryBuilders.termQuery("medicinalproduct", medicinalproduct);
+    QueryBuilder qb = medicinalproduct != null ? QueryBuilders.termQuery("medicinalproduct", medicinalproduct) : null;
 
     SearchResponse searchResponse = client.prepareSearch(indexName)
         .setTypes(docType)
@@ -197,5 +199,68 @@ public class ElasticSearchClient {
     return new ReactionsSearchResult(meta, reactionCnts, drug);
   }
 
+  public List<DrugSearchResult> getDrugs() {
+
+    // todo: this is wayyy too slow, need to figure out a different implementation.
+
+    Map<String, Map<String, DrugSearchResult.IndicationCount>> resultMap = new HashMap<>();
+
+    final List<SafetyReport> safetyReports = getSafetyReports(null, null, null, null);
+
+    for(SafetyReport safetyReport : safetyReports) {
+      for (Drug drug : safetyReport.patient.drugs) {
+        Map<String, DrugSearchResult.IndicationCount> indicationCountMap = resultMap.get(drug.medicinalproduct);
+        if (indicationCountMap == null) {
+          DrugSearchResult.IndicationCount indicationCount = new DrugSearchResult.IndicationCount(drug.drugindication);
+          indicationCountMap = new HashMap<>();
+          indicationCountMap.put(drug.drugindication, indicationCount);
+          resultMap.put(drug.medicinalproduct, indicationCountMap);
+        }
+        DrugSearchResult.IndicationCount indicationCount = indicationCountMap.get(drug.drugindication);
+        indicationCount.incrementCount();
+      }
+    }
+
+    // now convert maps into list of drug search results
+    List<DrugSearchResult> results = new ArrayList<>();
+
+    for (Map.Entry<String, Map<String, DrugSearchResult.IndicationCount>> entry : resultMap.entrySet()) {
+      final String medicinalproduct = entry.getKey();
+      final Map<String, DrugSearchResult.IndicationCount> indicationCountMap = entry.getValue();
+
+      final List<DrugSearchResult.IndicationCount> indicationCountsList = new ArrayList<>(indicationCountMap.values());
+
+      // sort greatest count to least
+      Collections.sort(indicationCountsList, (o1, o2) -> o2.getCount() - o1.getCount());
+
+      results.add(new DrugSearchResult(medicinalproduct, indicationCountsList));
+    }
+
+    return results;
+  }
+
+  public DrugSearchResult getDrugs(String medicinalproduct) {
+    final List<SafetyReport> safetyReports = getSafetyReports(medicinalproduct, null, null, null);
+
+    Map<String, DrugSearchResult.IndicationCount> indicationCounts = new HashMap<>();
+
+    for(SafetyReport safetyReport : safetyReports) {
+      for (Drug drug : safetyReport.patient.drugs) {
+        DrugSearchResult.IndicationCount indicationCount = indicationCounts.get(drug.drugindication);
+        if (indicationCount == null) {
+          indicationCount = new DrugSearchResult.IndicationCount(drug.drugindication);
+          indicationCounts.put(drug.drugindication, indicationCount);
+        }
+        indicationCount.incrementCount();
+      }
+    }
+
+    final List<DrugSearchResult.IndicationCount> indicationCountsList = new ArrayList<>(indicationCounts.values());
+
+    // sort greatest count to least
+    Collections.sort(indicationCountsList, (o1, o2) -> o2.getCount() - o1.getCount());
+
+    return new DrugSearchResult(medicinalproduct, indicationCountsList);
+  }
 
 }
