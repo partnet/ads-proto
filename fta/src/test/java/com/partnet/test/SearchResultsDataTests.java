@@ -15,7 +15,7 @@ import java.util.Map;
  * @author bbarker
  */
 @RunWith(SeAuto.class)
-public class SearchDataTests {
+public class SearchResultsDataTests {
 
   @Inject
   private SearchSteps searchSteps;

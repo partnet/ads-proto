@@ -43,21 +43,25 @@ public class SearchPage
   @FindBy(css = ".nav.nav-tabs li.active")
   private WebElement activeTab;
 
-  @FindBy(css = ".nav.nav-tabs li.active[heading='Table'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Table'] a")
   private WebElement tableTab;
 
-  @FindBy(css = ".nav.nav-tabs li.active[heading='Sunburst'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Reaction to Outcome'] a")
   private WebElement sunburstTab;
 
-  @FindBy(css = ".nav.nav-tabs li.active[heading='Bubble'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Reaction to Outcome Aggregation'] a")
   private WebElement bubbleTab;
 
   @FindBy(css = "div.tab-content .tab-pane.active")
-  private WebElement tabContent;
+  private WebElement activeTabContent;
+
+  @FindBy(css = "div.tab-content .tab-pane.active")
+  private List<WebElement> activeTabContentValidation;
 
 
   private By tabTableContentRowsLocator = By.cssSelector("ads-d-e-results-table tbody tr");
-  private By searchResultsBubbleLocator = By.cssSelector("svg.bubble");
+  private By tabSunburstContentLocator = By.cssSelector("ads-zoom-sunburst svg");
+  private By tabBubbleContentLocator = By.cssSelector("ads-bubble svg.bubble");
   private By searchResultsAlertLocator = By.cssSelector("div.alert div span");
 
   private static final Logger LOG = LoggerFactory.getLogger(SearchPage.class);
@@ -189,6 +193,16 @@ public class SearchPage
     return this;
   }
 
+
+  /**
+   * Returns true if there is results content. False otherwise
+   * @return
+   */
+  public boolean hasResultsContent()
+  {
+    return activeTabContentValidation.size() == 1;
+  }
+
   /**
    * Ensures the current selected tab is the Table view, then returns the list of search results.
    * Note: this method will NOT wait for elements to appear on the page. Use {@link #waitForTabularSearchResults} to
@@ -197,11 +211,8 @@ public class SearchPage
    */
   public Map<String, Integer> getTabularSearchResults() {
 
-    //ensure the current tab is the tabular search results view
-    NavTab activeTab = getActiveTab();
-    if(activeTab != NavTab.TABLE) {
-      tableTab.click();
-    }
+    //Ensure we are on the correct tab.
+    switchToTab(NavTab.TABLE);
 
     //get the data
     Map<String, Integer> results = new HashMap<>();
@@ -233,6 +244,49 @@ public class SearchPage
 
     options.remove("--Select--");
     return options;
+  }
+
+
+  /**
+   * This will switch to the given tab. If the active tab is already the current tab, there will be no change.
+   * @param tab
+   */
+  public void switchToTab(NavTab tab) {
+    NavTab activeTab = getActiveTab();
+
+    if(activeTab != tab) {
+      switch(tab) {
+
+        case TABLE:
+          tableTab.click();
+          break;
+        case SUNBURST:
+          sunburstTab.click();
+          break;
+        case BUBBLE:
+          bubbleTab.click();
+          break;
+      }
+    }
+  }
+
+  public boolean isSunburstGraphicVisible() {
+    return isVisible(tabSunburstContentLocator);
+  }
+
+  public boolean isBubbleGraphicVisible() {
+    return isVisible(tabBubbleContentLocator);
+  }
+
+  private boolean isVisible(By locator){
+    boolean result;
+    List<WebElement> elms = activeTabContent.findElements(locator);
+    if(elms.size() > 0){
+      result = elms.get(0).isDisplayed();
+    } else {
+      result = false;
+    }
+    return result;
   }
 
 }
