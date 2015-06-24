@@ -47,21 +47,19 @@
       </alert>
     </form>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-9" ng-if="drugEvents.svgResult">
     <label>Results</label>
     <tabset justified="true">
       <tab heading="Table">
         <ads-d-e-results-table></ads-d-e-results-table>
       </tab>
-      <tab heading="Sunburst">Sunburst visualization</tab>
-      <tab heading="Bubble">Bubble graph visualization</tab>
+      <tab heading="Reaction to Outcome">
+        <ads-zoom-sunburst data="drugEvents.svgResult"></ads-zoom-sunburst>
+      </tab>
+      <tab heading="Reaction to Outcome Aggregation">
+        <ads-bubble data="drugEvents.svgResult"></ads-bubble>
+      </tab>
     </tabset>
   </div>
-  <!--<div class="col-sm-4">-->
-    <!--<ads-bubble ng-if="drugEvents.searchResults" data="drugEvents.searchResults"></ads-bubble>-->
-  <!--</div>-->
-  <!--<div class="col-sm-4">-->
-    <!--<ads-zoom-sunburst ng-if="drugEvents.searchResults" data="drugEvents.searchResults"></ads-zoom-sunburst>-->
-  <!--</div>-->
 </div>
 
