@@ -80,6 +80,7 @@
             _this.runningQuery = false;
           });
         }, function (response) {
+          _this.runningQuery = false;
           switch (response.status) {
             case 404:
               _this.searchAlerts.splice(0, 1, {
