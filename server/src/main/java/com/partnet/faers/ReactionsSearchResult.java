@@ -30,7 +30,7 @@ public class ReactionsSearchResult
   {
     List<OutcomeCount> outcomes;
     private final String reactionmeddrapt;
-    private final int count;
+    private int count;
     
     /**
      * #reports with reaction event
@@ -55,6 +55,14 @@ public class ReactionsSearchResult
       this.prr = computePRR(numReportsDrugEvent, numReportsDrug, numReportsEvent, numReports);
       this.ror = computeROR(numReportsDrugEvent, numReportsDrug, numReportsEvent, numReports);
 
+    }
+
+    public int getCount() {
+      return count;
+    }
+
+    public void incrementCount() {
+      count++;
     }
 
     /**
@@ -110,10 +118,6 @@ public class ReactionsSearchResult
       return reactionmeddrapt;
     }
 
-    public int getCount() {
-      return count;
-    }
-
     public Double getPrr() {
       return prr;
     }
@@ -121,8 +125,8 @@ public class ReactionsSearchResult
     public Double getRor() {
       return ror;
     }
-    
-   
+
+
   }
   
   public static class OutcomeCount

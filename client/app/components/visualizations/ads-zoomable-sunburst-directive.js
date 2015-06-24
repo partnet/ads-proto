@@ -3,7 +3,7 @@
  */
 
 /**
- * @ngdoc function
+ * @ngdoc overview
  * @author brandony-pn
  * @name components:ads-zoomable-sunburst-directive.js
  *
@@ -26,8 +26,8 @@
           link: function (scope) {
             var d3 = $window.d3;
 
-            var width = 960,
-              height = 700,
+            var width = 480,
+              height = 350,
               radius = Math.min(width, height) / 2;
 
             var x = d3.scale.linear()
@@ -38,7 +38,7 @@
 
             var color = d3.scale.category20c();
 
-            var svg = d3.select("body").append("svg")
+            var svg = d3.select("ads-zoom-sunburst").append("svg")
               .attr("width", width)
               .attr("height", height)
               .append("g")
@@ -61,7 +61,7 @@
             var stash = function (d) {
               d.x0 = d.x;
               d.dx0 = d.dx;
-            }
+            };
 
             var arcTweenZoom = function (d) {
               var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
@@ -82,7 +82,7 @@
                 .data(partition.nodes)
                 .enter().append("path")
                 .attr("d", arc)
-                .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
+                .style("fill", function(d) { return color((d.children ? d : d.parent).term); })
                 .on("click", click)
                 .each(stash);
 

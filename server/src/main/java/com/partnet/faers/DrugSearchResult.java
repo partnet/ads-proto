@@ -1,41 +1,49 @@
-
 package com.partnet.faers;
 
 import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 /**
- * @author svanderveen
+ * Search result holder for queries on drugs with indication counts
  *
+ * @author jwhite
  */
-public class DrugSearchResult 
-{
-  private final Drug drug;
-  private final List<IndicationCount> indications;
+public class DrugSearchResult {
+
+  private String medicinalproduct;
+  private List<IndicationCount> indicationCounts;
   private final Double averageTreatmentDuration;
   private final Double minTreatmentDuration;
   private final Double maxTreamentDuration;
-  
-  public DrugSearchResult(Drug drug, List<IndicationCount> indications, List<Double> treatmentDurations) {
-    super();
-    this.drug = drug;
-    this.indications = indications;
+
+  public DrugSearchResult(String medicinalproduct, List<IndicationCount> indicationCounts, List<Double> treatmentDurations) {
+    this.medicinalproduct = medicinalproduct;
+    this.indicationCounts = indicationCounts;
     DoubleSummaryStatistics stats = treatmentDurations.stream().mapToDouble((x) -> x).summaryStatistics();
     this.averageTreatmentDuration = stats.getAverage();
     this.maxTreamentDuration = stats.getMax();
     this.minTreatmentDuration = stats.getMin();
   }
-  
-  public static class IndicationCount
-  {
-    private final String indication;
-    private final int count;
-    
-    public IndicationCount(String indication, int count) 
-    {
-      this.indication = indication;
-      this.count = count;
+
+  public static class IndicationCount {
+    private String drugindication;
+    private int count;
+
+    public IndicationCount(String drugindication) {
+      this.drugindication = drugindication;
     }
-    
+
+    public void incrementCount() {
+      count++;
+    }
+
+    public String getDrugindication() {
+      return drugindication;
+    }
+
+    public int getCount() {
+      return count;
+    }
   }
+
 }

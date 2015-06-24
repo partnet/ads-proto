@@ -11,11 +11,6 @@
       run_once: true
       get_url: url={{item.url}} dest={{ARTIFACT_DIR}}/{{item.name}} mode=0666 validate_certs=no force=yes
       with_items: APPLICATION_WARS
-    - name: Stage configuration property files on the control host
-      run_once: true
-      get_url: url={{item.url}} dest={{ARTIFACT_DIR}}/{{item.name}} mode=0666 validate_certs=no force=yes
-      with_items: CONFIG_PROP_FILES
-
 
 # Perform application configuration of the application servers
 - hosts: app-servers

@@ -12,6 +12,8 @@ targetCompatibility = 1.7
 
 task fta(type: Test){
     maxParallelForks = 3
+    systemProperties = System.getProperties()
+    systemProperty 'user.dir', projectDir
 
     //https://stackoverflow.com/questions/19080768/how-to-unit-test-cdi-with-weld-se
     fta.doFirst {

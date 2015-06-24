@@ -1,0 +1,14 @@
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Reaction</th>
+    <th>Count</th>
+  </tr>
+  <tbody ng-repeat="reaction in drugEvents.searchResults">
+    <tr>
+      <td>{{reaction.term}}</td>
+      <td>{{reaction.count}}</td>
+    </tr>
+  </tbody>
+  </thead>
+</table>

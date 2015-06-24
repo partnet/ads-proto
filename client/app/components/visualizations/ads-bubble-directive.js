@@ -3,7 +3,7 @@
  */
 
 /**
- * @ngdoc function
+ * @ngdoc overview
  * @author brandony-pn
  * @name components:ads-bubble-directive.js
  *
@@ -26,7 +26,7 @@
           link: function (scope) {
             var d3 = $window.d3;
 
-            var diameter = 960,
+            var diameter = 480,
               format = d3.format(",d"),
               color = d3.scale.category20c();
 
@@ -35,7 +35,7 @@
               .size([diameter, diameter])
               .padding(1.5);
 
-            var svg = d3.select("body").append("svg")
+            var svg = d3.select("ads-bubble").append("svg")
               .attr("width", diameter)
               .attr("height", diameter)
               .attr("class", "bubble");
