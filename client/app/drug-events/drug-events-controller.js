@@ -18,45 +18,66 @@
     .controller('DrugEventsController', ['DrugEventsService', function (DrugEventsService) {
       var _this = this;
 
-      var init = function () {
+      var resetSearch = function () {
+        _this.searchResults = null;
         _this.searchAlerts = [];
+        _this.svgResult = null;
+      };
+
+      var calculateSVGJson = function (searchResults) {
+        var svgObject = {
+          'name': _this.drugId,
+          'children': searchResults
+        };
+
+        var svgString = JSON.stringify(svgObject);
+        var termRegEx = new RegExp('"term"', 'g');
+        svgString = svgString.replace(termRegEx, '"name"');
+        var countRegEx = new RegExp('"count"', 'g');
+        svgString = svgString.replace(countRegEx, '"size"');
+        var outcomesRegEx = new RegExp('"outcomes"', 'g');
+        svgString = svgString.replace(outcomesRegEx, '"children"');
+
+        return JSON.parse(svgString);
+      };
+
+      var init = function () {
         _this.availableDrugIds = DrugEventsService.searchableDrugIds;
         _this.gender = 1;
+        resetSearch();
       };
 
       init();
 
       _this.doSearch = function () {
-        _this.searchAlerts = [];
-        var query;
+        resetSearch();
 
-        if (angular.isDefined(_this.drugId)) {
-          query = {
-            api_key: DrugEventsService.apiKey
-          };
+        var query = {
+          api_key: DrugEventsService.apiKey
+        };
 
-          var searchQuery = 'patient.drug.openfda.brand_name:' + _this.drugId + '+AND+patient.patientsex:' + _this.gender;
+        var searchParam = 'patient.drug.openfda.brand_name:' + _this.drugId + '+AND+patient.patientsex:' + _this.gender;
 
-          if (!isNaN(_this.age)) {
-            searchQuery += '+AND+patient.patientonsetage:[' + (_this.age - 10 >= 0 ? _this.age - 10 : 0) + '+TO+' + (_this.age + 10 <= 120 ? _this.age + 10 : 120) + ']';
-          }
-
-          if (!isNaN(_this.weight)) {
-            searchQuery += '+AND+patient.patientweight:[' + (_this.weight - 10 >= 0 ? _this.weight - 10 : 0) + '+TO+' + (_this.weight + 10) + ']';
-          }
-
-          query.search = searchQuery;
-          query.count = 'patient.reaction.reactionmeddrapt.exact';
-          query.limit = '20';
-        } else {
-          query = 'true';
+        if (!isNaN(_this.age)) {
+          searchParam += '+AND+patient.patientonsetage:[' + (_this.age - 10 >= 0 ? _this.age - 10 : 0) + '+TO+' + (_this.age + 10 <= 120 ? _this.age + 10 : 120) + ']';
         }
 
-        DrugEventsService.searchEvents(query).then(function (response) {
-          _this.reactionResults = response.results;
-          console.log('Query RESULT: ' + JSON.stringify(response));
-          console.log('reaction RESULTs: ' + JSON.stringify(_this.reactionResults));
-        }, function(response){
+        if (!isNaN(_this.weight)) {
+          searchParam += '+AND+patient.patientweight:[' + (_this.weight - 10 >= 0 ? _this.weight - 10 : 0) + '+TO+' + (_this.weight + 10) + ']';
+        }
+
+        query.search = searchParam;
+        query.count = 'patient.reaction.reactionmeddrapt.exact';
+        query.limit = '20';
+
+
+        DrugEventsService.searchEvents(query).then(function () {
+          query.count = 'patient.reaction.reactionoutcome';
+          DrugEventsService.calculateReactionOutcomes(query).then(function () {
+            _this.searchResults = DrugEventsService.reactionResults;
+            _this.svgResult = calculateSVGJson(_this.searchResults);
+          });
+        }, function (response) {
           switch (response.status) {
             case 404:
               _this.searchAlerts.splice(0, 1, {
