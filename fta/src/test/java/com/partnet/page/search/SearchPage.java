@@ -37,7 +37,7 @@ public class SearchPage
   @FindBy(id = "weight-id")
   private WebElement weightTxtBox;
 
-  @FindBy(id = "reg-button-id")
+  @FindBy(id = SEARCH_BTN_ID)
   private WebElement searchBtn;
 
   @FindBy(css = ".nav.nav-tabs li.active")
@@ -63,11 +63,14 @@ public class SearchPage
   private By tabSunburstContentLocator = By.cssSelector("ads-zoom-sunburst svg");
   private By tabBubbleContentLocator = By.cssSelector("ads-bubble svg.bubble");
   private By searchResultsAlertLocator = By.cssSelector("div.alert div span");
+  private final String SEARCH_BTN_ID = "reg-button-id";
+  private By searchBtnLocator = By.id(SEARCH_BTN_ID);
 
   private static final Logger LOG = LoggerFactory.getLogger(SearchPage.class);
 
   private static final int REACTION_COL = 0;
   private static final int COUNT_COL = 1;
+  private static final int TIMEOUT = 30;
 
 
   /**
@@ -147,7 +150,8 @@ public class SearchPage
 
   @Override
   protected void ready() {
-    super.waitForElementToBeClickable(ageTxtBox, 30);
+    //the page is not ready until the query button turns back into the search btn
+    super.waitForPresenceOfElement(searchBtnLocator, TIMEOUT);
   }
 
   public SearchPage setDrug(DrugOptions option) {
@@ -189,7 +193,7 @@ public class SearchPage
 
 
   public SearchPage waitForTabularSearchResults(){
-    super.waitForPresenceOfAllElements(tabTableContentRowsLocator, 30);
+    super.waitForPresenceOfAllElements(tabTableContentRowsLocator, TIMEOUT);
     return this;
   }
 
@@ -226,7 +230,7 @@ public class SearchPage
   }
 
   public String waitForSearchResultsErrorMsg() {
-    return super.waitForPresenceOfElement(searchResultsAlertLocator, 30).getText();
+    return super.waitForPresenceOfElement(searchResultsAlertLocator, TIMEOUT).getText();
   }
 
   /**
