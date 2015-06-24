@@ -9,9 +9,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * Created by brent on 6/22/15.
@@ -97,12 +99,19 @@ public class SearchPage
     CIALIS("Cialis");
 
     private final String value;
+
+    private static final Random RANDOM = new Random();
+    private static final int SIZE = DrugOptions.values().length;
     DrugOptions(String value) {
       this.value = value;
     }
 
     public String getValue() {
       return value;
+    }
+
+    public static DrugOptions getRandomOption(){
+      return DrugOptions.values()[RANDOM.nextInt(SIZE)];
     }
   }
 
@@ -207,6 +216,23 @@ public class SearchPage
 
   public String waitForSearchResultsErrorMsg() {
     return super.waitForPresenceOfElement(searchResultsAlertLocator, 30).getText();
+  }
+
+  /**
+   * Gets the string representation of all of the drug options, except for the first --Select-- option
+   * @return
+   */
+  public List<String> getListOfDrugs() {
+    List<String> options = new ArrayList<>();
+
+    Select drugOpts = new Select(drugNameDrpDwn);
+
+    for(WebElement opt : drugOpts.getOptions()) {
+      options.add(opt.getText());
+    }
+
+    options.remove("--Select--");
+    return options;
   }
 
 }
