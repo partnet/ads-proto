@@ -1,6 +1,7 @@
 package com.partnet.es;
 
 import com.google.gson.Gson;
+import com.partnet.config.Config;
 import com.partnet.faers.Drug;
 import com.partnet.faers.DrugSearchResult;
 import com.partnet.faers.Reaction;
@@ -31,13 +32,13 @@ import org.slf4j.LoggerFactory;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
@@ -53,20 +54,26 @@ public class ElasticSearchClient {
 
   private static final Logger LOG = LoggerFactory.getLogger(ElasticSearchClient.class);
 
-  private String serverAddress;
-  private Integer serverPort;
-  private String clusterName;
   private Client client;
+
+  @Inject
+  @Config
+  private String serverAddress;
+
+  @Inject @Config
+  private Integer serverPort;
+
+  @Inject @Config
+  private String clusterName;
+
+  @Inject @Config
   private String indexName;
+
+  @Inject @Config
   private String docType;
 
+
   public ElasticSearchClient() {
-    // todo: config these:
-    this.serverAddress = "192.168.7.2";
-    this.serverPort = 9300;
-    this.clusterName="product-data";
-    this.indexName="safetyreports";
-    this.docType="safetyreport";
   }
 
   public ElasticSearchClient(String serverAddress, Integer serverPort, String clusterName, String indexName, String docType) {
