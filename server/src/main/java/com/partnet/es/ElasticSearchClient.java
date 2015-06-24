@@ -11,6 +11,7 @@ import com.partnet.util.Range;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthStatus;
+import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
@@ -23,8 +24,7 @@ import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.BoolFilterBuilder;
-import org.elasticsearch.index.query.QueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,6 +44,9 @@ import java.util.Set;
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
+import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
+import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
 /**
  * Elastic Search implementation of search engine client, creates facade over Elastic Search specific api.
@@ -132,6 +135,21 @@ public class ElasticSearchClient {
 
   public List<SafetyReport> getSafetyReports(String medicinalproduct, Integer patientsex,
                                              Range ageRange, Range weightRange) {
+    return getSafetyReports(medicinalproduct, null, patientsex, ageRange, weightRange);
+  }
+
+
+  public List<SafetyReport> getSafetyReports(String medicinalproduct, String reactionmeddrapt, Integer patientsex,
+                                             Range ageRange, Range weightRange) {
+
+    final BoolQueryBuilder qb = boolQuery();
+
+    if (medicinalproduct != null) {
+      qb.must(termQuery("medicinalproduct", medicinalproduct));
+    }
+    if (reactionmeddrapt != null) {
+      qb.must(termQuery("reactionmeddrapt", reactionmeddrapt));
+    }
 
     BoolFilterBuilder filter = boolFilter();
 
@@ -144,8 +162,6 @@ public class ElasticSearchClient {
     if (weightRange != null) {
       filter.must(rangeFilter("patientweight").from(weightRange.getLow()).to(weightRange.getHigh()));
     }
-
-    QueryBuilder qb = medicinalproduct != null ? QueryBuilders.termQuery("medicinalproduct", medicinalproduct) : null;
 
     SearchResponse searchResponse = client.prepareSearch(indexName)
         .setTypes(docType)
@@ -181,18 +197,24 @@ public class ElasticSearchClient {
   public ReactionsSearchResult getReactions(String medicinalproduct, Integer patientsex,
                                             Range ageRange, Range weightRange) {
 
+    final long countAllReports = getReportCount(null, null, patientsex, ageRange, weightRange);
+    final long countReportsWithDrug = getReportCount(medicinalproduct, null, patientsex, ageRange, weightRange);
+
     final List<SafetyReport> safetyReports = getSafetyReports(medicinalproduct, patientsex, ageRange, weightRange);
 
     Map<String, ReactionsSearchResult.ReactionCount> reactionCounts = new HashMap<>();
 
     Map<String, Map<Integer, ReactionsSearchResult.OutcomeCount>> outcomeMap = new HashMap<>();
 
+    Map<String, Long> reactionCountCache = new HashMap<>();
+
     for(SafetyReport safetyReport : safetyReports) {
       for (Reaction reaction : safetyReport.patient.reactions) {
         ReactionsSearchResult.ReactionCount reactionCount = reactionCounts.get(reaction.reactionmeddrapt);
         if (reactionCount == null) {
-          //TODO implement PRR stuff
-          reactionCount = new ReactionsSearchResult.ReactionCount(reaction.reactionmeddrapt, 0, 0, 0, 0);
+          final long countReportsWithDrugAndReaction = getReportCount(medicinalproduct, reaction.reactionmeddrapt, patientsex, ageRange, weightRange);
+          final long countReportsWithReaction = getReportCount(null, reaction.reactionmeddrapt, patientsex, ageRange, weightRange);
+          reactionCount = new ReactionsSearchResult.ReactionCount(reaction.reactionmeddrapt, countReportsWithDrugAndReaction, countReportsWithDrug, countReportsWithReaction, countAllReports);
           reactionCounts.put(reaction.reactionmeddrapt, reactionCount);
         }
         reactionCount.incrementCount();
@@ -218,7 +240,7 @@ public class ElasticSearchClient {
       final Map<Integer, ReactionsSearchResult.OutcomeCount> value = entry.getValue();
 
       final List<ReactionsSearchResult.OutcomeCount> outcomeCountList = new ArrayList<>(value.values());
-      Collections.sort(outcomeCountList, (o1, o2) -> o2.getCount() - o1.getCount());
+      Collections.sort(outcomeCountList, (o1, o2) -> (int)(o2.getCount() - o1.getCount()));
 
       final ReactionsSearchResult.ReactionCount reactionCount = reactionCounts.get(key);
       reactionCount.setOutcomes(outcomeCountList);
@@ -232,7 +254,7 @@ public class ElasticSearchClient {
     final List<ReactionsSearchResult.ReactionCount> reactionCnts = new ArrayList<>(reactionCounts.values());
 
     // sort greatest count to least
-    Collections.sort(reactionCnts, (o1, o2) -> o2.getCount() - o1.getCount());
+    Collections.sort(reactionCnts, (o1, o2) -> (int)(o2.getCount() - o1.getCount()));
 
     return new ReactionsSearchResult(meta, reactionCnts, drug);
   }
@@ -301,4 +323,37 @@ public class ElasticSearchClient {
     return new DrugSearchResult(medicinalproduct, indicationCountsList, null);
   }
 
+
+  public long getReportCount(String medicinalproduct, String reactionmeddrapt, Integer patientsex,
+                             Range ageRange, Range weightRange) {
+
+    final BoolQueryBuilder qb = boolQuery();
+
+    if (medicinalproduct != null) {
+      qb.must(termQuery("medicinalproduct", normalize(medicinalproduct)));
+    }
+    if (reactionmeddrapt != null) {
+      qb.must(termQuery("reactionmeddrapt", normalize(reactionmeddrapt)));
+    }
+    if (patientsex != null) {
+      qb.must(termQuery("patientsex", patientsex));
+    }
+    if (ageRange != null) {
+      qb.must(rangeQuery("patientonsetage").from(ageRange.getLow()).to(ageRange.getHigh()));
+    }
+    if (weightRange != null) {
+      qb.must(rangeQuery("patientweight").from(weightRange.getLow()).to(weightRange.getHigh()));
+    }
+
+    CountResponse response = client.prepareCount(indexName)
+        .setQuery(qb)
+        .execute()
+        .actionGet();
+
+    return response.getCount();
+  }
+
+  private String normalize(String str) {
+    return str.toLowerCase();
+  }
 }

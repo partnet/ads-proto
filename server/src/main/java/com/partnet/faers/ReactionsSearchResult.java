@@ -30,22 +30,22 @@ public class ReactionsSearchResult
   {
     List<OutcomeCount> outcomes;
     private final String reactionmeddrapt;
-    private int count;
+    private long count;
     
     /**
      * #reports with reaction event
      */
-    private final int numReportsEvent;
+    private final long numReportsEvent;
     
     /**
      * #reports with drug
      */
-    private final int numReportsDrug;
+    private final long numReportsDrug;
     private final Double prr;
     private final Double ror;
 
-    public ReactionCount(String reactionmeddrapt, int numReportsDrugEvent, int numReportsDrug, int numReportsEvent,
-                         int numReports)
+    public ReactionCount(String reactionmeddrapt, long numReportsDrugEvent, long numReportsDrug, long numReportsEvent,
+                         long numReports)
     {
       this.reactionmeddrapt = reactionmeddrapt;
       this.count = numReportsDrugEvent;
@@ -56,7 +56,7 @@ public class ReactionsSearchResult
 
     }
 
-    public int getCount() {
+    public long getCount() {
       return count;
     }
 
@@ -134,14 +134,14 @@ public class ReactionsSearchResult
   public static class OutcomeCount
   {
     private final Integer reactionoutcome;
-    private int count;
-    public OutcomeCount(Integer reactionoutcome, int count) {
+    private long count;
+    public OutcomeCount(Integer reactionoutcome, long count) {
       super();
       this.reactionoutcome = reactionoutcome;
       this.count = count;
     }
 
-    public int getCount() {
+    public long getCount() {
       return count;
     }
 
