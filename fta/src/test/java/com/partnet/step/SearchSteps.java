@@ -30,7 +30,6 @@ import java.util.Map;
  */
 public class SearchSteps
 {
-
   public enum Result {DIFFERENT, SAME}
 
   @Inject
@@ -49,9 +48,9 @@ public class SearchSteps
     Assert.assertEquals("No results were found for the search criteria submitted.", msg);
   }
 
-  public void thenIWillNotHaveAnySearchResults(){
-    Map<String, Integer> results = context.getPage(SearchPage.class).getTabularSearchResults();
-    Assert.assertEquals("Unexpected search results were found!", 0, results.size());
+  public void thenIWillNotHaveAnySearchResultsContent(){
+    boolean hasContent = context.getPage(SearchPage.class).hasResultsContent();
+    Assert.assertFalse("Unexpected content was found!", hasContent);
   }
 
   public void thenIWillHaveSearchResults(){
@@ -137,4 +136,21 @@ public class SearchSteps
             "Result type %s is not valid for comparing the search results!", result));
     }
   }
+
+  public void whenISwitchMyTabTo(SearchPage.NavTab tab) {
+    context.getPage(SearchPage.class).switchToTab(tab);
+  }
+
+
+  public void thenIWillSeeTheSunburstGraphic() {
+    Assert.assertFalse(context.getPage(SearchPage.class).isBubbleGraphicVisible());
+    Assert.assertTrue(context.getPage(SearchPage.class).isSunburstGraphicVisible());
+  }
+
+  public void thenIWillSeeTheBubbleGraphic() {
+    Assert.assertTrue(context.getPage(SearchPage.class).isBubbleGraphicVisible());
+    Assert.assertFalse(context.getPage(SearchPage.class).isSunburstGraphicVisible());
+  }
+
+
 }

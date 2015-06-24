@@ -51,6 +51,7 @@
       init();
 
       _this.doSearch = function () {
+        _this.runningQuery = true;
         resetSearch();
         
         
@@ -75,8 +76,10 @@
             _this.searchResults = DrugEventsService.reactionResults;
             _this.indicationResults = DrugEventsService.indicationResults;
             _this.svgResult = calculateSVGJson(_this.searchResults);
+            _this.runningQuery = false;
           });
         }, function (response) {
+          _this.runningQuery = false;
           switch (response.status) {
             case 404:
               _this.searchAlerts.splice(0, 1, {

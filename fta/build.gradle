@@ -9,6 +9,9 @@ description = """ads Functional Test Automation Suite"""
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+test {
+    exclude 'com/partnet/**'
+}
 
 task fta(type: Test){
     maxParallelForks = 3

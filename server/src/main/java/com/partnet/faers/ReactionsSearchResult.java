@@ -43,11 +43,10 @@ public class ReactionsSearchResult
     private final int numReportsDrug;
     private final Double prr;
     private final Double ror;
-    
-    public ReactionCount(String reactionmeddrapt, List<OutcomeCount> outcomes, int numReportsDrugEvent, int numReportsDrug, int numReportsEvent, 
-        int numReports) 
+
+    public ReactionCount(String reactionmeddrapt, int numReportsDrugEvent, int numReportsDrug, int numReportsEvent,
+                         int numReports)
     {
-      this.outcomes = outcomes;
       this.reactionmeddrapt = reactionmeddrapt;
       this.count = numReportsDrugEvent;
       this.numReportsDrug = numReportsDrug;
@@ -64,6 +63,10 @@ public class ReactionsSearchResult
     public void incrementCount() {
       count++;
     }
+
+    public List<OutcomeCount> getOutcomes() { return outcomes; }
+
+    public void setOutcomes(List<OutcomeCount> outcomes) { this.outcomes = outcomes; }
 
     /**
      * The proportional reporting ratio (PRR) is a simple way to get a measure of how common an adverse event 
@@ -126,17 +129,24 @@ public class ReactionsSearchResult
       return ror;
     }
 
-
   }
   
   public static class OutcomeCount
   {
     private final Integer reactionoutcome;
-    private final int count;
+    private int count;
     public OutcomeCount(Integer reactionoutcome, int count) {
       super();
       this.reactionoutcome = reactionoutcome;
       this.count = count;
+    }
+
+    public int getCount() {
+      return count;
+    }
+
+    public void incrementCount() {
+      count++;
     }
     
   }

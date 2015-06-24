@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
@@ -184,17 +185,46 @@ public class ElasticSearchClient {
 
     Map<String, ReactionsSearchResult.ReactionCount> reactionCounts = new HashMap<>();
 
+    Map<String, Map<Integer, ReactionsSearchResult.OutcomeCount>> outcomeMap = new HashMap<>();
+
     for(SafetyReport safetyReport : safetyReports) {
       for (Reaction reaction : safetyReport.patient.reactions) {
         ReactionsSearchResult.ReactionCount reactionCount = reactionCounts.get(reaction.reactionmeddrapt);
         if (reactionCount == null) {
-          //TODO implement
-          reactionCount = new ReactionsSearchResult.ReactionCount(reaction.reactionmeddrapt, null, 0, 0, 0, 0);
+          //TODO implement PRR stuff
+          reactionCount = new ReactionsSearchResult.ReactionCount(reaction.reactionmeddrapt, 0, 0, 0, 0);
           reactionCounts.put(reaction.reactionmeddrapt, reactionCount);
         }
         reactionCount.incrementCount();
+
+        Map<Integer, ReactionsSearchResult.OutcomeCount> outcomeCountMap = outcomeMap.get(reaction.reactionmeddrapt);
+        if (outcomeCountMap == null) {
+          outcomeCountMap = new HashMap<>();
+          outcomeMap.put(reaction.reactionmeddrapt, outcomeCountMap);
+        }
+        ReactionsSearchResult.OutcomeCount outcomeCount = outcomeCountMap.get(reaction.reactionoutcome);
+        if (outcomeCount == null) {
+          outcomeCount =  new ReactionsSearchResult.OutcomeCount(reaction.reactionoutcome, 0);
+          outcomeCountMap.put(reaction.reactionoutcome, outcomeCount);
+        }
+        outcomeCount.incrementCount();
       }
     }
+
+    // put outcome counts as list in the reaction counts
+    final Set<Map.Entry<String, Map<Integer, ReactionsSearchResult.OutcomeCount>>> entries = outcomeMap.entrySet();
+    for (Map.Entry<String, Map<Integer, ReactionsSearchResult.OutcomeCount>> entry : entries) {
+      final String key = entry.getKey();
+      final Map<Integer, ReactionsSearchResult.OutcomeCount> value = entry.getValue();
+
+      final List<ReactionsSearchResult.OutcomeCount> outcomeCountList = new ArrayList<>(value.values());
+      Collections.sort(outcomeCountList, (o1, o2) -> o2.getCount() - o1.getCount());
+
+      final ReactionsSearchResult.ReactionCount reactionCount = reactionCounts.get(key);
+      reactionCount.setOutcomes(outcomeCountList);
+    }
+
+
 
     ReactionsSearchResult.MetaData meta = new ReactionsSearchResult.MetaData(new Date());
     Drug drug = new Drug(medicinalproduct);

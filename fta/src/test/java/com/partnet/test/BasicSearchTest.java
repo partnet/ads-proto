@@ -13,7 +13,7 @@ import com.partnet.junit.annotations.browser.PhantomJs;
  * @author bbarker
  */
 @RunWith(SeAuto.class)
-public class SearchTest
+public class BasicSearchTest
 {
 
   @Inject
@@ -24,7 +24,7 @@ public class SearchTest
   public void test_basicSearch()
   {
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.thenIWillNotHaveAnySearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResultsContent();
     searchSteps.whenIPerformASearchForOnlyTheDrugName();
     searchSteps.thenIWillHaveSearchResults();
   }
@@ -34,7 +34,7 @@ public class SearchTest
   public void test_genericSearch()
   {
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.thenIWillNotHaveAnySearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResultsContent();
     searchSteps.whenIPerformAGenericSearch();
     searchSteps.thenIWillHaveSearchResults();
   }
@@ -45,9 +45,9 @@ public class SearchTest
   public void test_noSearchResults()
   {
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.thenIWillNotHaveAnySearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResultsContent();
     searchSteps.whenIPerformASearchWithNoResults();
     searchSteps.thenIWillReceiveANoResultErrorMessage();
-    searchSteps.thenIWillNotHaveAnySearchResults();
+    searchSteps.thenIWillNotHaveAnySearchResultsContent();
   }
 }
