@@ -15,7 +15,7 @@
   'use strict';
   angular.module('drugEvents')
     .factory('DrugEventsService', ['$q', '$resource', function ($q, $resource) {
-      var restServerURI = 'http://starbuck.part.net:8880/rest-api/faers/drugs/:drug';
+      var restServerURI = '/rest-api/faers/drugs/:drug';
 
       var doReactionOutcomeRequest = function (deferred, outcomeQuery, index) {
         var thisQuery = angular.copy(outcomeQuery);
