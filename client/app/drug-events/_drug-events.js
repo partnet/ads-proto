@@ -13,5 +13,5 @@
 
 (function () {
   'use strict';
-  angular.module('drugEvents', []);
+  angular.module('drugEvents', ['ngResource']);
 }());
