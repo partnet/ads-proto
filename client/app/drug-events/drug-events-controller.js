@@ -23,6 +23,7 @@
         _this.indicationResults = undefined;
         _this.searchAlerts = [];
         _this.svgResult = null;
+        _this.outcomeExpanded = null;
       };
 
       var calculateSVGJson = function (searchResults) {
@@ -49,6 +50,43 @@
       };
 
       init();
+
+      _this.expandOutcome = function(rowNum){
+        _this.outcomeExpanded = rowNum;
+      };
+
+      _this.getOutcomeName = function(term) {
+        switch (term) {
+          case 1:
+            return 'Recovered/resolved';
+          case 2:
+            return 'Recovering/resolving';
+          case 3:
+            return 'Not recovered/not resolved';
+          case 4:
+            return 'Determined an unrelated reaction to this event';
+          case 5:
+            return 'Fatal';
+          default:
+            return 'Unknown';
+        }
+      };
+
+      _this.getOutcomeRowClass = function(term) {
+        switch (term) {
+          case 1:
+          case 4:
+            return 'success';
+          case 2:
+            return 'info';
+          case 3:
+            return 'warning';
+          case 5:
+            return 'danger';
+          default:
+            return '';
+        }
+      };
 
       _this.doSearch = function () {
         _this.runningQuery = true;
