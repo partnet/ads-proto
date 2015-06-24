@@ -3,6 +3,7 @@ package com.partnet.restapi;
 import com.google.gson.Gson;
 import com.partnet.es.ElasticSearchClient;
 import com.partnet.faers.DrugSearchResult;
+import com.partnet.faers.SafetyReport;
 import com.partnet.util.Range;
 import com.partnet.faers.ReactionsSearchResult;
 
@@ -68,6 +69,36 @@ public class FAERSResource
       return Response.status(Response.Status.BAD_REQUEST).build();
     }
 
+  }
+
+  @GET
+  @Path("/reports")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getSafetyReports(@QueryParam("medicinalproduct") String medicinalproduct,
+      @QueryParam("reactionmeddrapt") String reactionmeddrapt,
+      @QueryParam("patient.sex") String patientSex, @QueryParam("patient.age.low") String patientAgeLow,
+      @QueryParam("patient.age.high") String patientAgeHigh, @QueryParam("patient.weight.low") String patientWeightLow,
+      @QueryParam("patient.weight.high") String patientWeightHigh, @QueryParam("count") boolean count)
+  {
+    try {
+      Integer patientsex = patientSex != null ? Integer.valueOf(patientSex) : null;
+      Range ageRange = (patientAgeLow != null && patientAgeHigh != null) ?
+          new Range(Float.valueOf(patientAgeLow), Float.valueOf(patientAgeHigh)) : null;
+      Range weightRange = (patientWeightLow != null && patientAgeHigh != null) ?
+          new Range(Float.valueOf(patientWeightLow), Float.valueOf(patientWeightHigh)) : null;
+
+      if (count) {
+        final long reportCount = searchClient.getReportCount(medicinalproduct, reactionmeddrapt, patientsex, ageRange, weightRange);
+        return Response.ok("report count: " + reportCount + ", drug: " + medicinalproduct + ", reaction: " + reactionmeddrapt).build();
+      }
+      else {
+        final List<SafetyReport> safetyReports = searchClient.getSafetyReports(medicinalproduct, reactionmeddrapt, patientsex, ageRange, weightRange);
+        return Response.ok(new Gson().toJson(safetyReports)).build();
+      }
+
+    } catch (NumberFormatException e) {
+      return Response.status(Response.Status.BAD_REQUEST).build();
+    }
   }
 
 }
