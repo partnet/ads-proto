@@ -1,15 +1,66 @@
+/**
+ * Import cargo tasks
+ */
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'org.gradle.api.plugins:gradle-cargo-plugin:1.5.2'
+  }
+}
+
 plugins {
   id "com.moowork.grunt" version "0.10"
 }
 
 apply plugin: 'com.moowork.grunt'
+apply plugin: 'war'
+apply plugin: 'cargo'
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+  cargo 'org.wildfly:wildfly-controller-client:8.2.0.Final'
+  cargo 'org.codehaus.cargo:cargo-ant:1.4.12'
+}
 
 task dist(dependsOn: "grunt_build") << {
 
 }
 
-task test(dependsOn: "grunt_test")
+war {
+  from 'dist'
+}
 
-task clean(dependsOn: "grunt_clean")
+/**
+ * Set up wildfly connection properties
+ */
+cargo {
+  containerId = 'wildfly8x'
 
-task check(dependsOn: "grunt_jshint")
+  remote {
+    if (!project.hasProperty('wildfly_app_admin_hostname')) {
+      ext.wildfly_app_admin_hostname = 'localhost'
+    }
+    if (!project.hasProperty('wildfly_app_admin_user_name')) {
+      ext.wildfly_app_admin_user_name = 'admin'
+    }
+    if (!project.hasProperty('wildfly_app_admin_password')) {
+      ext.wildfly_app_admin_password = 'YourM0m!'
+    }
+    hostname = wildfly_app_admin_hostname
+    username = wildfly_app_admin_user_name
+    password = wildfly_app_admin_password
+  }
+}
+
+clean.dependsOn "grunt_clean"
+test.dependsOn "grunt_test"
+check.dependsOn "grunt_jshint"
+war.dependsOn "dist"
+
+tasks.cargoRedeployRemote.mustRunAfter(war)
+

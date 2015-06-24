@@ -36,5 +36,5 @@ ELASTICSEARCH_ARCHIVE: "elasticsearch-{{ELASTICSEARCH_VERSION}}.tar.gz"
 
 # Wildfly deployed applications
 APPLICATION_WARS:
-  - { url: "{{ARTIFACTORY_BASE_URL}}/ads-pubs/ads-app/ads-app/%5bRELEASE%5D/ads-app-%5BRELEASE%5D.war", name: "server.war" }
+  - { url: "{{ARTIFACTORY_BASE_URL}}/ads-pubs/ads-app/ads-client/%5bRELEASE%5D/ads-client-%5BRELEASE%5D.war", name: "client.war" }
 APPLICATION_PREFIX: "com.partnet.ads"
