@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * Collects search results for queries regarding a particular drugs reactions.  Provides a list of reactions found that 
  * match the query parameters, counts for how many events occurred for each reaction, and calculated PRR 
- * (proportional reporting ratio) and ROR (reporting odds ratio) reporting ratios.
+ * (proportional reporting ratio) and ROR (reporting odds ratio) reporting ratios. Each reaction also contains a listing of 
+ * outcomes and their occurences for that reaction.
  * 
  * @author svanderveen
  *
@@ -14,73 +15,141 @@ import java.util.List;
 public class ReactionsSearchResult 
 {
   private final MetaData meta;
-  private final List<ReactionCount> results;
+  private final List<ReactionCount> reactions;
   private final Drug drug;
   
   
-  public ReactionsSearchResult(MetaData meta, List<ReactionCount> results, Drug drug) {
+  public ReactionsSearchResult(MetaData meta, List<ReactionCount> reactions, Drug drug) {
     super();
     this.meta = meta;
-    this.results = results;
+    this.reactions = reactions;
     this.drug = drug;
   }
 
   public static class ReactionCount
   {
-    private String term;
-    private int count;
-    private Double prr;
-    private Double ror;
+    List<OutcomeCount> outcomes;
+    private final String reactionmeddrapt;
+    private final int count;
     
-    public ReactionCount(String term, int count) {
-      super();
-      this.term = term;
-      this.count = count;
-      this.prr = computePRR();
-      this.ror = computeROR();
-      
+    /**
+     * #reports with reaction event
+     */
+    private final int numReportsEvent;
+    
+    /**
+     * #reports with drug
+     */
+    private final int numReportsDrug;
+    private final Double prr;
+    private final Double ror;
+    
+    public ReactionCount(String reactionmeddrapt, List<OutcomeCount> outcomes, int numReportsDrugEvent, int numReportsDrug, int numReportsEvent, 
+        int numReports) 
+    {
+      this.outcomes = outcomes;
+      this.reactionmeddrapt = reactionmeddrapt;
+      this.count = numReportsDrugEvent;
+      this.numReportsDrug = numReportsDrug;
+      this.numReportsEvent = numReportsEvent;
+      this.prr = computePRR(numReportsDrugEvent, numReportsDrug, numReportsEvent, numReports);
+      this.ror = computeROR(numReportsDrugEvent, numReportsDrug, numReportsEvent, numReports);
+
     }
 
     /**
-     *  PRR = (m/n)/( (M-m)/(N-n) )
-     *  Where
-     *   m = #reports with drug and event
-     *   n = #reports with drug
-     *   M = #reports with event in database
-     *   N = #reports in database
+     * The proportional reporting ratio (PRR) is a simple way to get a measure of how common an adverse event 
+     * for a particular drug is compared to how common the event is in the overall database.
+     * A PRR > 1 for a drug-event combination indicates that a greater proportion of the reports for the drug are for the 
+     * event than the proportion of events in the rest of the database. 
+     * 
+     * For example, a PRR of 2 for a drug event combination indicates that the proportion of reports for the drug-event 
+     * combination is twice the proportion of the event in the overall database.
+     * 
+     *  PRR = (m/n)/((M-m)/(N-n))
+     * @param numReportsDrugEvent m = #reports with drug and event
+     * @param numReportsDrug n = #reports with drug
+     * @param numReportsEvent M = #reports with event
+     * @param numReports N = #reports in database
+     * @return PRR
      */
-    public final Double computePRR()
+    protected final Double computePRR(double numReportsDrugEvent, double numReportsDrug, double numReportsEvent, double numReports)
     {
-      //TODO implement
-      return null;
+      if(numReportsDrug == 0 || numReports == numReportsDrug || numReportsEvent == numReportsDrugEvent) return 0d;
+      
+      double prr = (numReportsDrugEvent / numReportsDrug) / ((numReportsEvent - numReportsDrugEvent) / (numReports - numReportsDrug));
+      return prr;
     }
     
     
     
     /**
+     * Reporting Odds Ratio, similar to PRR.
+     * 
      * ROR = (m/d)/(M/D)
      * Where
-     *  m = #reports with drug and event
      *  d = n-m
-     *  M = #reports with event in database
      *  D = N-M
+     *  
+     * @param numReportsDrugEvent m = #reports with drug and event
+     * @param numReportsDrug n = #reports with drug
+     * @param numReportsEvent M = #reports with event in database
+     * @param numReports N = #reports in database
      * 
      */
-    public final Double computeROR()
+    protected final Double computeROR(double numReportsDrugEvent,double numReportsDrug, double numReportsEvent, double numReports)
     {
-      //TODO implement
-      return null;
+      double d = numReportsDrug - numReportsDrugEvent;
+      double D = numReports - numReportsEvent;
+      if(d == 0 || D == 0  || numReportsEvent == 0) return 0d;
+      double ror = (numReportsDrugEvent / d) / (numReportsEvent / D);
+      return ror;
+    }
+
+    public String getReactionmeddrapt() {
+      return reactionmeddrapt;
+    }
+
+    public int getCount() {
+      return count;
+    }
+
+    public Double getPrr() {
+      return prr;
+    }
+
+    public Double getRor() {
+      return ror;
     }
     
    
   }
   
+  public static class OutcomeCount
+  {
+    private final Integer reactionoutcome;
+    private final int count;
+    public OutcomeCount(Integer reactionoutcome, int count) {
+      super();
+      this.reactionoutcome = reactionoutcome;
+      this.count = count;
+    }
+    
+  }
+  /**
+   * Provides metadata about the requested data for consumers of the API.
+   * @author svanderveen
+   *
+   */
   public static class MetaData
   {
     private final String disclaimer ="openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.";
     private final String license = "http://open.fda.gov/license";
     private final Date lastUpdated;
     
+    /**
+     * @param lastUpdated Date the data available was last updated.
+     */
     public MetaData(Date lastUpdated) {
       super();
       this.lastUpdated = lastUpdated;
