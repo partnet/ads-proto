@@ -15,7 +15,7 @@
   'use strict';
   angular.module('drugEvents')
     .factory('DrugEventsService', ['$q', '$resource', function ($q, $resource) {
-      var restServerURI = 'https://api.fda.gov/drug/event.json';
+      var restServerURI = 'http://starbuck.part.net:8880/rest-api/faers/drugs/:drug';
 
       var doReactionOutcomeRequest = function (deferred, outcomeQuery, index) {
         var thisQuery = angular.copy(outcomeQuery);
@@ -81,12 +81,9 @@
         return ps;
       };
 
-      var DrugEvents = $resource(restServerURI, {},
-        {
-          get: {
-            paramSerializer: serializer
-          }
-        });
+      var DrugEvents = $resource(restServerURI+"/reactions", {drug: '@drug'});
+      
+      var Indications = $resource(restServerURI, {drug: '@drug'});
 
       var drugEventsFact = {
         apiKey: '49N1YfEbCwRbQFIgCsSYSIohxMWkMryPpvSgRXbd',
@@ -115,18 +112,16 @@
       drugEventsFact.searchEvents = function (query) {
         console.log('Query: ' + JSON.stringify(query));
         return DrugEvents.get(query).$promise.then(function (response) {
-          drugEventsFact.reactionResults = response.results;
+          drugEventsFact.reactionResults = response.reactions;
         });
       };
-
-      drugEventsFact.calculateReactionOutcomes = function (outcomeQuery) {
-        var index = 0;
-        var deferred = $q.defer();
-
-        doReactionOutcomeRequest(deferred, outcomeQuery, index);
-
-        return deferred.promise;
-      };
+      
+      drugEventsFact.searchIndications = function (query) {
+          console.log('Query: ' + JSON.stringify(query));
+          return Indications.get(query).$promise.then(function (response) {
+            drugEventsFact.indicationResults = response.indicationCounts;
+          });
+       };
 
       return drugEventsFact;
     }]);

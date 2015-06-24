@@ -20,6 +20,7 @@
 
       var resetSearch = function () {
         _this.searchResults = null;
+        _this.indicationResults = undefined;
         _this.searchAlerts = [];
         _this.svgResult = null;
       };
@@ -31,7 +32,7 @@
         };
 
         var svgString = JSON.stringify(svgObject);
-        var termRegEx = new RegExp('"term"', 'g');
+        var termRegEx = new RegExp('"reactionmeddrapt"', 'g');
         svgString = svgString.replace(termRegEx, '"name"');
         var countRegEx = new RegExp('"count"', 'g');
         svgString = svgString.replace(countRegEx, '"size"');
@@ -51,30 +52,28 @@
 
       _this.doSearch = function () {
         resetSearch();
-
-        var query = {
-          api_key: DrugEventsService.apiKey
+        
+        
+        var drugQuery  = {
+    	        drug: _this.drugId.toLowerCase()
         };
+        
+        var reactionQuery = {
+    	        drug: _this.drugId.toLowerCase(),
+    	        "patient.sex": _this.gender,
+    	        "patient.age.low": _this.age - 10 >= 0 ? _this.age - 10 : 0,
+    	        "patient.age.high": _this.age + 10 <= 120 ? _this.age + 10 : 120,
+    	        "patient.weight.low": _this.weight - 10 >= 0 ? _this.weight - 10 : 0, 
+    	        "patient.weight.high": _this.weight + 10
+          };
+        
+     
 
-        var searchParam = 'patient.drug.openfda.brand_name:' + _this.drugId + '+AND+patient.patientsex:' + _this.gender;
-
-        if (!isNaN(_this.age)) {
-          searchParam += '+AND+patient.patientonsetage:[' + (_this.age - 10 >= 0 ? _this.age - 10 : 0) + '+TO+' + (_this.age + 10 <= 120 ? _this.age + 10 : 120) + ']';
-        }
-
-        if (!isNaN(_this.weight)) {
-          searchParam += '+AND+patient.patientweight:[' + (_this.weight - 10 >= 0 ? _this.weight - 10 : 0) + '+TO+' + (_this.weight + 10) + ']';
-        }
-
-        query.search = searchParam;
-        query.count = 'patient.reaction.reactionmeddrapt.exact';
-        query.limit = '20';
-
-
-        DrugEventsService.searchEvents(query).then(function () {
-          query.count = 'patient.reaction.reactionoutcome';
-          DrugEventsService.calculateReactionOutcomes(query).then(function () {
+        DrugEventsService.searchEvents(reactionQuery).then(function () {
+          reactionQuery.count = 'patient.reaction.reactionoutcome';
+          DrugEventsService.searchIndications(drugQuery).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
+            _this.indicationResults = DrugEventsService.indicationResults;
             _this.svgResult = calculateSVGJson(_this.searchResults);
           });
         }, function (response) {

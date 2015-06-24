@@ -3,11 +3,30 @@
   <tr>
     <th>Reaction</th>
     <th>Count</th>
+    <th>PRR</th>
+    <th>ROR</th>
   </tr>
-  <tbody ng-repeat="reaction in drugEvents.searchResults">
+  <tbody ng-repeat="reaction in drugEvents.searchResults  | limitTo:20">
     <tr>
-      <td>{{reaction.term}}</td>
+      <td>{{reaction.reactionmeddrapt}}</td>
       <td>{{reaction.count}}</td>
+      <td>{{reaction.prr}}</td>
+      <td>{{reaction.ror}}</td>
+    </tr>
+  </tbody>
+  </thead>
+</table>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Indication</th>
+    <th>Count</th>
+  </tr>
+  <tbody ng-repeat="indication in drugEvents.indicationResults | limitTo:10">
+    <tr>
+      <td><span ng-show="!indication.drugindication">TOTAL INDICATIONS</span>{{indication.drugindication}}</td>
+      <td>{{indication.count}}</td>
     </tr>
   </tbody>
   </thead>
