@@ -7,7 +7,7 @@
 /**
  * @ngdoc overview
  * @author brandony-pn
- * @name GSAADSApp
+ * @name ADSProtoApp
  * @description This is the main module of the GSA ADS demo application. This module defines the application's dependencies,
  * configuration and routing.
  */
