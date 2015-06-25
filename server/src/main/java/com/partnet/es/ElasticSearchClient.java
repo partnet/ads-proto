@@ -316,7 +316,7 @@ public class ElasticSearchClient {
   }
 
   private static boolean isFiniteNumber(Float val) {
-    return (val != null && !val.isNaN() && !val.isInfinite());
+    return val != null && !val.isNaN() && !val.isInfinite();
   }
 
 

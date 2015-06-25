@@ -378,7 +378,7 @@ public class FaersXmlReader {
       return replace;
     }
 
-    public static boolean isNumeric(String str)
+    private static boolean isNumeric(String str)
     {
       try {
         Double.parseDouble(str);
@@ -391,10 +391,67 @@ public class FaersXmlReader {
 
     @Override
     public void endElement(String uri, String localName, String qName) throws SAXException {
-      if (qName.equals("safetyreport")) {
-        handleSafetyReport(sr);
+      switch (qName) {
+        case "safetyreport":
+          handleSafetyReport(sr);
+          break;
+        case "patient":
+          normalizePatientData(sr.patient);
+          break;
+        case "drug":
+          normalizeDrugData(currentDrug);
+          break;
       }
     }
+
+    private void normalizePatientData(Patient patient) {
+      // convert all ages to years
+      if (patient.patientonsetageunit != null && patient.patientonsetage != null && patient.patientonsetage > 0) {
+        switch (patient.patientonsetageunit) {
+          case 800:  // decade
+            patient.patientonsetage = patient.patientonsetage * 10f;
+            break;
+          case 802:  // month
+            patient.patientonsetage = patient.patientonsetage / 12f;
+            break;
+          case 803:  // week
+            patient.patientonsetage = patient.patientonsetage / 52f;
+            break;
+          case 804:  // day
+            patient.patientonsetage = patient.patientonsetage / 365.242f;
+            break;
+          case 805:  // hour
+            patient.patientonsetage = patient.patientonsetage / 8765.81f;
+            break;
+        }
+        patient.patientonsetageunit = 801;
+      }
+    }
+
+    private void normalizeDrugData(Drug drug) {
+      // normalize all treatment durations to days
+      if (drug.drugtreatmentdurationunit != null && drug.drugtreatmentduration != null && drug.drugtreatmentduration > 0) {
+        switch (drug.drugtreatmentdurationunit) {
+          case 801: // year
+            drug.drugtreatmentduration = drug.drugtreatmentduration * 365.242f;
+            break;
+          case 802: // Month
+            drug.drugtreatmentduration = drug.drugtreatmentduration * 30.44f;
+            break;
+          case 803: // week
+            drug.drugtreatmentduration = drug.drugtreatmentduration * 7;
+            break;
+          case 805: // hour
+            drug.drugtreatmentduration = drug.drugtreatmentduration / 24;
+            break;
+          case 806: // minute
+            drug.drugtreatmentduration = drug.drugtreatmentduration / 1440;
+            break;
+        }
+        drug.drugtreatmentdurationunit = 804;
+      }
+    }
+
 
     public abstract void handleSafetyReport(SafetyReport safetyReport);
   }
