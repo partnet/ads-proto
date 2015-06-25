@@ -1,15 +1,110 @@
+
+@form-bg-color: #018F8E;
+@tab-active-bg-color: #014A8E;
+
 .help-block {
   color: #990000;
   margin: 0;
   display: inline-block;
 }
 
-.btn-holder {
-  margin-bottom: 20px;
+.round {
+  border-radius: 25px;
 }
 
-.banner-title {
-  margin-bottom: 30px;
+.adeSearchForm {
+  font-family: Sans;
+  border-top: thick solid #014A8E;
+
+  background-color: @form-bg-color;
+  color: white;
+  padding: .5em;
+
+  @media screen and (min-width: @screen-sm-min) {
+    padding: .25em;
+  }
+
+  .form-header {
+    padding-left: 2em;
+    padding-right: 2em;
+
+    @media screen and (min-width: @screen-sm-min) {
+      padding-left: .35em;
+      padding-right: .35em;
+    }
+  }
+
+}
+
+.check-meds-header {
+
+  font-weight: bold;
+  font-size: 1.5em;
+  text-shadow: greenyellow;
+
+  @media screen and (min-width: @screen-xs-min) {
+    padding-top: .5em;
+    font-size: 1.5em;
+  }
+
+  @media screen and (min-width: @screen-sm-min) {
+  padding-top: .5em;
+    font-size: 1.5em;
+  }
+
+  @media screen and (min-width: @screen-md-min) {
+    font-size: 1.5em;
+  }
+}
+
+.center-btn {
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+
+
+.demographic-details {
+  font-weight: bold;
+  font-size: 1.5em;
+
+  @media screen and (min-width: @screen-xs-min) {
+    font-size: 1.5em;
+  }
+  @media screen and (min-width: @screen-sm-min) {
+    font-size: 1.5em;
+  }
+}
+
+.check-meds-header-img {
+  vertical-align: middle;
+  height: auto;
+  width: 4em;
+  float: right;
+
+  @media screen and (min-width: @screen-xs-min) {
+    width: 8em;
+  }
+
+  @media screen and (min-width: @screen-sm-min) {
+    width: 4em;
+  }
+
+}
+
+.ads-person {
+  vertical-align: middle;
+  height: auto;
+  width: 1.5em;
+  float: left;
+
+  @media screen and (min-width: @screen-sm-min) {
+    //width: 2em;
+  }
+}
+
+.btn-holder {
+  margin-bottom: 20px;
 }
 
 .tab-pane {
@@ -20,8 +115,130 @@
   padding: 10px;
 }
 
-.nav-tabs {
+.nav-tab {
   margin-bottom: 0;
+}
+
+.nav-tabs.nav {
+
+  li {
+    background-color: @form-bg-color;
+    border-radius: 25px;
+  }
+
+  li:first-child {
+    margin-top: 5px;
+  }
+
+
+  @media screen and (min-width: @screen-sm-min) {
+    li {
+      border-radius: 0px;
+    }
+
+    li:first-child {
+      border-bottom-left-radius: 25px;
+      border-top-left-radius: 25px;
+    }
+
+    li:last-child {
+      border-bottom-right-radius: 25px;
+      border-top-right-radius: 25px;
+    }
+
+    li:nth-of-type(2) {
+      border-color: white;
+      border-left-width: 2px;
+      border-right-width: 2px;
+      border-left-style: solid;
+      border-right-style: solid;
+    }
+  }
+
+  li.active {
+    background-color: @tab-active-bg-color;
+    a, a:active, a:hover, a:focus,  {
+      border: 0px;
+    }
+  }
+
+  li a, li a:active, li a:focus, li a:hover {
+    background-color: transparent;
+    border: 0px;
+    color: white;
+  }
+
+  li:hover {
+    background-color: lighten(@tab-active-bg-color, 2%);
+  }
+  li:active {
+    background-color: darken(@tab-active-bg-color, 2%);
+  }
+}
+
+.medical-bg-img {
+
+  @media screen and (min-width: @screen-sm-min) {
+    display: none;
+  }
+}
+
+.drug-events:not(.ran-query) {
+  background-color: transparent;
+
+  @media screen and (min-width: @screen-sm-min) {
+    background-image: url(../images/medical_background.jpg);
+    background-size: cover;
+    height: 100vh;
+  }
+}
+
+.welcome-div {
+
+  margin-top: 8em;
+  margin-bottom: 8em;
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 1em;
+
+  h1 {
+    text-shadow: -1px -1px @form-bg-color;
+    color: white;
+    font-weight: bold;
+  }
+
+  div {
+    color: @form-bg-color
+  }
+}
+
+
+.testimonials {
+  margin-top: 10em;
+  background-color: rgba(255, 255, 255, 0.85);
+  color: #8B7F78;
+
+  .testimonials-header{
+    border-top-width: 5px;
+    border-bottom-width: 5px;
+    hr {
+      border-width: 2px;
+    }
+    h2 {
+      img {
+        height: 1em;
+      }
+    }
+  }
+
+  .quote-img {
+    float: left;
+    height: 4em;
+  }
+}
+
+
+.tab-pane {
+  border: 0px;
 }
 
 .glyphicon-refresh-animate {
