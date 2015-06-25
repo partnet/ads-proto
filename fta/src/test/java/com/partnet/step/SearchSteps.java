@@ -19,6 +19,7 @@ package com.partnet.step;
 import javax.inject.Inject;
 
 import com.partnet.config.framework.StoryContext;
+import com.partnet.model.Reaction;
 import com.partnet.page.search.SearchPage;
 import org.junit.Assert;
 
@@ -54,7 +55,7 @@ public class SearchSteps
   }
 
   public void thenIWillHaveSearchResults(){
-    Map<String, Integer> results = context.getPage(SearchPage.class).waitForTabularSearchResults().getTabularSearchResults();
+    List<Reaction> results = context.getPage(SearchPage.class).waitForTabularSearchResults().getTabularSearchResults(false);
     Assert.assertTrue("No search results were found!", results.size() > 0);
   }
 
@@ -69,7 +70,7 @@ public class SearchSteps
 
 
   public void whenIPerformAGenericSearch() {
-    whenIPerformASearchFor(SearchPage.DrugOptions.CELEBREX, "34", SearchPage.Gender.FEMALE, "150");
+    whenIPerformASearchFor(SearchPage.DrugOptions.ADVIL, "34", SearchPage.Gender.FEMALE, "150");
   }
 
   /**
@@ -82,7 +83,7 @@ public class SearchSteps
   }
 
   public void whenIPerformASearchWithNoResults() {
-    whenIPerformASearchFor(SearchPage.DrugOptions.CELEBREX, "34", SearchPage.Gender.FEMALE, "1500");
+    whenIPerformASearchFor(SearchPage.DrugOptions.ADVIL, "34", SearchPage.Gender.FEMALE, "1500");
   }
 
   public void thenValidateListOfDrugs() {
@@ -100,28 +101,14 @@ public class SearchSteps
     }
   }
 
-  public void whenISaveResults() {
-    context.addOrUpdateVariable(SEARCH_KEY,
-        context.getPage(SearchPage.class).waitForTabularSearchResults().getTabularSearchResults());
-  }
-
-  public void thenTheResultsShouldBe(Result result) {
-    Map<String, Integer> previous = (Map<String, Integer>) context.getVariable(SEARCH_KEY);
-    Map<String, Integer> current = context.getPage(SearchPage.class)
+  public void thenTheResultsShouldBe(Result result, List<Reaction> expectedResult){
+    List<Reaction> current = context.getPage(SearchPage.class)
         .waitForTabularSearchResults()
-        .getTabularSearchResults();
-
-    compareSearchResults(result, previous, current);
-  }
-
-  public void thenTheResultsShouldBe(Result result, Map<String, Integer> expectedResult){
-    Map<String, Integer> current = context.getPage(SearchPage.class)
-        .waitForTabularSearchResults()
-        .getTabularSearchResults();
+        .getTabularSearchResults(true);
     compareSearchResults(result, expectedResult, current);
   }
 
-  private void compareSearchResults(Result result, Map<String, Integer> expected, Map<String, Integer> actual)
+  private void compareSearchResults(Result result, List<Reaction> expected, List<Reaction> actual)
   {
     switch(result) {
 

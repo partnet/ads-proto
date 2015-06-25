@@ -2,14 +2,17 @@ package com.partnet.test;
 
 import com.partnet.junit.SeAuto;
 import com.partnet.junit.annotations.browser.PhantomJs;
+import com.partnet.model.Reaction;
 import com.partnet.page.search.SearchPage;
 import com.partnet.step.SearchSteps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  * @author bbarker
@@ -25,11 +28,10 @@ public class SearchResultsDataTests {
   @PhantomJs
   public void test_validateTabularData(){
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.whenIPerformASearchFor(SearchPage.DrugOptions.ABILIFY, "12", SearchPage.Gender.MALE, "169");
-    Map<String, Integer> expectedResults = new HashMap<>();
-    expectedResults.put("DIABETIC KETOACIDOSIS", 1);
-    expectedResults.put("CONVULSION", 1);
-    expectedResults.put("ABNORMAL BEHAVIOUR", 1);
+    searchSteps.whenIPerformASearchFor(SearchPage.DrugOptions.ALEVE, "14", SearchPage.Gender.MALE, "124");
+    List<Reaction> expectedResults = new ArrayList<>();
+    expectedResults.add(new Reaction("NO ADVERSE EVENT", 1, Collections.singletonMap("Unknown", 1)));
+    expectedResults.add(new Reaction("ABDOMINAL PAIN UPPER", 1, Collections.singletonMap("Unknown", 1)));
     searchSteps.thenTheResultsShouldBe(SearchSteps.Result.SAME, expectedResults);
 
 

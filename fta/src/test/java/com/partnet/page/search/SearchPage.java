@@ -2,6 +2,7 @@ package com.partnet.page.search;
 
 import com.partnet.automation.DependencyContainer;
 import com.partnet.automation.page.Page;
+import com.partnet.model.Reaction;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -28,10 +29,10 @@ public class SearchPage
   @FindBy(id = "age-id")
   private WebElement ageTxtBox;
 
-  @FindBy(css = "input[ng-model='drugEvents.gender'][value='1']")
+  @FindBy(css = "label[ng-model='drugEvents.gender'][btn-radio=\"'1'\"]")
   private WebElement maleRadio;
 
-  @FindBy(css = "input[ng-model='drugEvents.gender'][value='2']")
+  @FindBy(css = "label[ng-model='drugEvents.gender'][btn-radio=\"'2'\"]")
   private WebElement femaleRadio;
 
   @FindBy(id = "weight-id")
@@ -59,7 +60,7 @@ public class SearchPage
   private List<WebElement> activeTabContentValidation;
 
 
-  private By tabTableContentRowsLocator = By.cssSelector("ads-d-e-results-table tbody tr");
+  private By tabTableContentRowsLocator = By.cssSelector("ads-d-e-results-table > table > tbody > tr");
   private By tabSunburstContentLocator = By.cssSelector("ads-zoom-sunburst svg");
   private By tabBubbleContentLocator = By.cssSelector("ads-bubble svg.bubble");
   private By searchResultsAlertLocator = By.cssSelector("div.alert div span");
@@ -70,6 +71,8 @@ public class SearchPage
 
   private static final int REACTION_COL = 0;
   private static final int COUNT_COL = 1;
+  private static final int OUTCOME_COL = 0;
+  private static final int OUTCOME_COUNT_COL = 1;
   private static final int TIMEOUT = 30;
 
 
@@ -86,24 +89,26 @@ public class SearchPage
   public enum Gender {MALE, FEMALE};
 
   public enum DrugOptions {
-    SYNTHROID("Synthroid"),
-    CRESTOR("Crestor"),
-    NEXIUM("Nexium"),
-    VENTOLIN_HFA("Ventolin HFA"),
     ADVAIR_DISKUS("Advair Diskus"),
-    DIOVAN("Diovan"),
-    LANTUS_SOLOSTAR("Lantus Solostar"),
+    ADVIL("Advil"),
+    ALEVE("Aleve"),
+    CEPACOL("Cepacol"),
+    CHILDRENS_DIMETAPP("Childrens Dimetapp"),
+    CLARITIN("Claritin"),
+    COLACE("Colace"),
+    CORTAID("Cortaid"),
+    CRESTOR("Crestor"),
     CYMBALTA("Cymbalta"),
-    VYVANSE("Vyvanse"),
+    DIOVAN("Diovan"),
+    DULCOLAX("Dulcolax"),
+    EXCEDRIN("Excedrin"),
+    GAVISCON("Gaviscon"),
+    LANTUS_SOLOSTAR("Lantus Solostar"),
     LYRICA("Lyrica"),
-    SPIRIVA_HANDIHALER("Spiriva Handihaler"),
-    LANTUS("Lantus"),
-    CELEBREX("Celebrex"),
-    ABILIFY("Abilify"),
-    JANUVIA("Januvia"),
-    NAMENDA("Namenda"),
-    VIAGRA("Viagra"),
-    CIALIS("Cialis");
+    NEXIUM("Nexium"),
+    SYNTHROID("Synthroid"),
+    VENTOLIN_HFA("Ventolin HFA"),
+    VYVANSE("Vyvanse");
 
     private final String value;
 
@@ -211,21 +216,43 @@ public class SearchPage
    * Ensures the current selected tab is the Table view, then returns the list of search results.
    * Note: this method will NOT wait for elements to appear on the page. Use {@link #waitForTabularSearchResults} to
    * wait for results if they are expected.
+   * @param getCollapsedData boolean to get collapsed data or not. If it is not needed, it will speed up the tests.
    * @return
    */
-  public Map<String, Integer> getTabularSearchResults() {
+  public List<Reaction> getTabularSearchResults(boolean getCollapsedData) {
 
     //Ensure we are on the correct tab.
     switchToTab(NavTab.TABLE);
 
     //get the data
-    Map<String, Integer> results = new HashMap<>();
+    List<Reaction> results = new ArrayList<>();
 
+
+    String reaction = "n/a";
+    int count = -1;
     for(WebElement row : webDriver.findElements(tabTableContentRowsLocator)) {
-      List<WebElement> col = row.findElements(By.tagName("td"));
-        results.put(col.get(REACTION_COL).getText(), Integer.parseInt(col.get(COUNT_COL).getText()));
+
+      if(row.getAttribute("class").equals("collapse")) {
+        Map<String, Integer> outcomeTbl = new HashMap<>();
+        if(getCollapsedData) {
+          List<WebElement> collapsedRows = row.findElement(By.cssSelector("tbody")).findElements(By.cssSelector("tr"));
+
+          for(WebElement singleCollapseRow : collapsedRows) {
+            List<WebElement> cols = singleCollapseRow.findElements(By.cssSelector("td"));
+            outcomeTbl.put(super.getHiddenText(cols.get(OUTCOME_COL)).trim(), Integer.parseInt(super.getHiddenText(cols.get(OUTCOME_COUNT_COL)).trim()));
+          }
+        }
+        results.add(new Reaction(reaction, count, outcomeTbl));
+        continue;
       }
 
+      List<WebElement> col = row.findElements(By.tagName("td"));
+      reaction = col.get(REACTION_COL).getText();
+      count = Integer.parseInt(col.get(COUNT_COL).getText());
+
+    }
+
+    LOG.debug("Reactions: {}", results);
     return results;
   }
 
@@ -246,7 +273,7 @@ public class SearchPage
       options.add(opt.getText());
     }
 
-    options.remove("--Select--");
+    options.remove("Select Medication");
     return options;
   }
 
