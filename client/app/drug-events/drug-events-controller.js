@@ -25,23 +25,6 @@
         _this.outcomeExpanded = null;
       };
 
-      var calculateSVGJson = function (searchResults) {
-        var svgObject = {
-          'name': _this.drugId,
-          'children': searchResults
-        };
-
-        var svgString = JSON.stringify(svgObject);
-        var termRegEx = new RegExp('"term"', 'g');
-        svgString = svgString.replace(termRegEx, '"name"');
-        var countRegEx = new RegExp('"count"', 'g');
-        svgString = svgString.replace(countRegEx, '"size"');
-        var outcomesRegEx = new RegExp('"outcomes"', 'g');
-        svgString = svgString.replace(outcomesRegEx, '"children"');
-
-        return JSON.parse(svgString);
-      };
-
       var init = function () {
         _this.availableDrugIds = DrugEventsService.searchableDrugIds;
         _this.gender = 1;
@@ -50,37 +33,24 @@
 
       init();
 
-      _this.expandOutcome = function(rowNum){
-        _this.outcomeExpanded = rowNum;
-      };
-
-      _this.getOutcomeName = function(term) {
-        switch (term) {
-          case 1:
-            return 'Recovered/resolved';
-          case 2:
-            return 'Recovering/resolving';
-          case 3:
-            return 'Not recovered/not resolved';
-          case 4:
-            return 'Determined an unrelated reaction to this event';
-          case 5:
-            return 'Fatal';
-          default:
-            return 'Unknown';
+      _this.expandOutcome = function (rowNum) {
+        if(_this.outcomeExpanded && _this.outcomeExpanded == rowNum){
+          _this.outcomeExpanded = null;
+        } else {
+          _this.outcomeExpanded = rowNum;
         }
       };
 
-      _this.getOutcomeRowClass = function(term) {
+      _this.getOutcomeRowClass = function (term) {
         switch (term) {
-          case 1:
-          case 4:
+          case 'Recovered/resolved':
+          case 'Determined an unrelated reaction to this event':
             return 'success';
-          case 2:
+          case 'Recovering/resolving':
             return 'info';
-          case 3:
+          case 'Not recovered/not resolved':
             return 'warning';
-          case 5:
+          case 'Fatal':
             return 'danger';
           default:
             return '';
@@ -102,7 +72,8 @@
         }
 
         if (!isNaN(_this.weight)) {
-          searchParam += '+AND+patient.patientweight:[' + (_this.weight - 10 >= 0 ? _this.weight - 10 : 0) + '+TO+' + (_this.weight + 10) + ']';
+          var weightKgs = _this.weight/2.2046;
+          searchParam += '+AND+patient.patientweight:[' + (weightKgs - 10 >= 0 ? weightKgs - 10 : 0) + '+TO+' + (weightKgs + 10) + ']';
         }
 
         query.search = searchParam;
@@ -114,7 +85,7 @@
           query.count = 'patient.reaction.reactionoutcome';
           DrugEventsService.calculateReactionOutcomes(query).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
-            _this.svgResult = calculateSVGJson(_this.searchResults);
+            _this.svgResult = DrugEventsService.calculateSVGJson(angular.copy(_this.searchResults), _this.drugId);
             _this.runningQuery = false;
           });
         }, function (response) {

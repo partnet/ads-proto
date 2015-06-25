@@ -24,7 +24,7 @@
           </thead>
           <tbody ng-repeat="outcome in reaction.outcomes">
           <tr class="{{drugEvents.getOutcomeRowClass(outcome.term)}}">
-            <td>{{drugEvents.getOutcomeName(outcome.term)}}</td>
+            <td>{{outcome.term}}</td>
             <td>{{outcome.count}}</td>
           </tr>
           </tbody>
