@@ -34,19 +34,23 @@
       init();
 
       _this.expandOutcome = function (rowNum) {
-        _this.outcomeExpanded = rowNum;
+        if(_this.outcomeExpanded && _this.outcomeExpanded == rowNum){
+          _this.outcomeExpanded = null;
+        } else {
+          _this.outcomeExpanded = rowNum;
+        }
       };
 
       _this.getOutcomeRowClass = function (term) {
         switch (term) {
-          case 1:
-          case 4:
+          case 'Recovered/resolved':
+          case 'Determined an unrelated reaction to this event':
             return 'success';
-          case 2:
+          case 'Recovering/resolving':
             return 'info';
-          case 3:
+          case 'Not recovered/not resolved':
             return 'warning';
-          case 5:
+          case 'Fatal':
             return 'danger';
           default:
             return '';
