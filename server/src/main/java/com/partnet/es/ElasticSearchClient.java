@@ -257,7 +257,7 @@ public class ElasticSearchClient {
     // sort greatest count to least
     Collections.sort(reactionCnts, (o1, o2) -> (int)(o2.getCount() - o1.getCount()));
 
-    return new ReactionsSearchResult(meta, reactionCnts, drug);
+    return new ReactionsSearchResult(meta, reactionCnts, drug, countReportsWithDrug);
   }
 
   public String getDrugs() {

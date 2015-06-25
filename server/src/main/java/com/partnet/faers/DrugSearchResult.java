@@ -14,7 +14,7 @@ public class DrugSearchResult {
   private List<IndicationCount> indicationCounts;
   private Double averageTreatmentDuration;
   private Double minTreatmentDuration;
-  private Double maxTreamentDuration;
+  private Double maxTreatmentDuration;
 
   public DrugSearchResult(String medicinalproduct, List<IndicationCount> indicationCounts, List<Double> treatmentDurations) {
     this.medicinalproduct = medicinalproduct;
@@ -22,7 +22,7 @@ public class DrugSearchResult {
     if(treatmentDurations != null && !treatmentDurations.isEmpty()) {
       DoubleSummaryStatistics stats = treatmentDurations.stream().mapToDouble((x) -> x).summaryStatistics();
       this.averageTreatmentDuration = stats.getAverage();
-      this.maxTreamentDuration = stats.getMax();
+      this.maxTreatmentDuration = stats.getMax();
       this.minTreatmentDuration = stats.getMin();
     }
   }

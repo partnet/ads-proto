@@ -24,6 +24,10 @@
         _this.searchAlerts = [];
         _this.svgResult = null;
         _this.outcomeExpanded = null;
+        _this.numReports = undefined;
+        _this.aveDuration = undefined;
+        _this.minDuration = undefined;
+        _this.maxDuration = undefined;
       };
 
       var calculateSVGJson = function (searchResults) {
@@ -115,6 +119,10 @@
           DrugEventsService.searchIndications(drugQuery).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
             _this.indicationResults = DrugEventsService.indicationResults;
+            _this.numReports = DrugEventsService.numReports;
+            _this.aveDuration = DrugEventsService.aveDuration;
+            _this.minDuration = DrugEventsService.minDuration;
+            _this.maxDuration = DrugEventsService.maxDuration;
             _this.svgResult = calculateSVGJson(_this.searchResults);
             _this.runningQuery = false;
           });

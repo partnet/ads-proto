@@ -17,13 +17,15 @@ public class ReactionsSearchResult
   private final MetaData meta;
   private final List<ReactionCount> reactions;
   private final Drug drug;
+  private final Long numReports;
   
   
-  public ReactionsSearchResult(MetaData meta, List<ReactionCount> reactions, Drug drug) {
+  public ReactionsSearchResult(MetaData meta, List<ReactionCount> reactions, Drug drug, Long numReports) {
     super();
     this.meta = meta;
     this.reactions = reactions;
     this.drug = drug;
+    this.numReports = numReports;
   }
 
   public static class ReactionCount
@@ -35,12 +37,12 @@ public class ReactionsSearchResult
     /**
      * #reports with reaction event
      */
-    private final long numReportsEvent;
+    private final Long numReportsEvent;
     
     /**
      * #reports with drug
      */
-    private final long numReportsDrug;
+    
     private final Double prr;
     private final Double ror;
 
@@ -49,7 +51,6 @@ public class ReactionsSearchResult
     {
       this.reactionmeddrapt = reactionmeddrapt;
       this.count = numReportsDrugEvent;
-      this.numReportsDrug = numReportsDrug;
       this.numReportsEvent = numReportsEvent;
       this.prr = computePRR(numReportsDrugEvent, numReportsDrug, numReportsEvent, numReports);
       this.ror = computeROR(numReportsDrugEvent, numReportsDrug, numReportsEvent, numReports);

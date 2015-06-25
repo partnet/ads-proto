@@ -24,25 +24,25 @@
       var drugEventsFact = {
         apiKey: '49N1YfEbCwRbQFIgCsSYSIohxMWkMryPpvSgRXbd',
         searchableDrugIds: Object.freeze([
-          'Advair Diskus',
+          'Abilify',                                
           'Advil',
           'Aleve',
-          'Cepacol',
-          'Childrens Dimetapp',
+          'Celebrex',
           'Claritin',
           'Colace',
-          'Cortaid',
           'Crestor',
           'Cymbalta',
           'Diovan',
           'Dulcolax',
           'Excedrin',
           'Gaviscon',
-          'Lantus Solostar',
+          'Lantus',
+          'Lotrimin',
           'Lyrica',
+          'Maalox Antacid',
+          'Midol',
           'Nexium',
           'Synthroid',
-          'Ventolin HFA',
           'Vyvanse'
         ])
       };
@@ -51,6 +51,7 @@
         console.log('Query: ' + JSON.stringify(query));
         return DrugEvents.get(query).$promise.then(function (response) {
           drugEventsFact.reactionResults = response.reactions;
+          drugEventsFact.numReports =response.numReports;
         });
       };
 
@@ -58,6 +59,9 @@
           console.log('Query: ' + JSON.stringify(query));
           return Indications.get(query).$promise.then(function (response) {
             drugEventsFact.indicationResults = response.indicationCounts;
+            drugEventsFact.aveDuration = response.averageTreatmentDuration;
+            drugEventsFact.minDuration = response.minTreatmentDuration;
+            drugEventsFact.maxDuration = response.maxTreatmentDuration;
           });
        };
 
