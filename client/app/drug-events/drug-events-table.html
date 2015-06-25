@@ -10,7 +10,7 @@
       <td>{{reaction.term}}</td>
       <td>{{reaction.count}}</td>
       <td>
-        <button class="btn btn-info btn-outcome" ng-click="drugEvents.expandOutcome($index)">{{reaction.outcomes.length}}</button>
+        <button class="btn btn-info btn-outcome" ng-click="drugEvents.outcomeExpanded = $index">{{reaction.outcomes.length}}</button>
       </td>
     </tr>
     <tr collapse="drugEvents.outcomeExpanded != {{$index}}">
@@ -24,7 +24,7 @@
           </thead>
           <tbody ng-repeat="outcome in reaction.outcomes">
           <tr class="{{drugEvents.getOutcomeRowClass(outcome.term)}}">
-            <td>{{drugEvents.getOutcomeName(outcome.term)}}</td>
+            <td>{{outcome.term}}</td>
             <td>{{outcome.count}}</td>
           </tr>
           </tbody>

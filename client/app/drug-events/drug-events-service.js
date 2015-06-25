@@ -17,6 +17,23 @@
     .factory('DrugEventsService', ['$q', '$resource', function ($q, $resource) {
       var restServerURI = 'https://api.fda.gov/drug/event.json';
 
+      var convertOutcomeTerm = function (term) {
+        switch (term) {
+          case 1:
+            return 'Recovered/resolved';
+          case 2:
+            return 'Recovering/resolving';
+          case 3:
+            return 'Not recovered/not resolved';
+          case 4:
+            return 'Determined an unrelated reaction to this event';
+          case 5:
+            return 'Fatal';
+          default:
+            return 'Unknown';
+        }
+      };
+
       var doReactionOutcomeRequest = function (deferred, outcomeQuery, index) {
         var thisQuery = angular.copy(outcomeQuery);
 
@@ -29,18 +46,19 @@
           var outcomes = 0;
           Object.keys(response.results).map(function (key) {
             outcomes += response.results[key].count;
+            response.results[key].term = convertOutcomeTerm(response.results[key].term);
           });
 
           if (outcomes < drugEventsFact.reactionResults[index].count) {
             var unknown = drugEventsFact.reactionResults[index].outcomes.filter(function (value) {
-              return value.term === 6;
+              return value.term.toUpperCase() === 'UNKNOWN';
             });
 
-            if (unknown.length === 1) {
+            if (unknown.length == 1) {
               unknown[0].count += drugEventsFact.reactionResults[index].count - outcomes;
             } else {
               drugEventsFact.reactionResults[index].outcomes.push({
-                term: 6,
+                term: 'Unknown',
                 count: drugEventsFact.reactionResults[index].count
               });
             }
@@ -55,7 +73,7 @@
           switch (response.status) {
             case 404:
               drugEventsFact.reactionResults[index].outcomes = [{
-                term: 6,
+                term: 'Unknown',
                 count: drugEventsFact.reactionResults[index].count
               }];
           }
@@ -128,6 +146,28 @@
         doReactionOutcomeRequest(deferred, outcomeQuery, index);
 
         return deferred.promise;
+      };
+
+      drugEventsFact.calculateSVGJson = function (searchResults, drugName) {
+        var svgObject = {
+          'name': drugName,
+          'children': searchResults
+        };
+
+        Object.keys(svgObject.children).map(function (key) {
+          delete svgObject.children[key].count;
+        });
+
+        var termRegEx = new RegExp('"term"', 'g');
+        var countRegEx = new RegExp('"count"', 'g');
+        var outcomesRegEx = new RegExp('"outcomes"', 'g');
+
+        var svgString = JSON.stringify(svgObject).replace(termRegEx, '"name"').replace(countRegEx,
+          '"size"').replace(outcomesRegEx, '"children"');
+
+        console.log('SVG Result: ' + svgString);
+
+        return JSON.parse(svgString);
       };
 
       return drugEventsFact;

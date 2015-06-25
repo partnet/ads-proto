@@ -50,7 +50,7 @@
       <div class="btn-holder">
         <button id="reg-button-id" type="submit" class="round center-btn btn btn-primary"
                 ng-disabled="!adeSearchForm.$valid" ng-if="!drugEvents.runningQuery">GO</button>
-        <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Querying...</button>
+        <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Working...</button>
       </div>
       <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}">
         <span>{{alert.msg}}</span>

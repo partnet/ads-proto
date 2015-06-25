@@ -82,7 +82,7 @@
                 .data(partition.nodes)
                 .enter().append("path")
                 .attr("d", arc)
-                .style("fill", function(d) { return color((d.children ? d : d.parent).term); })
+                .style("fill", function(d) { return color((d.children ? d : d.parent).name); })
                 .on("click", click)
                 .each(stash);
 
