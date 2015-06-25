@@ -18,10 +18,10 @@
   copy: src=bashrc-es dest=/home/{{CFG_USER}}/.bashrc-ext owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
 
 - name: Stop elasticsearch server
-  shell: "pkill | xargs es.pid && rm es.pid"
+  shell: kill $(cat es.pid) && rm es.pid
   args:
-    chdir: "/home/{{CFG_USER}}/elasticsearch/current/bin"
-    removes: "/home/{{CFG_USER}}/elasticsearch/current/bin/es.pid"
+    chdir: /home/{{CFG_USER}}/elasticsearch/current/bin
+    removes: es.pid
 
 - name: Start elasticsearch server
   shell: /home/{{CFG_USER}}/elasticsearch/current/bin/elasticsearch -d -p /home/{{CFG_USER}}/elasticsearch/current/bin/es.pid

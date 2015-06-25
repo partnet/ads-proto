@@ -48,6 +48,10 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/**/*.less'],
         tasks: ['less']
       },
+      fonts: {
+        files: ['<%= yeoman.app %>/**/*.fonts'],
+        tasks: ['newer:fonts']
+      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -88,6 +92,10 @@ module.exports = function (grunt) {
               connect().use(
                 '/app/styles',
                 connect.static('./app/styles')
+              ),
+              connect().use(
+                '/app/fonts',
+                connect.static('./app/fonts')
               ),
               connect.static(appConfig.app)
             ];
@@ -146,7 +154,9 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%= yeoman.dist %>/{,*/}*',
-            '!<%= yeoman.dist %>/.git{,*/}*'
+            '!<%= yeoman.dist %>/.git{,*/}*',
+            '<%= yeoman.app %>/styles',
+            '<%= yeoman.app %>/fonts'
           ]
         }]
       },
@@ -246,7 +256,7 @@ module.exports = function (grunt) {
           '<%= yeoman.dist %>/{,*/}*.js',
           '<%= yeoman.dist %>/styles/{,*/}*.css',
           '<%= yeoman.dist %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-          '<%= yeoman.dist %>/styles/fonts/*'
+          '<%= yeoman.dist %>/fonts/*'
         ]
       }
     },
@@ -278,7 +288,8 @@ module.exports = function (grunt) {
         assetsDirs: [
           '<%= yeoman.dist %>',
           '<%= yeoman.dist %>/images',
-          '<%= yeoman.dist %>/styles'
+          '<%= yeoman.dist %>/styles',
+          '<%= yeoman.dist %>/fonts'
         ]
       }
     },
@@ -381,8 +392,7 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             '**/*.html',
-            'images/{,*/}*.{webp}',
-            'styles/fonts/{,*/}*.*'
+            'images/{,*/}*.{webp}'
           ]
         }, {
           expand: true,
@@ -391,7 +401,12 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: 'bower_components/bootstrap/dist',
+          cwd: 'libs/bootstrap-3.3.5/',
+          src: 'fonts/*',
+          dest: '<%= yeoman.app %>'
+        }, {
+          expand: true,
+          cwd: 'libs/bootstrap-3.3.5/',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }]

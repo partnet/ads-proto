@@ -9,6 +9,7 @@ client/.tmp/
 .classpath
 *.iml
 client/app/styles/
+client/app/fonts/
 fta/build/
 fta/target/
 fta/selenium-drivers
