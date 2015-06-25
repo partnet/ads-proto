@@ -21,7 +21,8 @@
       <td>{{reaction.prr | number:2}}</td>
       <td>{{reaction.ror | number:2}}</td>
       <td>
-        <button class="btn btn-info btn-outcome" ng-click="drugEvents.expandOutcome($index)">{{reaction.outcomes.length}}</button>
+        <button class="btn btn-primary btn-lg" ng-click="drugEvents.expandOutcome($index)"
+                ng-if="reaction.outcomes.length">{{reaction.outcomes.length}}</button>
       </td>
     </tr>
     <tr collapse="drugEvents.outcomeExpanded != {{$index}}">
