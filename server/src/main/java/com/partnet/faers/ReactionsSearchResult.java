@@ -157,8 +157,8 @@ public class ReactionsSearchResult
    */
   public static class MetaData
   {
-    private final String disclaimer ="openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.";
-    private final String license = "http://open.fda.gov/license";
+    private final static String disclaimer ="openFDA is a beta research project and not for clinical use. While we make every effort to ensure that data is accurate, you should assume all results are unvalidated.";
+    private final static String license = "http://open.fda.gov/license";
     private final Date lastUpdated;
     
     /**
@@ -166,7 +166,7 @@ public class ReactionsSearchResult
      */
     public MetaData(Date lastUpdated) {
       super();
-      this.lastUpdated = lastUpdated;
+      this.lastUpdated = (Date) lastUpdated.clone();
     }
   }
 }
