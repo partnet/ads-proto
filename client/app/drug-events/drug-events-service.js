@@ -54,7 +54,7 @@
               return value.term.toUpperCase() === 'UNKNOWN';
             });
 
-            if (unknown.length == 1) {
+            if (unknown.length === 1) {
               unknown[0].count += drugEventsFact.reactionResults[index].count - outcomes;
             } else {
               drugEventsFact.reactionResults[index].outcomes.push({

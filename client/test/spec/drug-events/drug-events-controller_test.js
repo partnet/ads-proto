@@ -29,6 +29,7 @@ describe('drug-events-controller', function () {
       deferred.resolve();
       return deferred.promise;
     },
+    calculateSVGJson: function () {},
     reactionResults: [{term: 'DISEASE', count: 9000}]
   };
 
@@ -97,7 +98,7 @@ describe('drug-events-controller', function () {
     expect(ctrl.searchResults[0].term).toBe('DISEASE');
     expect(MockDrugEventsService.calculateReactionOutcomes).toHaveBeenCalledWith(
       jasmine.objectContaining({
-        search: 'patient.drug.openfda.brand_name:Synthroid+AND+patient.patientsex:1+AND+patient.patientweight:[170+TO+190]'
+        search: 'patient.drug.openfda.brand_name:Synthroid+AND+patient.patientsex:1+AND+patient.patientweight:[71.64746439263358+TO+91.64746439263358]'
       }));
   });
 
@@ -111,7 +112,7 @@ describe('drug-events-controller', function () {
     expect(ctrl.searchResults[0].term).toBe('DISEASE');
     expect(MockDrugEventsService.calculateReactionOutcomes).toHaveBeenCalledWith(
       jasmine.objectContaining({
-        search: 'patient.drug.openfda.brand_name:Synthroid+AND+patient.patientsex:1+AND+patient.patientweight:[0+TO+15]'
+        search: 'patient.drug.openfda.brand_name:Synthroid+AND+patient.patientsex:1+AND+patient.patientweight:[0+TO+12.267985122017599]'
       }));
   });
 

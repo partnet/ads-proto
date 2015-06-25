@@ -34,7 +34,7 @@
       init();
 
       _this.expandOutcome = function (rowNum) {
-        if(_this.outcomeExpanded && _this.outcomeExpanded == rowNum){
+        if(_this.outcomeExpanded && _this.outcomeExpanded === rowNum){
           _this.outcomeExpanded = null;
         } else {
           _this.outcomeExpanded = rowNum;
