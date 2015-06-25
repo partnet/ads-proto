@@ -26,6 +26,9 @@ import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.aggregations.metrics.tophits.TopHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -206,8 +209,6 @@ public class ElasticSearchClient {
 
     Map<String, Map<Integer, ReactionsSearchResult.OutcomeCount>> outcomeMap = new HashMap<>();
 
-    Map<String, Long> reactionCountCache = new HashMap<>();
-
     for(SafetyReport safetyReport : safetyReports) {
       for (Reaction reaction : safetyReport.patient.reactions) {
         ReactionsSearchResult.ReactionCount reactionCount = reactionCounts.get(reaction.reactionmeddrapt);
@@ -259,50 +260,39 @@ public class ElasticSearchClient {
     return new ReactionsSearchResult(meta, reactionCnts, drug);
   }
 
-  public List<DrugSearchResult> getDrugs() {
+  public String getDrugs() {
 
-    // todo: this is wayyy too slow, need to figure out a different implementation.
+    SearchResponse searchResponse = client.prepareSearch(indexName)
+        .setTypes(docType)
+        .addAggregation(AggregationBuilders.terms("agg").field("medicinalproduct").subAggregation(AggregationBuilders.topHits("top")))
+        .execute()
+        .actionGet();
 
-    Map<String, Map<String, DrugSearchResult.IndicationCount>> resultMap = new HashMap<>();
+    LOG.info("Total hits: " + searchResponse.getHits().getTotalHits());
 
-    final List<SafetyReport> safetyReports = getSafetyReports(null, null, null, null);
+    Terms agg = searchResponse.getAggregations().get("agg");
 
-    for(SafetyReport safetyReport : safetyReports) {
-      for (Drug drug : safetyReport.patient.drugs) {
-        Map<String, DrugSearchResult.IndicationCount> indicationCountMap = resultMap.get(drug.medicinalproduct);
-        if (indicationCountMap == null) {
-          DrugSearchResult.IndicationCount indicationCount = new DrugSearchResult.IndicationCount(drug.drugindication);
-          indicationCountMap = new HashMap<>();
-          indicationCountMap.put(drug.drugindication, indicationCount);
-          resultMap.put(drug.medicinalproduct, indicationCountMap);
-        }
-        DrugSearchResult.IndicationCount indicationCount = indicationCountMap.get(drug.drugindication);
-        indicationCount.incrementCount();
+    for (Terms.Bucket entry : agg.getBuckets()) {
+      String key = entry.getKey();                    // bucket key
+      long docCount = entry.getDocCount();            // Doc count
+      LOG.info("key [{}], doc_count [{}]", key, docCount);
+
+      // We ask for top_hits for each bucket
+      TopHits topHits = entry.getAggregations().get("top");
+      for (SearchHit hit : topHits.getHits().getHits()) {
+        LOG.info(" -> id [{}], _source [{}]", hit.getId(), hit.getSourceAsString());
       }
     }
 
-    // now convert maps into list of drug search results
-    List<DrugSearchResult> results = new ArrayList<>();
 
-    for (Map.Entry<String, Map<String, DrugSearchResult.IndicationCount>> entry : resultMap.entrySet()) {
-      final String medicinalproduct = entry.getKey();
-      final Map<String, DrugSearchResult.IndicationCount> indicationCountMap = entry.getValue();
-
-      final List<DrugSearchResult.IndicationCount> indicationCountsList = new ArrayList<>(indicationCountMap.values());
-
-      // sort greatest count to least
-      Collections.sort(indicationCountsList, (o1, o2) -> o2.getCount() - o1.getCount());
-      //TODO implement
-      results.add(new DrugSearchResult(medicinalproduct, indicationCountsList, null));
-    }
-
-    return results;
+    return "nothing";
   }
 
   public DrugSearchResult getDrugs(String medicinalproduct) {
     final List<SafetyReport> safetyReports = getSafetyReports(medicinalproduct, null, null, null);
 
     Map<String, DrugSearchResult.IndicationCount> indicationCounts = new HashMap<>();
+    List<Double> treatmentDurations = new ArrayList<>();
 
     for(SafetyReport safetyReport : safetyReports) {
       for (Drug drug : safetyReport.patient.drugs) {
@@ -312,6 +302,9 @@ public class ElasticSearchClient {
           indicationCounts.put(drug.drugindication, indicationCount);
         }
         indicationCount.incrementCount();
+        if (isFiniteNumber(drug.drugtreatmentduration)) {
+          treatmentDurations.add(new Double(drug.drugtreatmentduration));
+        }
       }
     }
 
@@ -319,8 +312,11 @@ public class ElasticSearchClient {
 
     // sort greatest count to least
     Collections.sort(indicationCountsList, (o1, o2) -> o2.getCount() - o1.getCount());
-    //TODO implement
-    return new DrugSearchResult(medicinalproduct, indicationCountsList, null);
+    return new DrugSearchResult(medicinalproduct, indicationCountsList, treatmentDurations);
+  }
+
+  private static boolean isFiniteNumber(Float val) {
+    return (val != null && !val.isNaN() && !val.isInfinite());
   }
 
 
