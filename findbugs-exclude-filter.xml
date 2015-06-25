@@ -7,4 +7,8 @@
     <Class name="com.partnet.faers.Patient"/>
     <Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD" />
   </Match>
+  <Match>
+    <Class name="com.partnet.faers.DrugSearchResult"/>
+    <Bug pattern="URF_UNREAD_FIELD" />
+  </Match>
 </FindBugsFilter>

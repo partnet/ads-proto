@@ -221,6 +221,9 @@ public class FaersXmlReader {
         case "drugtreatmentdurationunit":
           drugtreatmentdurationunit = true;
           break;
+        default:
+          //do nothing
+          break;
       }
 
 

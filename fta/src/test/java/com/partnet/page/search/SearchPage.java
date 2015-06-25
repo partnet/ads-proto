@@ -37,7 +37,7 @@ public class SearchPage
   @FindBy(id = "weight-id")
   private WebElement weightTxtBox;
 
-  @FindBy(id = SEARCH_BTN_ID)
+  @FindBy(id = "SEARCH_BTN_ID")
   private WebElement searchBtn;
 
   @FindBy(css = ".nav.nav-tabs li.active")
