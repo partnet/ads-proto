@@ -57,9 +57,9 @@ public class FAERSResource
 
     try {
       Integer patientsex = patientSex != null ? Integer.valueOf(patientSex) : null;
-      Range ageRange = (patientAgeLow != null && patientAgeHigh != null) ?
+      Range ageRange = patientAgeLow != null && patientAgeHigh != null ?
           new Range(Float.valueOf(patientAgeLow), Float.valueOf(patientAgeHigh)) : null;
-      Range weightRange = (patientWeightLow != null && patientAgeHigh != null) ?
+      Range weightRange = patientWeightLow != null && patientAgeHigh != null ?
           new Range(Float.valueOf(patientWeightLow), Float.valueOf(patientWeightHigh)) : null;
 
       ReactionsSearchResult reactSearchResult = searchClient.getReactions(medicinalProduct, patientsex, ageRange, weightRange);
@@ -82,9 +82,9 @@ public class FAERSResource
   {
     try {
       Integer patientsex = patientSex != null ? Integer.valueOf(patientSex) : null;
-      Range ageRange = (patientAgeLow != null && patientAgeHigh != null) ?
+      Range ageRange = patientAgeLow != null && patientAgeHigh != null ?
           new Range(Float.valueOf(patientAgeLow), Float.valueOf(patientAgeHigh)) : null;
-      Range weightRange = (patientWeightLow != null && patientAgeHigh != null) ?
+      Range weightRange = patientWeightLow != null && patientAgeHigh != null ?
           new Range(Float.valueOf(patientWeightLow), Float.valueOf(patientWeightHigh)) : null;
 
       if (count) {
