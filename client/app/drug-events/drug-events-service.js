@@ -17,7 +17,7 @@
     .factory('DrugEventsService', ['$q', '$resource', function ($q, $resource) {
       var restServerURI = '/rest-api/faers/drugs/:drug';
 
-      var DrugEvents = $resource(restServerURI+"/reactions", {drug: '@drug'});
+      var DrugEvents = $resource(restServerURI+'/reactions', {drug: '@drug'});
 
       var Indications = $resource(restServerURI, {drug: '@drug'});
 

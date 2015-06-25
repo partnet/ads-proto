@@ -85,7 +85,8 @@
               node.append("text")
                 .attr("dy", ".3em")
                 .style("text-anchor", "middle")
-                .text(function(d) { return d.className.substring(0, d.r / 3); });
+                .text(function(d) { 
+                	return d.className.substring(0, d.r / 3); });
             };
 
             scope.render(scope.data);

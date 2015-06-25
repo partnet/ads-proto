@@ -31,10 +31,12 @@
           'name': _this.drugId,
           'children': searchResults
         };
-
+        
         var svgString = JSON.stringify(svgObject);
         var termRegEx = new RegExp('"reactionmeddrapt"', 'g');
         svgString = svgString.replace(termRegEx, '"name"');
+        var outcomeRegEx = new RegExp('"reactionoutcome"', 'g');
+        svgString = svgString.replace(outcomeRegEx, '"name"');
         var countRegEx = new RegExp('"count"', 'g');
         svgString = svgString.replace(countRegEx, '"size"');
         var outcomesRegEx = new RegExp('"outcomes"', 'g');
@@ -99,11 +101,11 @@
         
         var reactionQuery = {
     	        drug: _this.drugId.toLowerCase(),
-    	        "patient.sex": _this.gender,
-    	        "patient.age.low": _this.age - 10 >= 0 ? _this.age - 10 : 0,
-    	        "patient.age.high": _this.age + 10 <= 120 ? _this.age + 10 : 120,
-    	        "patient.weight.low": _this.weight - 10 >= 0 ? _this.weight - 10 : 0, 
-    	        "patient.weight.high": _this.weight + 10
+    	        'patient.sex': _this.gender,
+    	        'patient.age.low': _this.age - 10 >= 0 ? _this.age - 10 : 0,
+    	        'patient.age.high': _this.age + 10 <= 120 ? _this.age + 10 : 120,
+    	        'patient.weight.low': _this.weight - 10 >= 0 ? _this.weight - 10 : 0, 
+    	        'patient.weight.high': _this.weight + 10
           };
         
      
