@@ -401,6 +401,9 @@ public class FaersXmlReader {
         case "drug":
           normalizeDrugData(currentDrug);
           break;
+        default:
+          // do nothing
+          break;
       }
     }
 
@@ -422,6 +425,9 @@ public class FaersXmlReader {
             break;
           case 805:  // hour
             patient.patientonsetage = patient.patientonsetage / 8765.81f;
+            break;
+          default:
+            // do nothing
             break;
         }
         patient.patientonsetageunit = 801;
@@ -446,6 +452,9 @@ public class FaersXmlReader {
             break;
           case 806: // minute
             drug.drugtreatmentduration = drug.drugtreatmentduration / 1440;
+            break;
+          default:
+            // do nothing
             break;
         }
         drug.drugtreatmentdurationunit = 804;
