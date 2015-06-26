@@ -15,15 +15,13 @@
       <div class="form-header">
         <img class="check-meds-header-img" src="images/medical_symbol.png">
         <h2 class="check-meds-header">CHECK MY MEDS</h2>
-        <p>Click the arrow to view a list of popular medications. Then, select the name of the medication you want to
+        <p>Enter a drug name. Then, select the name of the medication you want to
           search.</p>
       </div>
       <fieldset class="search-fields">
         <div class="form-group form-header">
-          <select id="drug-id" class="form-control round" ng-model="drugEvents.drugId"
-                  ng-options="drugId as drugId for drugId in drugEvents.availableDrugIds" required>
-            <option value=""><i>Select Medication</i></option>
-          </select>
+        <input type="text" ng-model="drugEvents.drugId" placeholder="Enter a drug name" typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)" typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false" class="form-control round">
+          <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
         </div>
         <hr>
         <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png">Demographic Details</h2>

@@ -17,36 +17,20 @@
     .factory('DrugEventsService', ['$q', '$resource', function ($q, $resource) {
       var restServerURI = '/rest-api/faers/drugs/:drug';
 
+      var Drugs = $resource(restServerURI);
       var DrugEvents = $resource(restServerURI+'/reactions', {drug: '@drug'});
 
       var Indications = $resource(restServerURI, {drug: '@drug'});
 
       var drugEventsFact = {
         apiKey: '49N1YfEbCwRbQFIgCsSYSIohxMWkMryPpvSgRXbd',
-        searchableDrugIds: Object.freeze([
-          'Abilify',                                
-          'Advil',
-          'Aleve',
-          'Celebrex',
-          'Claritin',
-          'Colace',
-          'Crestor',
-          'Cymbalta',
-          'Diovan',
-          'Dulcolax',
-          'Excedrin',
-          'Gaviscon',
-          'Lantus',
-          'Lotrimin',
-          'Lyrica',
-          'Maalox Antacid',
-          'Midol',
-          'Nexium',
-          'Synthroid',
-          'Vyvanse'
-        ])
+        searchDrugs: searchDrugs
       };
-
+      function searchDrugs(val) {
+    	  return Drugs.query(val).$promise.then(function (response) {
+            return response;
+          });
+      }
       drugEventsFact.searchEvents = function (query) {
         console.log('Query: ' + JSON.stringify(query));
         return DrugEvents.get(query).$promise.then(function (response) {

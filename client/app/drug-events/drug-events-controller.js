@@ -93,6 +93,11 @@
             return '';
         }
       };
+      
+      _this.searchDrugs = function(val) {
+    	  var query = {term:val};
+    	 return  DrugEventsService.searchDrugs(query);
+      };
 
       _this.doSearch = function () {
         _this.runningQuery = true;
