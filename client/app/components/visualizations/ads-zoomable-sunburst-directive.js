@@ -20,8 +20,7 @@
           restrict: 'E',
           scope: {
             data: '=',
-            label: '=',
-            total: '='
+            label: '='
           },
           link: function (scope) {
             var d3 = $window.d3;
@@ -49,7 +48,7 @@
                 case 'Fatal':
                   return '#f2dede';
                 default:
-                  return '#faf0e6';
+                  return '#e6e6fa';
               }
             };
 
