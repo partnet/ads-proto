@@ -1,9 +1,10 @@
-<table class="table table-bordered table-responsive">
+ <p>This list displays a medication, its common side effects, and what happened as a result of those side effects.</p>
+ <table class="table table-bordered table-responsive">
   <thead>
   <tr>
-    <th>Reaction</th>
+    <th>Side Effects</th>
     <th>Total Number of Times Reported</th>
-    <th>Reaction Outcomes</th>
+    <th>Outcome of Side Effects</th>
   </tr>
   <tbody ng-repeat="reaction in drugEvents.searchResults | orderBy:'-count'">
     <tr>
@@ -21,7 +22,7 @@
           <thead>
           <tr>
             <th>Number of Times Reported</th>
-            <th>Reaction Outcome</th>
+            <th>Outcome of Side Effect</th>
           </tr>
           </thead>
           <tbody ng-repeat="outcome in reaction.outcomes">
