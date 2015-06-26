@@ -48,19 +48,23 @@
 
       _this.getOutcomeRowClass = function (term) {
         switch (term) {
-          case 'Recovered/resolved':
-          case 'Determined an unrelated reaction to this event':
+          case 1:
+          case 4:
             return 'success';
-          case 'Recovering/resolving':
+          case 2:
             return 'info';
-          case 'Not recovered/not resolved':
+          case 3:
             return 'warning';
-          case 'Fatal':
+          case 5:
             return 'danger';
           default:
             return '';
         }
       };
+
+      _this.getOutcomeName = function (term) {
+        return DrugEventsService.convertOutcomeTerm(term);
+      }
 
       _this.searchDrugs = function (val) {
         var query = {term: val};
@@ -90,6 +94,7 @@
           reactionQuery.count = 'patient.reaction.reactionoutcome';
           DrugEventsService.searchIndications(drugQuery).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
+            console.log('Results: ' + JSON.stringify(_this.searchResults));
             _this.indicationResults = DrugEventsService.indicationResults;
             _this.numReports = DrugEventsService.numReports;
             _this.aveDuration = DrugEventsService.aveDuration;

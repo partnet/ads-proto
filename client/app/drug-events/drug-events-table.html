@@ -27,7 +27,7 @@
       </td>
     </tr>
     <tr collapse="drugEvents.outcomeExpanded != {{$index}}">
-      <td colspan="3">
+      <td colspan="5">
         <table class="table table-bordered table-responsive">
           <thead>
           <tr>
@@ -35,7 +35,7 @@
             <th>Reaction Outcome</th>
           </tr>
           </thead>
-          <tbody ng-repeat="outcome in reaction.outcomes">
+          <tbody ng-repeat="outcome in reaction.outcomes | orderBy:'-count'">
           <tr class="{{drugEvents.getOutcomeRowClass(outcome.reactionoutcome)}}">
             <td>{{outcome.count}}</td>
             <td>{{drugEvents.getOutcomeName(outcome.reactionoutcome)}}</td>

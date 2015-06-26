@@ -20,23 +20,6 @@
       var DrugEvents = $resource(restServerURI + '/reactions', {drug: '@drug'});
       var Indications = $resource(restServerURI, {drug: '@drug'});
 
-      var convertOutcomeTerm = function (term) {//jshint ignore:line
-        switch (term) {
-          case 1:
-            return 'Recovered/resolved';
-          case 2:
-            return 'Recovering/resolving';
-          case 3:
-            return 'Not recovered/not resolved';
-          case 4:
-            return 'Determined an unrelated reaction to this event';
-          case 5:
-            return 'Fatal';
-          default:
-            return 'Unknown';
-        }
-      };
-
       var drugEventsFact = {
         apiKey: '49N1YfEbCwRbQFIgCsSYSIohxMWkMryPpvSgRXbd',
         searchDrugs: searchDrugs
@@ -56,13 +39,29 @@
       };
 
       drugEventsFact.searchIndications = function (query) {
-        console.log('Query: ' + JSON.stringify(query));
         return Indications.get(query).$promise.then(function (response) {
           drugEventsFact.indicationResults = response.indicationCounts;
           drugEventsFact.aveDuration = response.averageTreatmentDuration;
           drugEventsFact.minDuration = response.minTreatmentDuration;
           drugEventsFact.maxDuration = response.maxTreatmentDuration;
         });
+      };
+
+      drugEventsFact.convertOutcomeTerm = function (term) {//jshint ignore:line
+        switch (term) {
+          case 1:
+            return 'Recovered/resolved';
+          case 2:
+            return 'Recovering/resolving';
+          case 3:
+            return 'Not recovered/not resolved';
+          case 4:
+            return 'Determined an unrelated reaction to this event';
+          case 5:
+            return 'Fatal';
+          default:
+            return 'Unknown';
+        }
       };
 
       drugEventsFact.calculateSVGJson = function (searchResults, drugName) {
