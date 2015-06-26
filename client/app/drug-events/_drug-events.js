@@ -7,7 +7,7 @@
  * @author brandony-pn
  * @name _drug-events.js
  *
- * @description The GSAADSApp application module for submitting drug and user demographic information and displaying
+ * @description The ADSProtoApp application module for submitting drug and user demographic information and displaying
  * drug events related to that submitted data.
  */
 

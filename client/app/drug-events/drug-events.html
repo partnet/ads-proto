@@ -15,15 +15,13 @@
       <div class="form-header">
         <img class="check-meds-header-img" src="images/medical_symbol.png">
         <h2 class="check-meds-header">CHECK MY MEDS</h2>
-        <p>Click the arrow to view a list of popular medications. Then, select the name of the medication you want to
+        <p>Enter a drug name. Then, select the name of the medication you want to
           search.</p>
       </div>
       <fieldset class="search-fields">
         <div class="form-group form-header">
-          <select id="drug-id" class="form-control round" ng-model="drugEvents.drugId"
-                  ng-options="drugId as drugId for drugId in drugEvents.availableDrugIds" required>
-            <option value=""><i>Select Medication</i></option>
-          </select>
+        <input type="text" ng-model="drugEvents.drugId" placeholder="Enter a drug name" typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)" typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false" class="form-control round">
+          <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
         </div>
         <hr>
         <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png">Demographic Details</h2>
@@ -50,7 +48,7 @@
       <div class="btn-holder">
         <button id="reg-button-id" type="submit" class="round center-btn btn btn-primary"
                 ng-disabled="!adeSearchForm.$valid" ng-if="!drugEvents.runningQuery">GO</button>
-        <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Querying...</button>
+        <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Working...</button>
       </div>
       <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}">
         <span>{{alert.msg}}</span>
@@ -77,11 +75,18 @@
         <tab heading="Table">
           <ads-d-e-results-table></ads-d-e-results-table>
         </tab>
-        <tab heading="Reaction to Outcome">
-          <ads-zoom-sunburst data="drugEvents.svgResult"></ads-zoom-sunburst>
+        <tab heading="Reaction to Outcome Breakdown">
+          <div class="text-center">
+            <h3>{{label}}</h3>
+          </div>
+          <div class="text-center">
+            <ads-zoom-sunburst data="drugEvents.svgResult" label="label"></ads-zoom-sunburst>
+          </div>
         </tab>
-        <tab heading="Reaction to Outcome Aggregation">
-          <ads-bubble data="drugEvents.svgResult"></ads-bubble>
+        <tab heading="Event Reaction Breakdown">
+          <div class="text-center">
+            <ads-bubble data="drugEvents.svgBubbleResult"></ads-bubble>
+          </div>
         </tab>
       </tabset>
     </div>

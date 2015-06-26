@@ -30,25 +30,6 @@
         _this.maxDuration = undefined;
       };
 
-      var calculateSVGJson = function (searchResults) {
-        var svgObject = {
-          'name': _this.drugId,
-          'children': searchResults
-        };
-        
-        var svgString = JSON.stringify(svgObject);
-        var termRegEx = new RegExp('"reactionmeddrapt"', 'g');
-        svgString = svgString.replace(termRegEx, '"name"');
-        var outcomeRegEx = new RegExp('"reactionoutcome"', 'g');
-        svgString = svgString.replace(outcomeRegEx, '"name"');
-        var countRegEx = new RegExp('"count"', 'g');
-        svgString = svgString.replace(countRegEx, '"size"');
-        var outcomesRegEx = new RegExp('"outcomes"', 'g');
-        svgString = svgString.replace(outcomesRegEx, '"children"');
-
-        return JSON.parse(svgString);
-      };
-
       var init = function () {
         _this.availableDrugIds = DrugEventsService.searchableDrugIds;
         _this.gender = 1;
@@ -57,28 +38,15 @@
 
       init();
 
-      _this.expandOutcome = function(rowNum){
-        _this.outcomeExpanded = rowNum;
-      };
-
-      _this.getOutcomeName = function(term) {
-        switch (term) {
-          case 1:
-            return 'Recovered/resolved';
-          case 2:
-            return 'Recovering/resolving';
-          case 3:
-            return 'Not recovered/not resolved';
-          case 4:
-            return 'Determined an unrelated reaction to this event';
-          case 5:
-            return 'Fatal';
-          default:
-            return 'Unknown';
+      _this.expandOutcome = function (rowNum) {
+        if (angular.isDefined(_this.outcomeExpanded) && _this.outcomeExpanded === rowNum) {
+          _this.outcomeExpanded = null;
+        } else {
+          _this.outcomeExpanded = rowNum;
         }
       };
 
-      _this.getOutcomeRowClass = function(term) {
+      _this.getOutcomeRowClass = function (term) {
         switch (term) {
           case 1:
           case 4:
@@ -94,36 +62,45 @@
         }
       };
 
+      _this.getOutcomeName = function (term) {
+        return DrugEventsService.convertOutcomeTerm(term);
+      }
+
+      _this.searchDrugs = function (val) {
+        var query = {term: val};
+        return DrugEventsService.searchDrugs(query);
+      };
+
       _this.doSearch = function () {
         _this.runningQuery = true;
         resetSearch();
-        
-        
-        var drugQuery  = {
-    	        drug: _this.drugId.toLowerCase()
+
+
+        var drugQuery = {
+          drug: _this.drugId.toLowerCase()
         };
-        
+
         var reactionQuery = {
-    	        drug: _this.drugId.toLowerCase(),
-    	        'patient.sex': _this.gender,
-    	        'patient.age.low': _this.age - 10 >= 0 ? _this.age - 10 : 0,
-    	        'patient.age.high': _this.age + 10 <= 120 ? _this.age + 10 : 120,
-    	        'patient.weight.low': _this.weight - 10 >= 0 ? _this.weight - 10 : 0, 
-    	        'patient.weight.high': _this.weight + 10
-          };
-        
-     
+          drug: _this.drugId.toLowerCase(),
+          'patient.sex': _this.gender,
+          'patient.age.low': _this.age - 10 >= 0 ? _this.age - 10 : 0,
+          'patient.age.high': _this.age + 10 <= 120 ? _this.age + 10 : 120,
+          'patient.weight.low': _this.weight - 10 >= 0 ? _this.weight - 10 : 0,
+          'patient.weight.high': _this.weight + 10
+        };
+
 
         DrugEventsService.searchEvents(reactionQuery).then(function () {
           reactionQuery.count = 'patient.reaction.reactionoutcome';
           DrugEventsService.searchIndications(drugQuery).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
+            console.log('Results: ' + JSON.stringify(_this.searchResults));
             _this.indicationResults = DrugEventsService.indicationResults;
             _this.numReports = DrugEventsService.numReports;
             _this.aveDuration = DrugEventsService.aveDuration;
             _this.minDuration = DrugEventsService.minDuration;
             _this.maxDuration = DrugEventsService.maxDuration;
-            _this.svgResult = calculateSVGJson(_this.searchResults);
+            _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults);
             _this.runningQuery = false;
           });
         }, function (response) {

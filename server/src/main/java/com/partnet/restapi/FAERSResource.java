@@ -15,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -33,8 +35,29 @@ public class FAERSResource
   @GET
 	@Path("/drugs")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getDrugs() {
-    String drugs = searchClient.getDrugs();
+	public Response getDrugs(@QueryParam("term") String term) {
+    //String drugs = searchClient.getDrugs();
+    String[] drugs =  new String[]{"Abilify",                                
+        "Advil",
+        "Aleve",
+        "Celebrex",
+        "Claritin",
+        "Colace",
+        "Crestor",
+        "Cymbalta",
+        "Diovan",
+        "Dulcolax",
+        "Excedrin",
+        "Gaviscon",
+        "Lantus",
+        "Lotrimin",
+        "Lyrica",
+        "Maalox Antacid",
+        "Midol",
+        "Nexium",
+        "Synthroid",
+        "Vyvanse"};
+    drugs = Arrays.stream(drugs).filter(x -> x.contains(term)).toArray(String[]::new);
     return Response.ok(new Gson().toJson(drugs)).build();
   }
 

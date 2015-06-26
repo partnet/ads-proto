@@ -19,47 +19,37 @@
         return {
           restrict: 'E',
           scope: {
-            data: '=',
-            label: '@',
-            onClick: '&'
+            data: '='
           },
           link: function (scope) {
             var d3 = $window.d3;
 
             var diameter = 480,
-              format = d3.format(",d"),
-              color = d3.scale.category20c();
+              format = d3.format(',d');
+
+            var color = d3.scale.category20c();
 
             var bubble = d3.layout.pack()
               .sort(null)
               .size([diameter, diameter])
               .padding(1.5);
 
-            var svg = d3.select("ads-bubble").append("svg")
-              .attr("width", diameter)
-              .attr("height", diameter)
-              .attr("class", "bubble");
+            var svg = d3.select('ads-bubble').append('svg')
+              .attr('width', diameter)
+              .attr('height', diameter)
+              .attr('class', 'bubble');
 
             $window.onresize = function () {
               scope.$apply();
             };
 
-            //scope.$watch(function () {
-            //  return angular.element($window)[0].innerWidth;
-            //}, function () {
-            //  scope.render(scope.data);
-            //});
-            //
-            //scope.$watch('data', function (newData) {
-            //  scope.render(newData);
-            //}, true);
-
-            // Returns a flattened hierarchy containing all leaf nodes under the root.
             var classes = function (root) {
               var classes = [];
 
               function recurse(name, node) {
-                if (node.children) node.children.forEach(function(child) { recurse(node.name, child); });
+                if (node.children) node.children.forEach(function (child) {
+                  recurse(node.name, child);
+                });
                 else classes.push({packageName: name, className: node.name, value: node.size});
               }
 
@@ -68,25 +58,36 @@
             };
 
             scope.render = function (data) {
-              var node = svg.selectAll(".node")
+              var node = svg.selectAll('.node')
                 .data(bubble.nodes(classes(data))
-                  .filter(function(d) { return !d.children; }))
-                .enter().append("g")
-                .attr("class", "node")
-                .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+                  .filter(function (d) {
+                    return !d.children;
+                  }))
+                .enter().append('g')
+                .attr('class', 'node')
+                .attr('transform', function (d) {
+                  return 'translate(' + d.x + ',' + d.y + ')';
+                });
 
-              node.append("title")
-                .text(function(d) { return d.className + ": " + format(d.value); });
+              node.append('title')
+                .text(function (d) {
+                  return d.className + ': ' + format(d.value);
+                });
 
-              node.append("circle")
-                .attr("r", function(d) { return d.r; })
-                .style("fill", function(d) { return color(d.packageName); });
+              node.append('circle')
+                .attr('r', function (d) {
+                  return d.r;
+                })
+                .style('fill', function (d) {
+                  return color(d.className);
+                });
 
-              node.append("text")
-                .attr("dy", ".3em")
-                .style("text-anchor", "middle")
-                .text(function(d) { 
-                	return d.className.substring(0, d.r / 3); });
+              node.append('text')
+                .attr('dy', '.3em')
+                .style('text-anchor', 'middle')
+                .text(function (d) {
+                  return d.className.substring(0, d.r / 3);
+                });
             };
 
             scope.render(scope.data);
