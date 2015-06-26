@@ -47,7 +47,7 @@
         });
       };
 
-      drugEventsFact.convertOutcomeTerm = function (term) {//jshint ignore:line
+      drugEventsFact.convertOutcomeTerm = function (term) {
         switch (term) {
           case 1:
             return 'Recovered/resolved';
@@ -70,12 +70,14 @@
           'children': searchResults
         };
 
-        var termRegEx = new RegExp('"term"', 'g');
+        var termRegEx = new RegExp('"reactionmeddrapt"', 'g');
         var countRegEx = new RegExp('"count"', 'g');
         var outcomesRegEx = new RegExp('"outcomes"', 'g');
+        var reactionoutcomeRegEx = new RegExp('"reactionoutcome"', 'g');
 
         var svgString = JSON.stringify(svgObject).replace(termRegEx, '"name"').replace(countRegEx,
-          '"size"').replace(outcomesRegEx, '"children"');
+          '"size"').replace(outcomesRegEx, '"children"').replace(reactionoutcomeRegEx, '"name"');
+        console.log('SVG json: ' + svgString);
 
         return JSON.parse(svgString);
       };

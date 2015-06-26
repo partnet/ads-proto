@@ -94,13 +94,12 @@
           reactionQuery.count = 'patient.reaction.reactionoutcome';
           DrugEventsService.searchIndications(drugQuery).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
-            console.log('Results: ' + JSON.stringify(_this.searchResults));
             _this.indicationResults = DrugEventsService.indicationResults;
             _this.numReports = DrugEventsService.numReports;
             _this.aveDuration = DrugEventsService.aveDuration;
             _this.minDuration = DrugEventsService.minDuration;
             _this.maxDuration = DrugEventsService.maxDuration;
-            _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults);
+            _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults, _this.drugId);
             _this.runningQuery = false;
           });
         }, function (response) {

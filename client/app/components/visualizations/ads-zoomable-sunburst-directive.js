@@ -36,19 +36,37 @@
               .range([0, radius]);
 
             var nodeColor = d3.scale.category20c();
+
             var leafColor = function (name) {
               switch (name) {
-                case 'Recovered/resolved':
-                case 'Determined an unrelated reaction to this event':
+                case 1:
+                case 4:
                   return '#dff0d8';
-                case 'Recovering/resolving':
+                case 2:
                   return '#d9edf7';
-                case 'Not recovered/not resolved':
+                case 3:
                   return '#fcf8e3';
-                case 'Fatal':
+                case 5:
                   return '#f2dede';
                 default:
                   return '#e6e6fa';
+              }
+            };
+
+            var outcomeName = function (term) {
+              switch (term) {
+                case 1:
+                  return 'Recovered/resolved';
+                case 2:
+                  return 'Recovering/resolving';
+                case 3:
+                  return 'Not recovered/not resolved';
+                case 4:
+                  return 'Determined an unrelated reaction to this event';
+                case 5:
+                  return 'Fatal';
+                default:
+                  return 'Unknown';
               }
             };
 
@@ -134,9 +152,9 @@
                   .attrTween('d', arcTweenZoom(d));
 
                 if (d.size && !d.children) {
-                  scope.label = d.size + ' ' + d.name + ' reaction outcomes';
+                  scope.label = d.size + ' ' + outcomeName(d.name) + ' reaction outcomes';
                 } else if (d.parent) {
-                  scope.label = d.children.length + ' reactions reported for ' + d.name;
+                  scope.label = d.size + ' reactions reported for ' + d.name;
                 } else {
                   scope.label = d.name;
                 }
