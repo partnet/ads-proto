@@ -77,13 +77,18 @@
         </tab>
         <tab heading="Side Effects and Outcomes Interactive Graphic">
           <div class="text-center">
-            <h3>{{label}}</h3>
+            <h4>This starburst interactive graphic displays a medication, its common side effects, and what happened as a result of those side effects.</h4>
           </div>
           <div class="text-center">
-            <ads-zoom-sunburst data="drugEvents.svgResult" label="label"></ads-zoom-sunburst>
+            <h2 ng-if="node.isRoot">{{node.label}}</h2>
+            <h2 ng-if="node.isLeaf">{{node.size}} {{node.label}} reaction outcomes</h2>
+            <h2 ng-if="!node.isLeaf && !node.isRoot">{{node.size}} reactions reported for {{node.label}}</h2>
+          </div>
+          <div class="text-center">
+            <ads-zoom-sunburst data="drugEvents.svgResult" node="node"></ads-zoom-sunburst>
           </div>
         </tab>
-        <tab heading="Event Reaction Breakdown">
+        <tab heading="Most Common Side Effects Graphic">
           <div class="text-center">
             <ads-bubble data="drugEvents.svgBubbleResult"></ads-bubble>
           </div>

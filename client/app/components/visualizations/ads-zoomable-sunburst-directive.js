@@ -20,7 +20,7 @@
           restrict: 'E',
           scope: {
             data: '=',
-            label: '='
+            node: '='
           },
           link: function (scope) {
             var d3 = $window.d3;
@@ -121,6 +121,11 @@
 
             var render = function (root) {
               node = root;
+              scope.node = {
+                label: root.name,
+                isLeaf: false,
+                isRoot: true
+              };
 
               var g = svg.selectAll('g')
                 .data(partition.value(function (d) {
@@ -152,11 +157,25 @@
                   .attrTween('d', arcTweenZoom(d));
 
                 if (d.size && !d.children) {
-                  scope.label = d.size + ' ' + outcomeName(d.name) + ' reaction outcomes';
+                  scope.node = {
+                    label: d.name,
+                    size: d.size,
+                    isLeaf: true,
+                    isRoot: false
+                  };
                 } else if (d.parent) {
-                  scope.label = d.size + ' reactions reported for ' + d.name;
+                  scope.node = {
+                    label: d.name,
+                    size: d.size,
+                    isLeaf: false,
+                    isRoot: false
+                  };
                 } else {
-                  scope.label = d.name;
+                  scope.node = {
+                    label: d.name,
+                    isLeaf: false,
+                    isRoot: true
+                  };
                 }
 
                 scope.$apply();
