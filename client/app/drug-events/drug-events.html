@@ -74,10 +74,10 @@
   <div class="col-sm-8 col-md-9" ng-if="drugEvents.svgResult">
     <div class="results">
       <tabset justified="true">
-        <tab heading="Table">
+        <tab heading="Side Effects and Outcomes List">
           <ads-d-e-results-table></ads-d-e-results-table>
         </tab>
-        <tab heading="Reaction to Outcome Breakdown">
+        <tab heading="Side Effects and Outcomes Interactive Graphic">
           <div class="text-center">
             <h3>{{label}}</h3>
           </div>
@@ -85,7 +85,7 @@
             <ads-zoom-sunburst data="drugEvents.svgResult" label="label"></ads-zoom-sunburst>
           </div>
         </tab>
-        <tab heading="Event Reaction Breakdown">
+        <tab heading="Most Common Side Effects Graphic">
           <div class="text-center">
             <ads-bubble data="drugEvents.svgBubbleResult"></ads-bubble>
           </div>
