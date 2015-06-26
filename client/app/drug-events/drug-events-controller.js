@@ -86,6 +86,13 @@
           DrugEventsService.calculateReactionOutcomes(query).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
             _this.svgResult = DrugEventsService.calculateSVGJson(angular.copy(_this.searchResults), _this.drugId);
+
+            var sbr = angular.copy(_this.svgResult);
+            Object.keys(sbr.children).map(function (key) {
+              delete sbr.children[key].children;
+            });
+            _this.svgBubbleResult = sbr;
+            console.log('Bubble Results: ' + JSON.stringify(_this.svgBubbleResult));
             _this.runningQuery = false;
           });
         }, function (response) {

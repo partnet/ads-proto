@@ -40,7 +40,7 @@
         thisQuery.search += '+AND+patient.reaction.reactionmeddrapt:"' + drugEventsFact.reactionResults[index].term + '"';
         delete thisQuery.limit;
 
-        DrugEvents.get(angular.copy(thisQuery)).$promise.then(function (response) {
+        DrugEvents.get(thisQuery).$promise.then(function (response) {
           drugEventsFact.reactionResults[index].outcomes = response.results;
 
           var outcomes = 0;
@@ -133,7 +133,6 @@
       };
 
       drugEventsFact.searchEvents = function (query) {
-        console.log('Query: ' + JSON.stringify(query));
         return DrugEvents.get(query).$promise.then(function (response) {
           drugEventsFact.reactionResults = response.results;
         });
@@ -160,8 +159,6 @@
 
         var svgString = JSON.stringify(svgObject).replace(termRegEx, '"name"').replace(countRegEx,
           '"size"').replace(outcomesRegEx, '"children"');
-
-        console.log('SVG Result: ' + svgString);
 
         return JSON.parse(svgString);
       };
