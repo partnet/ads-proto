@@ -20,7 +20,7 @@
       var DrugEvents = $resource(restServerURI + '/reactions', {drug: '@drug'});
       var Indications = $resource(restServerURI, {drug: '@drug'});
 
-      var convertOutcomeTerm = function (term) {
+      var convertOutcomeTerm = function (term) {//jshint ignore:line
         switch (term) {
           case 1:
             return 'Recovered/resolved';

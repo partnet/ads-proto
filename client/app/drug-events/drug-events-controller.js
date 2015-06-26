@@ -95,7 +95,7 @@
             _this.aveDuration = DrugEventsService.aveDuration;
             _this.minDuration = DrugEventsService.minDuration;
             _this.maxDuration = DrugEventsService.maxDuration;
-            _this.svgResult = calculateSVGJson(_this.searchResults);
+            _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults);
             _this.runningQuery = false;
           });
         }, function (response) {
