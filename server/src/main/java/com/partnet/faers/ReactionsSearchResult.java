@@ -72,7 +72,7 @@ public class ReactionsSearchResult
     /**
      * The proportional reporting ratio (PRR) is a simple way to get a measure of how common an adverse event 
      * for a particular drug is compared to how common the event is in the overall database.
-     * A PRR > 1 for a drug-event combination indicates that a greater proportion of the reports for the drug are for the 
+     * A PRR &gt; 1 for a drug-event combination indicates that a greater proportion of the reports for the drug are for the
      * event than the proportion of events in the rest of the database. 
      * 
      * For example, a PRR of 2 for a drug event combination indicates that the proportion of reports for the drug-event 
@@ -107,7 +107,7 @@ public class ReactionsSearchResult
      * @param numReportsDrug n = #reports with drug
      * @param numReportsEvent M = #reports with event in database
      * @param numReports N = #reports in database
-     * 
+     * @return ROR
      */
     protected final Double computeROR(double numReportsDrugEvent,double numReportsDrug, double numReportsEvent, double numReports)
     {
