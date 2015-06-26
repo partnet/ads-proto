@@ -15,3 +15,4 @@ fta/target/
 fta/selenium-drivers
 .settings
 .vagrant
+build/
