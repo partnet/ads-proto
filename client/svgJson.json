@@ -1,0 +1,2907 @@
+{
+  "name": "Advil",
+  "children": [
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 4
+        }
+      ],
+      "name": "Pain",
+      "size": 17,
+      "numReportsEvent": 1815,
+      "prr": 1.261059140637387,
+      "ror": 1.3023875114784205
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 3
+        },
+        {
+          "size": 2
+        },
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Nausea",
+      "size": 12,
+      "numReportsEvent": 681,
+      "prr": 1.5537973137973138,
+      "ror": 1.5876651982378855
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 3
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Overdose",
+      "size": 10,
+      "numReportsEvent": 211,
+      "prr": 5.116161886893595,
+      "ror": 5.281405073877893
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        },
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Fatigue",
+      "size": 10,
+      "numReportsEvent": 598,
+      "prr": 1.4738802512832867,
+      "ror": 1.4972388582095355
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 2
+        },
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Vomiting",
+      "size": 10,
+      "numReportsEvent": 531,
+      "prr": 1.6616178498307774,
+      "ror": 1.693491875793807
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 3
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Insomnia",
+      "size": 9,
+      "numReportsEvent": 317,
+      "prr": 2.8013172724711186,
+      "ror": 2.8759812192795833
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Diarrhoea",
+      "size": 8,
+      "numReportsEvent": 643,
+      "prr": 1.0942234604206438,
+      "ror": 1.0979424751077027
+    },
+    {
+      "children": [
+        {
+          "size": 2
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Anaemia",
+      "size": 8,
+      "numReportsEvent": 516,
+      "prr": 1.3656421703296704,
+      "ror": 1.379488550298494
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 2
+        },
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Dizziness",
+      "size": 8,
+      "numReportsEvent": 550,
+      "prr": 1.280602181701083,
+      "ror": 1.2913688610240335
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 4
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 2
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Drug ineffective",
+      "size": 7,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Haemorrhage",
+      "size": 6,
+      "numReportsEvent": 883,
+      "prr": 0.9954567073018098,
+      "ror": 0.9952197845610893
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 2
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Pruritus",
+      "size": 6,
+      "numReportsEvent": 390,
+      "prr": 1.355055796916262,
+      "ror": 1.3643356643356643
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Pyrexia",
+      "size": 6,
+      "numReportsEvent": 548,
+      "prr": 0.9622139328561348,
+      "ror": 0.9611396814863967
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Malaise",
+      "size": 6,
+      "numReportsEvent": 411,
+      "prr": 1.2853102779573369,
+      "ror": 1.292883211678832
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Infection",
+      "size": 6,
+      "numReportsEvent": 783,
+      "prr": 1.1234074408881607,
+      "ror": 1.1297484332769017
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 2
+        },
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Muscle spasms",
+      "size": 4,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 4
+        }
+      ],
+      "name": "Poor quality drug administered",
+      "size": 4,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        }
+      ],
+      "name": "Hyperhidrosis",
+      "size": 4,
+      "numReportsEvent": 182,
+      "prr": 1.9422466422466425,
+      "ror": 1.9528336831707618
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 2
+        },
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Throat irritation",
+      "size": 4,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Somnolence",
+      "size": 4,
+      "numReportsEvent": 236,
+      "prr": 1.4940358786512633,
+      "ror": 1.500856979622929
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Arthralgia",
+      "size": 4,
+      "numReportsEvent": 314,
+      "prr": 1.1205269089884475,
+      "ror": 1.1224504401345452
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Dehydration",
+      "size": 4,
+      "numReportsEvent": 222,
+      "prr": 1.5891108891108892,
+      "ror": 1.5969227654620912
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        }
+      ],
+      "name": "Hypoaesthesia",
+      "size": 4,
+      "numReportsEvent": 186,
+      "prr": 1.900023889154324,
+      "ror": 1.91035399299263
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Asthenia",
+      "size": 4,
+      "numReportsEvent": 419,
+      "prr": 0.8383798455740902,
+      "ror": 0.835536724678877
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 4
+        }
+      ],
+      "name": "Product physical issue",
+      "size": 4,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Retching",
+      "size": 4,
+      "numReportsEvent": 26,
+      "prr": 14.566849816849818,
+      "ror": 13.80466724286949
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Neutropenia",
+      "size": 3,
+      "numReportsEvent": 248,
+      "prr": 1.4211560796926652,
+      "ror": 1.4271475172163826
+    },
+    {
+      "children": [
+        {
+          "size": 2
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Acute kidney injury",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Weight decreased",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 3
+        }
+      ],
+      "name": "Drug ineffective for unapproved indication",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 2
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Musculoskeletal stiffness",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "White blood cell count decreased",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Muscular weakness",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 2
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Atrial fibrillation",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 2
+        },
+        {
+          "size": 1
+        }
+      ],
+      "name": "Back pain",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Tachycardia",
+      "size": 3,
+      "numReportsEvent": 211,
+      "prr": 1.672748304327252,
+      "ror": 1.6813461845678683
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Off label use",
+      "size": 3,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Anxiety",
+      "size": 2,
+      "numReportsEvent": 276,
+      "prr": 0.6356443556443557,
+      "ror": 0.6329307568438003
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Cystitis",
+      "size": 2,
+      "numReportsEvent": 33,
+      "prr": 5.462568681318682,
+      "ror": 5.375420875420875
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Haemodialysis",
+      "size": 2,
+      "numReportsEvent": 15,
+      "prr": 12.485871271585559,
+      "ror": 11.83925925925926
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Epistaxis",
+      "size": 2,
+      "numReportsEvent": 110,
+      "prr": 1.603689888093558,
+      "ror": 1.604848484848485
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Hyponatraemia",
+      "size": 2,
+      "numReportsEvent": 123,
+      "prr": 1.432804900018015,
+      "ror": 1.434056007226739
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 4,
+          "size": 1
+        }
+      ],
+      "name": "Accident",
+      "size": 2,
+      "numReportsEvent": 236,
+      "prr": 0.7438391395838204,
+      "ror": 0.742090395480226
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        }
+      ],
+      "name": "Condition aggravated",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Pneumonia",
+      "size": 2,
+      "numReportsEvent": 551,
+      "prr": 0.31782217782217786,
+      "ror": 0.3114942528735632
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Dyspepsia",
+      "size": 2,
+      "numReportsEvent": 110,
+      "prr": 1.603689888093558,
+      "ror": 1.604848484848485
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Rhinorrhoea",
+      "size": 2,
+      "numReportsEvent": 45,
+      "prr": 3.972777222777223,
+      "ror": 3.9390123456790125
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Product coating issue",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Urinary tract infection",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Amnesia",
+      "size": 2,
+      "numReportsEvent": 70,
+      "prr": 2.5333651855390986,
+      "ror": 2.5282539682539684
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Glossodynia",
+      "size": 2,
+      "numReportsEvent": 18,
+      "prr": 10.282482223658695,
+      "ror": 9.864197530864198
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Nephrocalcinosis",
+      "size": 2,
+      "numReportsEvent": 2,
+      "prr": 174.8021978021978,
+      "ror": 88.86666666666666
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Cellulitis",
+      "size": 2,
+      "numReportsEvent": 83,
+      "prr": 2.1317341195389976,
+      "ror": 2.1305220883534135
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        }
+      ],
+      "name": "Drug effect delayed",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Foreign body",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Hyperkalaemia",
+      "size": 2,
+      "numReportsEvent": 86,
+      "prr": 2.056496444731739,
+      "ror": 2.0558139534883724
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Leukocytosis",
+      "size": 2,
+      "numReportsEvent": 38,
+      "prr": 4.724383724383724,
+      "ror": 4.666666666666666
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Poisoning",
+      "size": 2,
+      "numReportsEvent": 17,
+      "prr": 10.925137362637363,
+      "ror": 10.445098039215686
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Decreased appetite",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Rash",
+      "size": 2,
+      "numReportsEvent": 578,
+      "prr": 0.30295008284609676,
+      "ror": 0.2964244521337947
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Haemoglobin decreased",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Haematochezia",
+      "size": 2,
+      "numReportsEvent": 70,
+      "prr": 2.5333651855390986,
+      "ror": 2.5282539682539684
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Chondroma",
+      "size": 2,
+      "numReportsEvent": 1,
+      "prr": 0,
+      "ror": 177.74444444444444
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        }
+      ],
+      "name": "Intentional product misuse",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Rhinitis",
+      "size": 2,
+      "numReportsEvent": 17,
+      "prr": 10.925137362637363,
+      "ror": 10.445098039215686
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Disorientation",
+      "size": 2,
+      "numReportsEvent": 62,
+      "prr": 2.86560980003603,
+      "ror": 2.8559139784946237
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Gastric ulcer",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Osteonecrosis of jaw",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Sneezing",
+      "size": 2,
+      "numReportsEvent": 16,
+      "prr": 11.653479853479855,
+      "ror": 11.098611111111113
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Presyncope",
+      "size": 2,
+      "numReportsEvent": 48,
+      "prr": 3.7191956979191025,
+      "ror": 3.6921296296296298
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Urticaria",
+      "size": 2,
+      "numReportsEvent": 165,
+      "prr": 1.0658670597694988,
+      "ror": 1.0661952861952861
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Melaena",
+      "size": 2,
+      "numReportsEvent": 61,
+      "prr": 2.9133699633699637,
+      "ror": 2.9029143897996357
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Product taste abnormal",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Upper gastrointestinal haemorrhage",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 2
+        }
+      ],
+      "name": "Oral discomfort",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 2
+        }
+      ],
+      "name": "Abdominal pain upper",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Pollakiuria",
+      "size": 2,
+      "numReportsEvent": 82,
+      "prr": 2.1580518247184917,
+      "ror": 2.1566395663956643
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Hyperlipidaemia",
+      "size": 2,
+      "numReportsEvent": 16,
+      "prr": 11.653479853479855,
+      "ror": 11.098611111111113
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Syncope",
+      "size": 2,
+      "numReportsEvent": 170,
+      "prr": 1.0343325313739515,
+      "ror": 1.0345098039215688
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Bronchitis",
+      "size": 2,
+      "numReportsEvent": 80,
+      "prr": 2.212686048129086,
+      "ror": 2.2108333333333334
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Dyskinesia",
+      "size": 2,
+      "numReportsEvent": 56,
+      "prr": 3.1782217782217783,
+      "ror": 3.163095238095238
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Dysgeusia",
+      "size": 2,
+      "numReportsEvent": 69,
+      "prr": 2.5706205559146738,
+      "ror": 2.565056360708535
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Gastrooesophageal reflux disease",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Fear",
+      "size": 2,
+      "numReportsEvent": 43,
+      "prr": 4.161957090528519,
+      "ror": 4.122739018087856
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Haematuria",
+      "size": 2,
+      "numReportsEvent": 63,
+      "prr": 2.8193902871322227,
+      "ror": 2.810405643738977
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Bronchospasm",
+      "size": 2,
+      "numReportsEvent": 26,
+      "prr": 6.9920879120879125,
+      "ror": 6.825641025641026
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Dysphagia",
+      "size": 2,
+      "numReportsEvent": 116,
+      "prr": 1.5200191113234593,
+      "ror": 1.521264367816092
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Seizure",
+      "size": 2,
+      "numReportsEvent": 284,
+      "prr": 0.6176756106084729,
+      "ror": 0.6147887323943663
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Constipation",
+      "size": 2,
+      "numReportsEvent": 190,
+      "prr": 0.9248793534507821,
+      "ror": 0.9244444444444444
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Thrombocytopenia",
+      "size": 2,
+      "numReportsEvent": 210,
+      "prr": 0.836374152163626,
+      "ror": 0.8353439153439154
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Miliaria",
+      "size": 2,
+      "numReportsEvent": 2,
+      "prr": 174.8021978021978,
+      "ror": 88.86666666666666
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Fall",
+      "size": 2,
+      "numReportsEvent": 331,
+      "prr": 0.5297036297036297,
+      "ror": 0.5259147364887546
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Palpitations",
+      "size": 2,
+      "numReportsEvent": 97,
+      "prr": 1.8208562271062272,
+      "ror": 1.8214203894616268
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Entropion",
+      "size": 2,
+      "numReportsEvent": 3,
+      "prr": 87.4010989010989,
+      "ror": 59.24074074074074
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Stevens-Johnson syndrome",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Oropharyngeal pain",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Hallucination",
+      "size": 2,
+      "numReportsEvent": 148,
+      "prr": 1.1891305972938628,
+      "ror": 1.18993993993994
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Dyspnoea",
+      "size": 2,
+      "numReportsEvent": 759,
+      "prr": 0.23060975963350636,
+      "ror": 0.22308593178158398
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Flatulence",
+      "size": 2,
+      "numReportsEvent": 52,
+      "prr": 3.4274940745528983,
+      "ror": 3.407264957264957
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Hospitalisation",
+      "size": 2,
+      "numReportsEvent": 23,
+      "prr": 7.945554445554446,
+      "ror": 7.717391304347826
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Hypotension",
+      "size": 2,
+      "numReportsEvent": 342,
+      "prr": 0.5126164158422223,
+      "ror": 0.508641975308642
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Trichiasis",
+      "size": 2,
+      "numReportsEvent": 2,
+      "prr": 174.8021978021978,
+      "ror": 88.86666666666666
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        },
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Respiratory tract congestion",
+      "size": 2,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Dysuria",
+      "size": 2,
+      "numReportsEvent": 71,
+      "prr": 2.4971742543171116,
+      "ror": 2.4924882629107983
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Drug screen positive",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Gastric disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Interstitial lung disease",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Drug interaction",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Middle insomnia",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Drug administered to patient of inappropriate age",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Platelet count decreased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 5,
+          "size": 1
+        }
+      ],
+      "name": "Renal failure",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Accidental overdose",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Alcohol use",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Potentiating drug interaction",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Bladder neck obstruction",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Clostridium difficile infection",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Lactic acidosis",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Drug dose omission",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Eye oedema",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Pulmonary embolism",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Toxic epidermal necrolysis",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Dry eye",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Feeling abnormal",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Anorectal discomfort",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Peripheral swelling",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Blood bilirubin increased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Chronic lymphocytic leukaemia",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Abdominal infection",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Mental status changes",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Haemolytic anaemia",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Gingival bleeding",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Tongue haemorrhage",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Blood pressure increased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Visual impairment",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Influenza like illness",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Leukaemoid reaction",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Atrial tachycardia",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Blood disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Multiple sclerosis relapse",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Febrile neutropenia",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Gastrointestinal disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Feeding disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Product size issue",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Acute phosphate nephropathy",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Staphylococcal sepsis",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Heart rate increased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Gastroenteritis viral",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 4,
+          "size": 1
+        }
+      ],
+      "name": "Tendon injury",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Prescribed overdose",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Pre-existing condition improved",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Gastritis erosive",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Peritonsillar abscess",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Intestinal haemorrhage",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Face oedema",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Abdominal pain",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Blood potassium decreased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Alanine aminotransferase increased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Loss of employment",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 5,
+          "size": 1
+        }
+      ],
+      "name": "Disseminated intravascular coagulation",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Localised oedema",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Oedema peripheral",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Accidental exposure to product by child",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Product substitution issue",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Musculoskeletal pain",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Withdrawal syndrome",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Vitreous floaters",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Gait disturbance",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 5,
+          "size": 1
+        }
+      ],
+      "name": "Tumour lysis syndrome",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Speech disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Septic shock",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Memory impairment",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Hepatic infection",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Pulmonary mass",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Helicobacter test positive",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Multiple sclerosis",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Swollen tongue",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Metastases to central nervous system",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Peripheral sensory neuropathy",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Thrombophlebitis septic",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Drug prescribing error",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Coronary artery occlusion",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Painful defaecation",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Squamous cell carcinoma",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Blindness unilateral",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Osteomyelitis bacterial",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Ocular icterus",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Burn oesophageal",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Therapeutic response decreased",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Cerebral arteriovenous malformation haemorrhagic",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Ocular hyperaemia",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Psychotic disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Product colour issue",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Radiation necrosis",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Oesophageal pain",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Malignant melanoma",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Circadian rhythm sleep disorder",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 1,
+          "size": 1
+        }
+      ],
+      "name": "Throat tightness",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Disturbance in attention",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Liver function test abnormal",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Dry mouth",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Feeling hot",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Drug effect incomplete",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Confusional state",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 2,
+          "size": 1
+        }
+      ],
+      "name": "Vascular headache",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 6,
+          "size": 1
+        }
+      ],
+      "name": "Incorrect product storage",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "White blood cells urine",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "reactionoutcome": 3,
+          "size": 1
+        }
+      ],
+      "name": "Joint swelling",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    },
+    {
+      "children": [
+        {
+          "size": 1
+        }
+      ],
+      "name": "Product quality issue",
+      "size": 1,
+      "numReportsEvent": 0,
+      "prr": 0,
+      "ror": 0
+    }
+  ]
+}

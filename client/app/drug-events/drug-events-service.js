@@ -77,7 +77,6 @@
 
         var svgString = JSON.stringify(svgObject).replace(termRegEx, '"name"').replace(countRegEx,
           '"size"').replace(outcomesRegEx, '"children"').replace(reactionoutcomeRegEx, '"name"');
-        console.log('SVG json: ' + svgString);
 
         return JSON.parse(svgString);
       };
