@@ -64,7 +64,7 @@
 
       _this.getOutcomeName = function (term) {
         return DrugEventsService.convertOutcomeTerm(term);
-      }
+      };
 
       _this.searchDrugs = function (val) {
         var query = {term: val};
