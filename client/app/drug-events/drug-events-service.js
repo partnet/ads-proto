@@ -154,10 +154,6 @@
           'children': searchResults
         };
 
-        Object.keys(svgObject.children).map(function (key) {
-          delete svgObject.children[key].count;
-        });
-
         var termRegEx = new RegExp('"term"', 'g');
         var countRegEx = new RegExp('"count"', 'g');
         var outcomesRegEx = new RegExp('"outcomes"', 'g');

@@ -78,7 +78,12 @@
           <ads-d-e-results-table></ads-d-e-results-table>
         </tab>
         <tab heading="Reaction to Outcome">
-          <ads-zoom-sunburst data="drugEvents.svgResult"></ads-zoom-sunburst>
+          <div class="text-center">
+            <h3>{{label}}</h3>
+          </div>
+          <div class="text-center">
+            <ads-zoom-sunburst data="drugEvents.svgResult" label="label"></ads-zoom-sunburst>
+          </div>
         </tab>
         <tab heading="Reaction to Outcome Aggregation">
           <ads-bubble data="drugEvents.svgResult"></ads-bubble>
