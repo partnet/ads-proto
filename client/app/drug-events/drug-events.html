@@ -73,11 +73,14 @@
     <div class="results">
       <tabset justified="true">
         <tab heading="Side Effects and Outcomes List">
+          <div class="tab-instructions">
+            <p>This list displays a medication, its common side effects, and what happened as a result of those side effects.</p>
+          </div>
           <ads-d-e-results-table></ads-d-e-results-table>
         </tab>
         <tab heading="Side Effects and Outcomes Interactive Graphic">
-          <div class="text-center">
-            <h4>This starburst interactive graphic displays a medication, its common side effects, and what happened as a result of those side effects.</h4>
+          <div class="tab-instructions">
+            <p>This starburst interactive graphic displays a medication, its common side effects, and what happened as a result of those side effects.</p>
           </div>
           <div class="text-center">
             <h2 ng-if="node.isRoot">{{node.label}}</h2>
@@ -89,6 +92,9 @@
           </div>
         </tab>
         <tab heading="Most Common Side Effects Graphic">
+          <div class="tab-instructions">
+            <p>This bubble graphic displays the most common side effects from taking this medication. Larger bubbles indicate a more frequent occurrence of the side effect.</p>
+          </div>
           <div class="text-center">
             <ads-bubble data="drugEvents.svgBubbleResult"></ads-bubble>
           </div>
