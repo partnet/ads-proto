@@ -29,6 +29,7 @@ describe('drug-events-controller', function () {
       deferred.resolve();
       return deferred.promise;
     },
+    calculateSVGJson: function () {},
     reactionResults: [{term: 'DISEASE', count: 9000}]
   };
 
