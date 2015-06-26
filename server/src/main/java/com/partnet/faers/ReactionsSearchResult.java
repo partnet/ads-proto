@@ -88,9 +88,8 @@ public class ReactionsSearchResult
     protected final Double computePRR(double numReportsDrugEvent, double numReportsDrug, double numReportsEvent, double numReports)
     {
       if(numReportsDrug == 0 || numReports == numReportsDrug || numReportsEvent == numReportsDrugEvent) return 0d;
-      
-      double prr = (numReportsDrugEvent / numReportsDrug) / ((numReportsEvent - numReportsDrugEvent) / (numReports - numReportsDrug));
-      return prr;
+
+      return (numReportsDrugEvent / numReportsDrug) / ((numReportsEvent - numReportsDrugEvent) / (numReports - numReportsDrug));
     }
     
     
@@ -114,8 +113,7 @@ public class ReactionsSearchResult
       double d = numReportsDrug - numReportsDrugEvent;
       double D = numReports - numReportsEvent;
       if(d == 0 || D == 0  || numReportsEvent == 0) return 0d;
-      double ror = (numReportsDrugEvent / d) / (numReportsEvent / D);
-      return ror;
+      return (numReportsDrugEvent / d) / (numReportsEvent / D);
     }
 
     public String getReactionmeddrapt() {
