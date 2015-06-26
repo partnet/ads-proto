@@ -10,7 +10,8 @@
       <td>{{reaction.term}}</td>
       <td>{{reaction.count}}</td>
       <td>
-        <button class="btn btn-primary btn-lg" ng-click="drugEvents.expandOutcome($index)"
+        <button class="btn btn-primary btn-outcome center-btn"
+                ng-click="drugEvents.expandOutcome($index)"
                 ng-if="reaction.outcomes.length">{{reaction.outcomes.length}}</button>
       </td>
     </tr>
