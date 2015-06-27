@@ -13,6 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,28 +37,9 @@ public class FAERSResource
 	@Path("/drugs")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getDrugs(@QueryParam("term") String term) {
-    //String drugs = searchClient.getDrugs();
-    String[] drugs =  new String[]{"Abilify",                                
-        "Advil",
-        "Aleve",
-        "Celebrex",
-        "Claritin",
-        "Colace",
-        "Crestor",
-        "Cymbalta",
-        "Diovan",
-        "Dulcolax",
-        "Excedrin",
-        "Gaviscon",
-        "Lantus",
-        "Lotrimin",
-        "Lyrica",
-        "Maalox Antacid",
-        "Midol",
-        "Nexium",
-        "Synthroid",
-        "Vyvanse"};
-    drugs = Arrays.stream(drugs).filter(x -> x.contains(term)).toArray(String[]::new);
+    final List<String> drugSearch = searchClient.getDrugSearch(term);
+    String[] drugs = drugSearch.toArray(new String[drugSearch.size()]);
+
     return Response.ok(new Gson().toJson(drugs)).build();
   }
 
@@ -121,6 +103,20 @@ public class FAERSResource
 
     } catch (NumberFormatException e) {
       return Response.status(Response.Status.BAD_REQUEST).build();
+    }
+  }
+
+  @GET
+  @Path("/reports/{id}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getSafetyReport(@PathParam("id") String id)
+  {
+    final SafetyReport safetyReport = searchClient.getSafetyReport(id);
+    if (safetyReport != null) {
+      return Response.ok(new Gson().toJson(safetyReport)).build();
+    }
+    else {
+      throw new WebApplicationException(Response.Status.NOT_FOUND);
     }
   }
 

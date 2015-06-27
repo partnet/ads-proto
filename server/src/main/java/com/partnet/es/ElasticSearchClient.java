@@ -11,6 +11,8 @@ import com.partnet.util.Range;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthRequest;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthResponse;
 import org.elasticsearch.action.admin.cluster.health.ClusterHealthStatus;
+import org.elasticsearch.action.admin.cluster.state.ClusterStateResponse;
+import org.elasticsearch.action.admin.indices.mapping.delete.DeleteMappingRequest;
 import org.elasticsearch.action.count.CountResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequest;
@@ -19,12 +21,16 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
+import org.elasticsearch.cluster.metadata.MappingMetaData;
+import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.FilterBuilders;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
@@ -48,6 +54,7 @@ import static org.elasticsearch.index.query.FilterBuilders.boolFilter;
 import static org.elasticsearch.index.query.FilterBuilders.rangeFilter;
 import static org.elasticsearch.index.query.FilterBuilders.termFilter;
 import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
+import static org.elasticsearch.index.query.QueryBuilders.matchPhraseQuery;
 import static org.elasticsearch.index.query.QueryBuilders.rangeQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
@@ -112,8 +119,71 @@ public class ElasticSearchClient {
     client.close();
   }
 
-  public boolean indexExists() {
-    return client.admin().indices().prepareExists(indexName).execute().actionGet().isExists();
+  private static class DrugDoc {
+    String name;
+
+    public DrugDoc(String name) {
+      this.name = name;
+    }
+  }
+
+  public void indexDrugName(String drugName) {
+    DrugDoc drugDoc = new DrugDoc(drugName);
+    final IndexRequest indexRequest = new IndexRequest(indexName, "drug");
+    final String json = new Gson().toJson(drugDoc);
+    indexRequest.source(json);
+    final IndexResponse indexResponse = client.index(indexRequest).actionGet();
+
+    LOG.debug("drug indexed with id: " + indexResponse.getId());
+  }
+
+  private boolean mappingExists(String mapping) {
+    ClusterStateResponse resp = client.admin().cluster().prepareState().execute().actionGet();
+    final ImmutableOpenMap<String, MappingMetaData> mappings = resp.getState().metaData().index(indexName).mappings();
+    System.out.println("existing mappings: " + mappings);
+
+    return mappings.containsKey(mapping);
+  }
+
+  public void createDrugDocMapping() {
+
+    if (mappingExists("drug")) {
+      // delete the existing drug mapping
+      DeleteMappingRequest req = new DeleteMappingRequest(indexName);
+      req.types("drug");
+      client.admin().indices().deleteMapping(req).actionGet();
+    }
+
+    // create mapping
+    client.admin().indices()
+        .preparePutMapping()
+        .setIndices(indexName)
+        .setType("drug")
+        .setSource(getMappingJson())
+        .execute()
+        .actionGet();
+
+    System.out.println("Drug mapping created: " + mappingExists("drug"));
+  }
+
+  private static class DrugMappingDoc {
+
+  }
+
+  private String getMappingJson() {
+    String mapping = "{\n" +
+        "    \"drug\": {\n" +
+        "        \"properties\": {\n" +
+        "            \"name\": {\n" +
+        "                \"type\":            \"string\",\n" +
+        "                \"index_analyzer\":  \"autocomplete\", \n" +
+        "                \"search_analyzer\": \"standard\" \n" +
+        "            }\n" +
+        "        }\n" +
+        "    }\n" +
+        "}";
+//    return "{\"drug\" : { \"properties\" : { \"name\" : { \"type\" : \"string\", \"index\" : \"not_analyzed\"}}}}";
+    return mapping;
   }
 
   public void indexSafetyReport(SafetyReport safetyReport) {
@@ -148,7 +218,7 @@ public class ElasticSearchClient {
     final BoolQueryBuilder qb = boolQuery();
 
     if (medicinalproduct != null) {
-      qb.must(termQuery("medicinalproduct", medicinalproduct));
+      qb.must(matchPhraseQuery("medicinalproduct", medicinalproduct));
     }
     if (reactionmeddrapt != null) {
       qb.must(termQuery("reactionmeddrapt", reactionmeddrapt));
@@ -260,32 +330,33 @@ public class ElasticSearchClient {
     return new ReactionsSearchResult(meta, reactionCnts, drug, countReportsWithDrug);
   }
 
-  public String getDrugs() {
-
+  public List<String> getDrugSearch(String term) {
     SearchResponse searchResponse = client.prepareSearch(indexName)
-        .setTypes(docType)
-        .addAggregation(AggregationBuilders.terms("agg").field("medicinalproduct").subAggregation(AggregationBuilders.topHits("top")))
+        .setTypes("drug")
+        .setSearchType(SearchType.DFS_QUERY_THEN_FETCH)
+        .setQuery(QueryBuilders.termQuery("name", term))
+        .setScroll(new TimeValue(60000))
+        .setSize(100)
         .execute()
         .actionGet();
 
-    LOG.info("Total hits: " + searchResponse.getHits().getTotalHits());
+    LOG.info("Drug Search Total hits: " + searchResponse.getHits().getTotalHits());
 
-    Terms agg = searchResponse.getAggregations().get("agg");
+    List<String> results = new ArrayList<>();
 
-    for (Terms.Bucket entry : agg.getBuckets()) {
-      String key = entry.getKey();                    // bucket key
-      long docCount = entry.getDocCount();            // Doc count
-      LOG.info("key [{}], doc_count [{}]", key, docCount);
+    while (true) {
+      for (SearchHit hit : searchResponse.getHits().getHits()) {
+        final DrugDoc drugDoc = new Gson().fromJson(hit.getSourceAsString(), DrugDoc.class);
+        results.add(drugDoc.name);
+      }
+      searchResponse = client.prepareSearchScroll(searchResponse.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();
 
-      // We ask for top_hits for each bucket
-      TopHits topHits = entry.getAggregations().get("top");
-      for (SearchHit hit : topHits.getHits().getHits()) {
-        LOG.info(" -> id [{}], _source [{}]", hit.getId(), hit.getSourceAsString());
+      if (searchResponse.getHits().getHits().length == 0) {
+        break;
       }
     }
 
-
-    return "nothing";
+    return results;
   }
 
   public DrugSearchResult getDrugs(String medicinalproduct) {
