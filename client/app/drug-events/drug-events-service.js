@@ -40,7 +40,7 @@
         thisQuery.search += '+AND+patient.reaction.reactionmeddrapt:"' + drugEventsFact.reactionResults[index].term + '"';
         delete thisQuery.limit;
 
-        DrugEvents.get(angular.copy(thisQuery)).$promise.then(function (response) {
+        DrugEvents.get(thisQuery).$promise.then(function (response) {
           drugEventsFact.reactionResults[index].outcomes = response.results;
 
           var outcomes = 0;
@@ -54,7 +54,7 @@
               return value.term.toUpperCase() === 'UNKNOWN';
             });
 
-            if (unknown.length == 1) {
+            if (unknown.length === 1) {
               unknown[0].count += drugEventsFact.reactionResults[index].count - outcomes;
             } else {
               drugEventsFact.reactionResults[index].outcomes.push({
@@ -133,7 +133,6 @@
       };
 
       drugEventsFact.searchEvents = function (query) {
-        console.log('Query: ' + JSON.stringify(query));
         return DrugEvents.get(query).$promise.then(function (response) {
           drugEventsFact.reactionResults = response.results;
         });
@@ -154,18 +153,12 @@
           'children': searchResults
         };
 
-        Object.keys(svgObject.children).map(function (key) {
-          delete svgObject.children[key].count;
-        });
-
         var termRegEx = new RegExp('"term"', 'g');
         var countRegEx = new RegExp('"count"', 'g');
         var outcomesRegEx = new RegExp('"outcomes"', 'g');
 
         var svgString = JSON.stringify(svgObject).replace(termRegEx, '"name"').replace(countRegEx,
           '"size"').replace(outcomesRegEx, '"children"');
-
-        console.log('SVG Result: ' + svgString);
 
         return JSON.parse(svgString);
       };

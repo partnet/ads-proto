@@ -34,7 +34,7 @@
       init();
 
       _this.expandOutcome = function (rowNum) {
-        if(_this.outcomeExpanded && _this.outcomeExpanded == rowNum){
+        if (angular.isDefined(_this.outcomeExpanded) && _this.outcomeExpanded === rowNum) {
           _this.outcomeExpanded = null;
         } else {
           _this.outcomeExpanded = rowNum;
@@ -72,7 +72,7 @@
         }
 
         if (!isNaN(_this.weight)) {
-          var weightKgs = _this.weight/2.2046;
+          var weightKgs = _this.weight / 2.2046;
           searchParam += '+AND+patient.patientweight:[' + (weightKgs - 10 >= 0 ? weightKgs - 10 : 0) + '+TO+' + (weightKgs + 10) + ']';
         }
 
@@ -86,6 +86,12 @@
           DrugEventsService.calculateReactionOutcomes(query).then(function () {
             _this.searchResults = DrugEventsService.reactionResults;
             _this.svgResult = DrugEventsService.calculateSVGJson(angular.copy(_this.searchResults), _this.drugId);
+
+            var sbr = angular.copy(_this.svgResult);
+            Object.keys(sbr.children).map(function (key) {
+              delete sbr.children[key].children;
+            });
+            _this.svgBubbleResult = sbr;
             _this.runningQuery = false;
           });
         }, function (response) {

@@ -44,13 +44,13 @@ public class SearchPage
   @FindBy(css = ".nav.nav-tabs li.active")
   private WebElement activeTab;
 
-  @FindBy(css = ".nav.nav-tabs li[heading='Reaction List View'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Side Effects and Outcomes List'] a")
   private WebElement tableTab;
 
-  @FindBy(css = ".nav.nav-tabs li[heading='Reaction to Outcome'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Side Effects and Outcomes Interactive Graphic'] a")
   private WebElement sunburstTab;
 
-  @FindBy(css = ".nav.nav-tabs li[heading='Reaction to Outcome Aggregation'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Most Common Side Effects Graphic'] a")
   private WebElement bubbleTab;
 
   @FindBy(css = "div.tab-content .tab-pane.active")
@@ -71,8 +71,8 @@ public class SearchPage
 
   private static final int REACTION_COL = 0;
   private static final int COUNT_COL = 1;
-  private static final int OUTCOME_COL = 0;
-  private static final int OUTCOME_COUNT_COL = 1;
+  private static final int OUTCOME_COUNT_COL = 0;
+  private static final int OUTCOME_COL = 1;
   private static final int TIMEOUT = 30;
 
 
@@ -128,9 +128,9 @@ public class SearchPage
   }
 
   public enum NavTab {
-    TABLE("Reaction List View"),
-    SUNBURST("Reaction to Outcome"),
-    BUBBLE("Reaction to Outcome Aggregation");
+    TABLE("Side Effects and Outcomes List"),
+    SUNBURST("Side Effects and Outcomes Interactive Graphic"),
+    BUBBLE("Most Common Side Effects Graphic");
 
     private final String tabName;
     NavTab(String tabName){
