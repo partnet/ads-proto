@@ -10,6 +10,11 @@
 
 - name: Deploy elasticsearch safetyreports index archive
   copy: src={{ARTIFACT_DIR}}/{{ELASTICSEARCH_DATASET}} dest=/home/{{CFG_USER}}/archive owner={{CFG_USER}} group={{CFG_GROUP}} mode=0600
+  register: safetyreports
+
+- name: Remove index directory for search index
+  file: path=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}/data/product-data/nodes/0 state=absent
+  when: safetyreports.changed
 
 - name: Create index directory to unarchive search index
   file: path=/home/{{CFG_USER}}/elasticsearch/elasticsearch-{{ELASTICSEARCH_VERSION}}/data/product-data/nodes/0 owner={{CFG_USER}} group={{CFG_GROUP}} mode=0700 state=directory
