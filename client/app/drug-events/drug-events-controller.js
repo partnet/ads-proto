@@ -67,7 +67,7 @@
       };
 
       _this.searchDrugs = function (val) {
-        var query = {term: val};
+        var query = {term: val.toLowerCase()};
         return DrugEventsService.searchDrugs(query);
       };
 
