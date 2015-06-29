@@ -91,7 +91,8 @@ public class SearchSteps
     List<String> actualOptions = context.getPage(SearchPage.class)
         .getListOfDrugs();
 
-    Assert.assertEquals("Actual drug options is not the same size as the expected list of options!",
+    Assert.assertEquals(String.format(
+        "Actual drug options is not the same size as the expected list of options! actual drugs: %s\n", actualOptions),
         SearchPage.DrugOptions.values().length, actualOptions.size());
 
     for(SearchPage.DrugOptions expected : SearchPage.DrugOptions.values()) {

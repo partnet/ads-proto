@@ -275,6 +275,7 @@ public class SearchPage
     }
 
     options.remove("Select Medication");
+    LOG.debug("List of drugs: {}", options);
     return options;
   }
 
