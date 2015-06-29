@@ -21,15 +21,12 @@ import java.util.Map;
  */
 public class DrugIndexer extends DefaultHandler {
 
-  private ElasticSearchClient searchClient;
   public int count = 0;
   public Map<String, DrugCounter> drugCountMap = new HashMap<>();
 
   private boolean medicinalproduct;
 
-
-  public DrugIndexer(ElasticSearchClient searchClient) {
-    this.searchClient = searchClient;
+  public DrugIndexer() {
   }
 
   @Override
@@ -41,6 +38,9 @@ public class DrugIndexer extends DefaultHandler {
         medicinalproduct = true;
         count++;
         if (count % 1000 == 0) System.out.println("count: " + count);
+        break;
+      default:
+        // do nothing
         break;
     }
 
@@ -84,7 +84,27 @@ public class DrugIndexer extends DefaultHandler {
 
     @Override
     public int compareTo(DrugCounter o) {
-      return this.count - o.count;
+      if (this.equals(o)) return 0;
+      else return this.count - o.count;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      DrugCounter that = (DrugCounter) o;
+
+      if (count != that.count) return false;
+      return drug.equals(that.drug);
+
+    }
+
+    @Override
+    public int hashCode() {
+      int result = drug.hashCode();
+      result = 31 * result + count;
+      return result;
     }
 
     @Override
@@ -114,7 +134,7 @@ public class DrugIndexer extends DefaultHandler {
     final ElasticSearchClient client = new ElasticSearchClient(serverAddress, serverPort,
         clusterName, indexName, docType);
 
-    final DrugIndexer handler = new DrugIndexer(client);
+    final DrugIndexer handler = new DrugIndexer();
 
     final long start = System.currentTimeMillis();
     saxParser.parse(INPUT_FILE, handler);
