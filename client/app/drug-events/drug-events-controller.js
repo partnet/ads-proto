@@ -103,7 +103,7 @@
 
             var sbr = angular.copy(_this.svgResult);
             var zeroPrrs = sbr.children.filter(function (events) {
-              return events.prr == 0;
+              return events.prr === 0;
             });
             Object.keys(sbr.children).map(function (key) {
               delete sbr.children[key].children;
