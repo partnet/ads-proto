@@ -15,15 +15,18 @@
 body {
   background: linear-gradient(to bottom, rgba(228, 235, 247, 1), rgba(0,0,0,0));
   min-height: 100vh;
+  font-family: 'Open Sans', sans-serif;
 }
 
 @header-min-snap: 430px;
 .header {
 
+  font-family: 'Open Sans', sans-serif;
 
   .header-text {
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
-    font-size: 2.4em;
+    font-size: 3.5em;
     @media screen and (min-width: @header-min-snap) {
       font-size: 2.4em;
     }
@@ -32,6 +35,7 @@ body {
   .sub-header-text {
     color: white;
     font-weight: bold;
+    clear: both;
 
     @media screen and (min-width: @header-min-snap) {
       font-size: 2em;
@@ -52,39 +56,38 @@ body {
     background-image: url(../images/medical_background.jpg);
     background-size: 100% auto;
     background-repeat: no-repeat;
-
     height: 100%;
-
     margin-bottom: 1em;
 
-    img {
-      display: none;
-    }
+    .header-content {
 
-    .header-text {
-      padding-top: 30%;
-      text-align: center;
-      color: white;
-      font-size: 2.3em;
-    }
+      .header-text {
+        padding-top: 30%;
+        text-align: center;
+        color: white;
+        font-size: 2.3em;
+      }
 
-    .sub-header-text {
-      text-align: left;
-    }
+      .sub-header-text {
+        text-align: left;
+      }
 
-    .small-header-overlay {
-      background-color: rgba(255, 255, 255, 0.8);
-      text-align: center;
-      color: @form-bg-color;
-      margin-top: 1em;
-    }
+      .small-header-overlay {
+        background-color: rgba(255, 255, 255, 0.8);
+        text-align: center;
+        color: @form-bg-color;
+        margin-top: 1em;
+        padding-top: .75em;
+        padding-bottom: .75em;
+      }
 
-    .sub-header-text {
-      font-size: 1.5em;
-    }
+      .sub-header-text {
+        font-size: 1.5em;
+      }
 
-    .header-spacer {
-      height: 3em;
+      .header-spacer {
+        height: 3em;
+      }
     }
 
   }
@@ -94,26 +97,31 @@ body {
     background-size: 100% auto;
     margin-bottom: 2em;
 
-    .small-header-overlay {
-      display: none;
-    }
-
-    .container {
-      color: white;
-
-      img {
-        height: 2em;
-        float: left;
-      }
+    .header-content {
+      position: relative;
+      z-index: 200;
+      padding-bottom: 10px;
 
       .header-text {
-        font-size: 1.5em;
-        margin-top: 20px;
-        font-size: 3em;
+        font-size: 5em;
+        margin-bottom: 0px;
       }
 
-      .sub-header-text {
-        font-size: 1.7em;
+      .small-header-overlay {
+        display: none;
+      }
+
+      .container {
+        color: white;
+
+        img {
+          height: 2em;
+          float: left;
+        }
+
+        .sub-header-text {
+          font-size: 1.7em;
+        }
       }
     }
   }

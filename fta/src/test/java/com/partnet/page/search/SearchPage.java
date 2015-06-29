@@ -29,10 +29,10 @@ public class SearchPage
   @FindBy(id = "age-id")
   private WebElement ageTxtBox;
 
-  @FindBy(css = "label[ng-model='drugEvents.gender'][btn-radio=\"'1'\"]")
+  @FindBy(css = "label[ng-model='drugEvents.gender'][btn-radio=\"1\"]")
   private WebElement maleRadio;
 
-  @FindBy(css = "label[ng-model='drugEvents.gender'][btn-radio=\"'2'\"]")
+  @FindBy(css = "label[ng-model='drugEvents.gender'][btn-radio=\"2\"]")
   private WebElement femaleRadio;
 
   @FindBy(id = "weight-id")
@@ -44,13 +44,13 @@ public class SearchPage
   @FindBy(css = ".nav.nav-tabs li.active")
   private WebElement activeTab;
 
-  @FindBy(css = ".nav.nav-tabs li[heading='Table'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Side Effects and Outcomes List'] a")
   private WebElement tableTab;
 
-  @FindBy(css = ".nav.nav-tabs li[heading='Reaction to Outcome'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Side Effects and Outcomes Interactive Graphic'] a")
   private WebElement sunburstTab;
 
-  @FindBy(css = ".nav.nav-tabs li[heading='Reaction to Outcome Aggregation'] a")
+  @FindBy(css = ".nav.nav-tabs li[heading='Most Common Side Effects Graphic'] a")
   private WebElement bubbleTab;
 
   @FindBy(css = "div.tab-content .tab-pane.active")
@@ -71,8 +71,8 @@ public class SearchPage
 
   private static final int REACTION_COL = 0;
   private static final int COUNT_COL = 1;
-  private static final int OUTCOME_COL = 0;
-  private static final int OUTCOME_COUNT_COL = 1;
+  private static final int OUTCOME_COUNT_COL = 0;
+  private static final int OUTCOME_COL = 1;
   private static final int TIMEOUT = 30;
 
 
@@ -128,9 +128,9 @@ public class SearchPage
   }
 
   public enum NavTab {
-    TABLE("Table"),
-    SUNBURST("Sunburst"),
-    BUBBLE("Bubble");
+    TABLE("Side Effects and Outcomes List"),
+    SUNBURST("Side Effects and Outcomes Interactive Graphic"),
+    BUBBLE("Most Common Side Effects Graphic");
 
     private final String tabName;
     NavTab(String tabName){
@@ -233,6 +233,7 @@ public class SearchPage
     for(WebElement row : webDriver.findElements(tabTableContentRowsLocator)) {
 
       if(row.getAttribute("class").equals("collapse")) {
+        LOG.debug("Row hidden text: {}", getHiddenText(row));
         Map<String, Integer> outcomeTbl = new HashMap<>();
         if(getCollapsedData) {
           List<WebElement> collapsedRows = row.findElement(By.cssSelector("tbody")).findElements(By.cssSelector("tr"));

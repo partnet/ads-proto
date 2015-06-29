@@ -1,6 +1,7 @@
 
 @form-bg-color: #018F8E;
 @tab-active-bg-color: #014A8E;
+@testimonials-font-color: #8B7F78;
 
 .help-block {
   color: #990000;
@@ -12,18 +13,22 @@
   border-radius: 25px;
 }
 
-.adeSearchForm {
-  font-family: Sans;
-  border-top: thick solid #014A8E;
+.age-label, .weight-label{
+  @media screen and (max-width: @screen-xs-max) {
+    padding-top: .5em;
+    left: 0px;
+  }
+}
 
+.adeSearchForm {
+  border-top: thick solid #014A8E;
   background-color: @form-bg-color;
   color: white;
-  padding: .5em;
+  padding: .5em 1em;
 
   @media screen and (min-width: @screen-sm-min) {
-    padding: .25em;
+    //padding: .5em;
   }
-
   .form-header {
     padding-left: 2em;
     padding-right: 2em;
@@ -33,11 +38,10 @@
       padding-right: .35em;
     }
   }
-  
 }
 
 .check-meds-header {
-
+  text-shadow: -1px 1px 10px #fff, 1px -1px 8px #fff;
   font-weight: bold;
   font-size: 1.5em;
   text-shadow: greenyellow;
@@ -68,6 +72,12 @@
   font-weight: bold;
   font-size: 1.5em;
 
+  img{
+    position: relative;
+    bottom: 4px;
+    margin-right: 2px;
+  }
+
   @media screen and (min-width: @screen-xs-min) {
     font-size: 1.5em;
   }
@@ -76,20 +86,12 @@
   }
 }
 
+.check-meds-text {
+  display: inline;
+}
+
 .check-meds-header-img {
-  vertical-align: middle;
-  height: auto;
-  width: 4em;
-  float: right;
-
-  @media screen and (min-width: @screen-xs-min) {
-    width: 8em;
-  }
-
-  @media screen and (min-width: @screen-sm-min) {
-    width: 4em;
-  }
-
+  display: inline;
 }
 
 .ads-person {
@@ -192,46 +194,87 @@
   background-color: transparent;
 
   @media screen and (min-width: @screen-sm-min) {
-    background-image: url(../images/medical_background.jpg);
-    background-size: cover;
-    height: 100vh;
+  }
+}
+.drug-events .background-img img {
+
+  display: none;
+
+  @media screen and (min-width: @screen-sm-min) {
+    display: inherit;
+    min-height: 100%;
+    min-width: 1024px;
+
+    width: 100%;
+    height: auto;
+
+    position: fixed;
+    top: 0;
+    left: 0;
   }
 }
 
-.welcome-div {
+.welcome-backdrop {
+  position: relative;
+  //width: 75%;
+  height: 30px;
+  background-color: rgba(255, 255, 200, 0.85);
 
-  margin-top: 8em;
-  margin-bottom: 8em;
-  background-color: rgba(255, 255, 255, 0.85);
-  padding: 1em;
+}
 
-  h1 {
-    text-shadow: -1px -1px @form-bg-color;
-    color: white;
-    font-weight: bold;
-  }
+.form-fixed-width {
 
-  div {
-    color: @form-bg-color
+  @media (min-width: @screen-sm-min) {
+    position: relative;
+    width: 300px;
   }
 }
 
+.lg-landing-overlay {
 
-.testimonials {
-  margin-top: 10em;
   background-color: rgba(255, 255, 255, 0.85);
-  color: #8B7F78;
+  padding-bottom: 1.5em;
 
-  .testimonials-header{
+  .welcome-section {
+    padding-top: 20px;
+    h2 {
+      color: @form-bg-color;
+      font-weight: bold;
+      font-family: 'Lobster', cursive;
+      font-size: 46px;
+    }
+
+    hr {
+      margin-top: 5px;
+      border-color: @form-bg-color;
+    }
+
+    div {
+      font-size: 20px;
+      color: @form-bg-color;
+      padding-bottom: 20px;
+    }
+  }
+
+  .testimonials-section{
+    color: @testimonials-font-color;
     border-top-width: 5px;
     border-bottom-width: 5px;
+    text-align: center;
     hr {
       border-width: 2px;
+      border-color: darken(@testimonials-font-color, 1%);
     }
     h2 {
       img {
         height: 1em;
+        position: relative;
+        bottom: 3px;
+        margin-right: 5px;
       }
+    }
+    p {
+      padding-bottom: 20px;
     }
   }
 

@@ -14,6 +14,7 @@
     <link href="styles/bootstrap.css" rel="stylesheet"/>
     <link href="styles/bootstrap-theme.css" rel="stylesheet"/>
     <link href="styles/app.css" rel="stylesheet"/>
+    <link href='http://fonts.googleapis.com/css?family=Lobster|Open+Sans|Roboto' rel='stylesheet' type='text/css'>
     <!-- endbuild -->
   </head>
   <body ng-app="ADSProtoApp">
@@ -23,18 +24,23 @@
 
     <!-- Add your site or application content here -->
     <div class="header">
-      <div class="container">
-        <h1 class="header-text"><img class="img-responsive" src="../images/medical_symbol.png">
-          CHECK MY MEDS</h1>
-        <div class="sub-header-text">Details on your medication made fast and easy.</div>
-      </div>
-      <div class="small-header-overlay">
+      <div class="header-content">
         <div class="container">
-          Find info on your medications fast! View drug reactions and details. Learn the side-effects
-          others like you have experienced.
+          <!--<h1 class="header-text"><img class="img-responsive" src="../images/medical_symbol.png">
+            CHECK MY MEDS</h1>-->
+          <div class="header-text">
+            <img class="check-meds-text img-responsive" src="images/medical_check_meds_header.png">
+          </div>
+          <!--<div class="sub-header-text">Details on your medication made fast and easy.</div>-->
         </div>
+        <div class="small-header-overlay">
+          <div class="container">
+            Find info on your medications fast! View drug reactions and details. Learn the side-effects
+            others like you have experienced.
+          </div>
+        </div>
+        <div class="header-spacer"></div>
       </div>
-      <div class="header-spacer"></div>
     </div>
 
     <div ng-view=""></div>

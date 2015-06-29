@@ -1,20 +1,14 @@
 <!--Copyright (c) 2015 Partnet, Inc. Confidential and Proprietary.-->
 
-<div class="container drug-events" ng-class="{'ran-query' : drugEvents.searchResults}">
-  <div  class="hidden-xs" ng-if="!drugEvents.searchResults">
-    <div class="row">
-      <div class="welcome-div col-xs-9" >
-        <h1>Welcome</h1>
-        <div>Find info on your medications fast! View drug reactions and details. Learn the
-        side effects that others like you have experienced</div>
-      </div>
-    </div>
+<div class="drug-events">
+  <div class="background-img" ng-if="!drugEvents.searchResults">
+    <img src="images/medical_background.jpg">
   </div>
-  <div class="" ng-class="{'col-sm-4 col-md-3': drugEvents.searchResults, 'col-sm-6': !drugEvents.searchResults}">
-    <form class="adeSearchForm" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
+  <div class="container">
+  <div class="" ng-class="{'col-sm-4 col-md-3': drugEvents.searchResults, 'col-sm-3 form-fixed-width': !drugEvents.searchResults}">
+    <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
       <div class="form-header">
-        <img class="check-meds-header-img" src="images/medical_symbol.png">
-        <h2 class="check-meds-header">CHECK MY MEDS</h2>
+        <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png">
         <p>Enter a drug name. Then, select the name of the medication you want to
           search.</p>
       </div>
@@ -23,25 +17,33 @@
         <input type="text" ng-model="drugEvents.drugId" placeholder="Enter a drug name" typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)" typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false" class="form-control round">
           <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
         </div>
-        <hr>
-        <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png">Demographic Details</h2>
-        <hr>
-        <div class="btn-group text-center center-btn">
-          <label class="btn btn-primary active" ng-model="drugEvents.gender" btn-radio="'1'">Male</label>
-          <label class="btn btn-primary active" ng-model="drugEvents.gender" btn-radio="'2'">Female</label>
+        </fieldset>
+      <hr>
+      <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png"> Demographic Details</h2>
+      <hr>
+      <fieldset>
+        <div class="btn-group form-group text-center center-btn">
+          <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="1">Male</label>
+          <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="2">Female</label>
         </div>
-        <div class="form-group">
-          <label for="age-id">Age</label>
-          <input id="age-id" class="form-control round" type="number" min="0" max="120" name="age" type="text" value="" ng-model="drugEvents.age">
-          <div ng-show="adeSearchForm.age.$invalid">
-            <div class="help-block">Age must be a integer value between from 0 to 120</div>
+        <div class="form-horizontal">
+          <div class="form-group">
+            <label for="age-id" class="age-label col-sm-3 col-xs-3 control-label">Age:</label>
+            <div class="col-sm-6 col-xs-6">
+              <input id="age-id" class="form-control round" type="number" min="0" max="120" name="age" type="text" value="" ng-model="drugEvents.age">
+            </div>
+            <div ng-show="adeSearchForm.age.$invalid">
+              <div class="help-block">Age must be a integer value between from 0 to 120</div>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="weight-id">Weight</label>
-          <input id="weight-id" class="form-control round" type="number" min="0" name="weight" type="text" value="" ng-model="drugEvents.weight">
-          <div ng-show="adeSearchForm.weight.$invalid">
-            <div class="help-block">Weight must be a integer value</div>
+          <div class="form-group">
+            <label for="weight-id" class="weight-label col-sm-3 col-xs-3 control-label">Weight:</label>
+            <div class="col-sm-6 col-xs-6">
+              <input id="weight-id" class="form-control round" type="number" min="0" name="weight" type="text" value="" ng-model="drugEvents.weight">
+            </div>
+            <div ng-show="adeSearchForm.weight.$invalid">
+              <div class="help-block">Weight must be a integer value</div>
+            </div>
           </div>
         </div>
       </fieldset>
@@ -55,17 +57,26 @@
       </alert>
     </form>
   </div>
-  <div class="testimonials hidden-xs" ng-class="{'hidden': drugEvents.searchResults, 'col-sm-6': !drugEvents.searchResults}">
-    <div class="testimonials-header">
+  <div class="lg-landing-overlay round hidden-xs" ng-class="{'hidden': drugEvents.searchResults, 'col-sm-7 col-md-8': !drugEvents.searchResults}">
+    <div class="welcome-section">
+      <h2>Welcome</h2>
+      <hr>
+      <div>
+        Find info on your medications fast! View drug reactions and details. Learn the side effects that others
+        like you have experienced.
+      </div>
+    </div>
+
+    <div class="testimonials-section">
       <hr>
       <h2><img src="images/medical_comment.png">TESTIMONIALS</h2>
       <hr>
-    </div>
-    <div>
-      <img class="img-responsive quote-img" src="images/medical_quote.png">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempus nisl ac turpis lobortis, ultricies mattis
-    nisi imperdiet. Suspendisse potenti. Nam vehicula neque eget libero cursus, sit amet convallis mi interdum. Donec ac
-    maximus lectus. Mauris gravida viverra ligula
+      <div>
+        <img class="img-responsive quote-img" src="images/medical_quote.png">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque tempus nisl ac turpis lobortis, ultricies mattis
+      nisi imperdiet. Suspendisse potenti. Nam vehicula neque eget libero cursus, sit amet convallis mi interdum. Donec ac
+      maximus lectus. Mauris gravida viverra ligula
+      </div>
     </div>
   </div>
 
@@ -102,5 +113,6 @@
       </tabset>
     </div>
   </div>
+</div>
 </div>
 
