@@ -271,7 +271,7 @@ public class SearchPage
     Select drugOpts = new Select(drugNameDrpDwn);
 
     for(WebElement opt : drugOpts.getOptions()) {
-      options.add(opt.getText());
+      options.add(opt.getText().trim());
     }
 
     options.remove("Select Medication");
