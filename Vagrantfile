@@ -22,10 +22,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       # Disable certificate verification
       vagrant.vm.box_download_insecure = true
 
-      vagrant.vm.hostname = "ads-server"
-      vagrant.vm.network "forwarded_port", guest: 8080, host: 8880  # wildfly/jboss
-      vagrant.vm.network "forwarded_port", guest: 8443, host: 8443  # wildfly/jboss SSL (not currently in use)
-      vagrant.vm.network "forwarded_port", guest: 9990, host: 9990  # wildfly/jboss web management interface
+      vagrant.vm.hostname = "ads-server-v1"
+      vagrant.vm.network "forwarded_port", guest: 22, host: 2223 # ssh
+      vagrant.vm.network "forwarded_port", guest: 8080, host: 8881  # wildfly/jboss
+      vagrant.vm.network "forwarded_port", guest: 8443, host: 8444  # wildfly/jboss SSL (not currently in use)
+      vagrant.vm.network "forwarded_port", guest: 9990, host: 9991  # wildfly/jboss web management interface
       vagrant.vm.network "private_network", ip: "192.168.7.2"
 
       vagrant.vm.synced_folder ".", "/vagrant", disabled: true
@@ -34,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vagrant.vm.provider "virtualbox" do |vb|
          vb.customize [
             "modifyvm", :id,
-            "--name", "ads-server",
+            "--name", "ads-server-p1",
             "--memory", "1024",
             "--ostype", "RedHat_64",
             "--usb", "off",
