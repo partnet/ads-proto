@@ -23,7 +23,8 @@
       <td>
         <button class="btn btn-primary btn-outcome center-btn"
                 ng-click="drugEvents.expandOutcome($index)"
-                ng-if="reaction.outcomes.length">{{reaction.outcomes.length}}</button>
+                ng-if="reaction.outcomes.length"
+                alt="{{reaction.outcomes.length}} outcomes">{{reaction.outcomes.length}}</button>
       </td>
     </tr>
     <tr collapse="drugEvents.outcomeExpanded != {{$index}}">

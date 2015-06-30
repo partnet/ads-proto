@@ -158,7 +158,7 @@
 
                 if (d.size && !d.children) {
                   scope.node = {
-                    label: d.name,
+                    label: outcomeName(d.name),
                     size: d.size,
                     isLeaf: true,
                     isRoot: false
