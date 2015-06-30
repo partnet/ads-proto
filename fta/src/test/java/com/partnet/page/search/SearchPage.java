@@ -93,10 +93,8 @@ public class SearchPage
   public enum DrugOptions {
     ADVIL("Advil"),
     ALEVE("Aleve"),
-    CEPACOL("Cepacol"),
     CLARITIN("Claritin"),
     COLACE("Colace"),
-    CORTAID("Cortaid"),
     CRESTOR("Crestor"),
     CYMBALTA("Cymbalta"),
     DIOVAN("Diovan"),
