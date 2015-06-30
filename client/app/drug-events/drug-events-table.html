@@ -3,7 +3,7 @@
   <tr>
     <th>Side Effects</th>
     <th>Total Number of Times Reported</th>
-    <th>Outcome of Side Effects</th>
+    <th>Outcomes of Side Effects</th>
   </tr>
   <tbody ng-repeat="reaction in drugEvents.searchResults | orderBy:'-count'">
     <tr>
@@ -12,7 +12,8 @@
       <td>
         <button class="btn btn-primary btn-outcome center-btn"
                 ng-click="drugEvents.expandOutcome($index)"
-                ng-if="reaction.outcomes.length">{{reaction.outcomes.length}}</button>
+                ng-if="reaction.outcomes.length"
+                alt="{{reaction.outcomes.length}} outcomes">{{reaction.outcomes.length}}</button>
       </td>
     </tr>
     <tr collapse="drugEvents.outcomeExpanded != {{$index}}">
