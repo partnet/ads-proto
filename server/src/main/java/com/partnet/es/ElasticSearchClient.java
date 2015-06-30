@@ -29,12 +29,8 @@ import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.unit.TimeValue;
 import org.elasticsearch.index.query.BoolFilterBuilder;
 import org.elasticsearch.index.query.BoolQueryBuilder;
-import org.elasticsearch.index.query.FilterBuilders;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
-import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.elasticsearch.search.aggregations.bucket.terms.Terms;
-import org.elasticsearch.search.aggregations.metrics.tophits.TopHits;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -373,8 +369,11 @@ public class ElasticSearchClient {
           indicationCounts.put(drug.drugindication, indicationCount);
         }
         indicationCount.incrementCount();
-        if (isFiniteNumber(drug.drugtreatmentduration)) {
-          treatmentDurations.add(new Double(drug.drugtreatmentduration));
+        if (medicinalproduct.equalsIgnoreCase(drug.medicinalproduct)) {
+          if (isFiniteNumber(drug.drugtreatmentduration)) {
+            LOG.info("Adding drug treatment duration: " + drug.drugtreatmentduration + " for safety report: " + safetyReport.safetyreportid);
+            treatmentDurations.add(new Double(drug.drugtreatmentduration));
+          }
         }
       }
     }
