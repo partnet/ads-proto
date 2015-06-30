@@ -1,15 +1,15 @@
 <!--Copyright (c) 2015 Partnet, Inc. Confidential and Proprietary.-->
 
 <div class="drug-events">
-  <div class="background-img" ng-if="!(drugEvents.searchResults || drugEvents.searchAlerts.length)">
+  <div class="background-img" ng-if="!(drugEvents.searchSuccess || drugEvents.searchAlerts.length)">
     <img src="images/medical_background.jpg" alt="">
   </div>
   <div class="container">
-  <div class="" ng-class="{'col-sm-4 col-md-3': (drugEvents.searchResults || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchResults || drugEvents.searchAlerts.length)}">
+  <div class="" ng-class="{'col-sm-4 col-md-3': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
     <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
       <div class="form-header">
         <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png" alt="CHECK MY MEDS">
-        <p ng-if="!drugEvents.searchResults">Click the arrow to view a list of popular medications. Then, select the name of the medication you want to
+        <p ng-if="!drugEvents.searchSuccess">Click the arrow to view a list of popular medications. Then, select the name of the medication you want to
           search.</p>
       </div>
       <fieldset class="search-fields">
@@ -61,7 +61,7 @@
       <span>{{alert.msg}}</span>
     </alert>
   </div>
-  <div class="lg-landing-overlay round hidden-xs" ng-class="{'hidden': (drugEvents.searchResults || drugEvents.searchAlerts.length), 'col-sm-7 col-md-8': !(drugEvents.searchResults || drugEvents.searchAlerts.length)}">
+  <div class="lg-landing-overlay round hidden-xs" ng-class="{'hidden': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-7 col-md-8': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
     <div class="welcome-section">
       <h2>Welcome</h2>
       <hr>
