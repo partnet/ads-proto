@@ -1,11 +1,11 @@
 <!--Copyright (c) 2015 Partnet, Inc. Confidential and Proprietary.-->
 
 <div class="drug-events">
-  <div class="background-img" ng-if="!drugEvents.searchResults">
+  <div class="background-img" ng-if="!(drugEvents.searchResults || drugEvents.searchAlerts.length)">
     <img src="images/medical_background.jpg" alt="">
   </div>
   <div class="container">
-  <div class="" ng-class="{'col-sm-4 col-md-3': drugEvents.searchResults, 'col-sm-3 form-fixed-width': !drugEvents.searchResults}">
+  <div class="" ng-class="{'col-sm-4 col-md-3': (drugEvents.searchResults || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchResults || drugEvents.searchAlerts.length)}">
     <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
       <div class="form-header">
         <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png" alt="CHECK MY MEDS">
@@ -52,12 +52,14 @@
                 ng-disabled="!adeSearchForm.$valid" ng-if="!drugEvents.runningQuery">GO</button>
         <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Working...</button>
       </div>
-      <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}">
-        <span>{{alert.msg}}</span>
-      </alert>
     </form>
   </div>
-  <div class="lg-landing-overlay round hidden-xs" ng-class="{'hidden': drugEvents.searchResults, 'col-sm-7 col-md-8': !drugEvents.searchResults}">
+  <div ng-class="{'hidden': !drugEvents.searchAlerts.length, 'col-sm-7 col-md-8': drugEvents.searchAlerts.length}" ng-if="drugEvents.searchAlerts.length">
+    <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}" close="drugEvents.closeAlert()">
+      <span>{{alert.msg}}</span>
+    </alert>
+  </div>
+  <div class="lg-landing-overlay round hidden-xs" ng-class="{'hidden': (drugEvents.searchResults || drugEvents.searchAlerts.length), 'col-sm-7 col-md-8': !(drugEvents.searchResults || drugEvents.searchAlerts.length)}">
     <div class="welcome-section">
       <h2>Welcome</h2>
       <hr>
