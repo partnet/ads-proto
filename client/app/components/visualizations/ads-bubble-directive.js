@@ -34,10 +34,18 @@
               .size([diameter, diameter])
               .padding(1.5);
 
-            var svg = d3.select('ads-bubble').append('svg')
-              .attr('width', diameter)
-              .attr('height', diameter)
-              .attr('class', 'bubble');
+            var svg = d3.select('ads-bubble')
+              .append('div')
+              .attr('class', 'bubble')
+              .classed('svg-container', true) //container class to make it responsive
+              .append('svg')
+              .attr('preserveAspectRatio', 'xMinYMin meet')
+              .attr('viewBox', '0 0 640 467')
+              .classed('svg-content-responsive', true);
+              //.append('svg')
+              //.attr('width', diameter)
+              //.attr('height', diameter)
+              //.attr('class', 'bubble');
 
             $window.onresize = function () {
               scope.$apply();
