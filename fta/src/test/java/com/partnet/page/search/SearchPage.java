@@ -264,7 +264,7 @@ public class SearchPage
     LOG.debug("Reactions: '{}'", results);
     return results;
   }
-
+  
   /**
    * This will switch to the given tab. If the active tab is already the current tab, there will be no change.
    * @param tab
