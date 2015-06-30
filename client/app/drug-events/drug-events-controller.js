@@ -105,5 +105,9 @@
           }
         });
       };
+
+      _this.closeAlert = function () {
+        _this.searchAlerts.splice(0, 1);
+      };
     }]);
 }());
