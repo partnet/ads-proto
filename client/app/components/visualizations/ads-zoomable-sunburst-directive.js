@@ -70,9 +70,13 @@
               }
             };
 
-            var svg = d3.select('ads-zoom-sunburst').append('svg')
-              .attr('width', width)
-              .attr('height', height)
+            var svg = d3.select('ads-zoom-sunburst')
+              .append('div')
+              .classed('svg-container', true) //container class to make it responsive
+              .append('svg')
+              .attr('preserveAspectRatio', 'xMinYMin meet')
+              .attr('viewBox', '0 0 640 467')
+              .classed('svg-content-responsive', true)
               .append('g')
               .attr('transform', 'translate(' + width / 2 + ',' + (height / 2) + ')');
 
