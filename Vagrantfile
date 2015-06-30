@@ -27,7 +27,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vagrant.vm.network "forwarded_port", guest: 8080, host: 8881  # wildfly/jboss
       vagrant.vm.network "forwarded_port", guest: 8443, host: 8444  # wildfly/jboss SSL (not currently in use)
       vagrant.vm.network "forwarded_port", guest: 9990, host: 9991  # wildfly/jboss web management interface
-      vagrant.vm.network "private_network", ip: "192.168.7.2"
+      vagrant.vm.network "private_network", ip: "192.168.7.3"
 
       vagrant.vm.synced_folder ".", "/vagrant", disabled: true
       vagrant.vm.synced_folder "server/build/libs", "/vagrant/wildfly-deployments", mount_options: ["dmode=777","fmode=666"]
