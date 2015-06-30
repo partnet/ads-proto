@@ -24,10 +24,9 @@ import com.partnet.page.search.SearchPage;
 import org.junit.Assert;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * @author <a href="mailto:bbarker@part.net">bbarker</a>
+ * @author bbarker
  */
 public class SearchSteps
 {
@@ -45,10 +44,13 @@ public class SearchSteps
 
 
   public void thenIWillReceiveANoResultErrorMessage(){
-    String msg = context.getPage(SearchPage.class).waitForSearchResultsErrorMsg();
-    Assert.assertEquals("No results were found for the search criteria submitted.", msg);
+    List<Reaction> reactions = context.getPage(SearchPage.class).waitForTabularSearchResults().getTabularSearchResults(false);
+    Assert.assertEquals("No search results were expected!", 0, reactions.size());
   }
 
+  /**
+   * Used to verify no search results are on the current page.
+   */
   public void thenIWillNotHaveAnySearchResultsContent(){
     boolean hasContent = context.getPage(SearchPage.class).hasResultsContent();
     Assert.assertFalse("Unexpected content was found!", hasContent);
@@ -59,9 +61,17 @@ public class SearchSteps
     Assert.assertTrue("No search results were found!", results.size() > 0);
   }
 
+  /**
+   * Used to verify there are no search results. This is done after a search has been performed.
+   */
+  public void thenIWillNotHaveSearchResults(){
+    List<Reaction> results = context.getPage(SearchPage.class).waitForTabularSearchResults().getTabularSearchResults(false);
+    Assert.assertEquals("Unexpected search results found!", 0, results.size());
+  }
+
   public void whenIPerformASearchFor(SearchPage.DrugOptions drugOpt, String age, SearchPage.Gender gender, String weight) {
     context.getPage(SearchPage.class)
-        .setDrug(drugOpt)
+        .setDrugAndSelectFirstOption(drugOpt)
         .setAge(age)
         .setGender(gender)
         .setWeight(weight)
@@ -78,28 +88,12 @@ public class SearchSteps
    */
   public void whenIPerformASearchForOnlyTheDrugName() {
     context.getPage(SearchPage.class)
-        .setDrug(SearchPage.DrugOptions.getRandomOption())
+        .setDrugAndSelectFirstOption(SearchPage.DrugOptions.getRandomOption())
         .clickSearch();
   }
 
   public void whenIPerformASearchWithNoResults() {
     whenIPerformASearchFor(SearchPage.DrugOptions.ADVIL, "34", SearchPage.Gender.FEMALE, "1500");
-  }
-
-  public void thenValidateListOfDrugs() {
-
-    List<String> actualOptions = context.getPage(SearchPage.class)
-        .getListOfDrugs();
-
-    Assert.assertEquals(String.format(
-        "Actual drug options is not the same size as the expected list of options! actual drugs: %s\n", actualOptions),
-        SearchPage.DrugOptions.values().length, actualOptions.size());
-
-    for(SearchPage.DrugOptions expected : SearchPage.DrugOptions.values()) {
-      Assert.assertTrue(
-        String.format("List of actual drug options does not contain expected drug option %s!", expected.getValue()),
-        actualOptions.contains(expected.getValue()));
-    }
   }
 
   public void thenTheResultsShouldBe(Result result, List<Reaction> expectedResult){
