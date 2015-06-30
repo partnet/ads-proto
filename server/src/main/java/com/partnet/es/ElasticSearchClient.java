@@ -286,6 +286,10 @@ public class ElasticSearchClient {
         }
         reactionCount.incrementCount();
 
+        if (reaction.reactionoutcome == null) {
+          reaction.reactionoutcome = 6; // use unknown code in place of null outcomes
+        }
+
         Map<Integer, ReactionsSearchResult.OutcomeCount> outcomeCountMap = outcomeMap.get(reaction.reactionmeddrapt);
         if (outcomeCountMap == null) {
           outcomeCountMap = new HashMap<>();
