@@ -20,13 +20,13 @@
       var convertOutcomeTerm = function (term) {
         switch (term) {
           case 1:
-            return 'Recovered/resolved';
+            return 'Recovered';
           case 2:
-            return 'Recovering/resolving';
+            return 'Recovering';
           case 3:
-            return 'Not recovered/not resolved';
+            return 'Ongoing';
           case 4:
-            return 'Determined an unrelated reaction to this event';
+            return 'Determined to be unrelated';
           case 5:
             return 'Fatal';
           default:

@@ -43,12 +43,12 @@
 
       _this.getOutcomeRowClass = function (term) {
         switch (term) {
-          case 'Recovered/resolved':
-          case 'Determined an unrelated reaction to this event':
+          case 'Recovered':
+          case 'Determined to be unrelated':
             return 'success';
-          case 'Recovering/resolving':
+          case 'Recovering':
             return 'info';
-          case 'Not recovered/not resolved':
+          case 'Ongoing':
             return 'warning';
           case 'Fatal':
             return 'danger';
