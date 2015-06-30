@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by brent on 6/22/15.
+ * @author bbarker
  */
 public class SearchPage
   extends Page
@@ -62,7 +62,7 @@ public class SearchPage
 
   private By tabTableContentRowsLocator = By.cssSelector("ads-d-e-results-table > table > tbody > tr");
   private By tabSunburstContentLocator = By.cssSelector("ads-zoom-sunburst svg");
-  private By tabBubbleContentLocator = By.cssSelector("ads-bubble svg.bubble");
+  private By tabBubbleContentLocator = By.cssSelector("ads-bubble .bubble");
   private By searchResultsAlertLocator = By.cssSelector("div.alert div span");
   private final String SEARCH_BTN_ID = "reg-button-id";
   private By searchBtnLocator = By.id(SEARCH_BTN_ID);

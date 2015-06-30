@@ -84,6 +84,7 @@
         DrugEventsService.searchEvents(query).then(function () {
           query.count = 'patient.reaction.reactionoutcome';
           DrugEventsService.calculateReactionOutcomes(query).then(function () {
+            _this.searchSuccess = true;
             _this.searchResults = DrugEventsService.reactionResults;
             _this.svgResult = DrugEventsService.calculateSVGJson(angular.copy(_this.searchResults), _this.drugId);
 
