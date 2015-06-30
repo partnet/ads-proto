@@ -363,13 +363,13 @@ public class ElasticSearchClient {
 
     for(SafetyReport safetyReport : safetyReports) {
       for (Drug drug : safetyReport.patient.drugs) {
-        DrugSearchResult.IndicationCount indicationCount = indicationCounts.get(drug.drugindication);
-        if (indicationCount == null) {
-          indicationCount = new DrugSearchResult.IndicationCount(drug.drugindication);
-          indicationCounts.put(drug.drugindication, indicationCount);
-        }
-        indicationCount.incrementCount();
         if (medicinalproduct.equalsIgnoreCase(drug.medicinalproduct)) {
+          DrugSearchResult.IndicationCount indicationCount = indicationCounts.get(drug.drugindication);
+          if (indicationCount == null) {
+            indicationCount = new DrugSearchResult.IndicationCount(drug.drugindication);
+            indicationCounts.put(drug.drugindication, indicationCount);
+          }
+          indicationCount.incrementCount();
           if (isFiniteNumber(drug.drugtreatmentduration)) {
             LOG.info("Adding drug treatment duration: " + drug.drugtreatmentduration + " for safety report: " + safetyReport.safetyreportid);
             treatmentDurations.add(new Double(drug.drugtreatmentduration));
