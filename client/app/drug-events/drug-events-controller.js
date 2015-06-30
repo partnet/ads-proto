@@ -100,6 +100,7 @@
             _this.minDuration = DrugEventsService.minDuration;
             _this.maxDuration = DrugEventsService.maxDuration;
             _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults, _this.drugId);
+            _this.searchSuccess = true;
 
             var sbr = angular.copy(_this.svgResult);
             var zeroPrrs = sbr.children.filter(function (events) {
