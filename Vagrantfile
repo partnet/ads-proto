@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
    box_url = "https://artifactory.part.net/artifactory/simple/software-installations/vagrant-boxes/centos-6.6-base-vbox/%5BRELEASE%5D/centos-6.6-base-vbox-%5BRELEASE%5D.box"
 
-   config.vm.define "ads-server-p1" do |vagrant|
+   config.vm.define "ads-server" do |vagrant|
       vagrant.vm.box = "centos-6.6-base"
       vagrant.vm.box_url = box_url
 
