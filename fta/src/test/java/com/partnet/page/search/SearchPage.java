@@ -64,7 +64,7 @@ public class SearchPage
   private By tabTableSearchResultsRowLocator = By.cssSelector(
       "table.side-effects tr.side-effect-row, table.side-effects tr.collapse");
   private By tabSunburstContentLocator = By.cssSelector("ads-zoom-sunburst svg");
-  private By tabBubbleContentLocator = By.cssSelector("ads-bubble svg.bubble");
+  private By tabBubbleContentLocator = By.cssSelector("ads-bubble .bubble");
   private final String SEARCH_BTN_ID = "reg-button-id";
   private By searchBtnLocator = By.id(SEARCH_BTN_ID);
   private By typeaheadDropdownOptionLocator = By.cssSelector(".dropdown-menu li a");
