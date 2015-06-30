@@ -28,12 +28,10 @@ public class SearchResultsDataTests {
   @PhantomJs
   public void test_validateTabularData(){
     searchSteps.givenIAmOnTheSearchPage();
-    searchSteps.whenIPerformASearchFor(SearchPage.DrugOptions.ALEVE, "70", SearchPage.Gender.MALE, "83");
+    searchSteps.whenIPerformASearchFor(SearchPage.DrugOptions.ALEVE, "70", SearchPage.Gender.MALE, "200");
     List<Reaction> expectedResults = new ArrayList<>();
-    expectedResults.add(new Reaction("MALIGNANT NEOPLASM PROGRESSION", 1, Collections.singletonMap("Unknown", 1)));
-    expectedResults.add(new Reaction("LUNG ADENOCARCINOMA", 1, Collections.singletonMap("Unknown", 1)));
-    expectedResults.add(new Reaction("GASTRIC ULCER HAEMORRHAGE", 1, Collections.singletonMap("Unknown", 1)));
-    expectedResults.add(new Reaction("ANAEMIA", 1, Collections.singletonMap("Unknown", 1)));
+    expectedResults.add(new Reaction("Extra dose administered", 1, Collections.singletonMap("Unknown", 1)));
+    expectedResults.add(new Reaction("Product use issue", 1, Collections.singletonMap("Unknown", 1)));
     searchSteps.thenTheResultsShouldBe(SearchSteps.Result.SAME, expectedResults);
 
 

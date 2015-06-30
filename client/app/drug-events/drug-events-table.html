@@ -4,7 +4,7 @@
   <div><span>Shortest treatment duration:</span>{{drugEvents.minDuration | number:0}} <ng-pluralize count="drugEvents.minDuration" when="{1: 'day', 'other':'days'}"></ng-pluralize></div>
   <div><span>Longest treatment duration:</span>{{drugEvents.maxDuration | number:0}} days</div>
 </div>
-<table class="table table-bordered table-responsive">
+<table class="table table-bordered table-responsive side-effects">
   <thead>
   <tr>
     <th>Side Effects</th>
@@ -15,7 +15,7 @@
     <th>Outcome of Side Effects</th>
   </tr>
   <tbody ng-repeat="reaction in drugEvents.searchResults  | limitTo:20 | orderBy:'-count'">
-    <tr>
+    <tr class="side-effect-row">
       <td>{{reaction.reactionmeddrapt}}</td>
       <td>{{reaction.count}}</td>
       <td>{{reaction.prr | number:2}}</td>
@@ -35,7 +35,7 @@
             <th>Outcome of Side Effect</th>
           </tr>
           </thead>
-          <tbody ng-repeat="outcome in reaction.outcomes | orderBy:'-count'">
+          <tbody class="outcome" ng-repeat="outcome in reaction.outcomes | orderBy:'-count'">
           <tr class="{{drugEvents.getOutcomeRowClass(outcome.reactionoutcome)}}">
             <td>{{outcome.count}}</td>
             <td>{{drugEvents.getOutcomeName(outcome.reactionoutcome)}}</td>

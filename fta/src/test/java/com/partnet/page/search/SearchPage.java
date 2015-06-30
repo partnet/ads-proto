@@ -4,9 +4,9 @@ import com.partnet.automation.DependencyContainer;
 import com.partnet.automation.page.Page;
 import com.partnet.model.Reaction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,14 +17,14 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by brent on 6/22/15.
+ * @author bbarker
  */
 public class SearchPage
   extends Page
 {
 
-  @FindBy(id = "drug-id")
-  private WebElement drugNameDrpDwn;
+  @FindBy(css = "input[placeholder='Enter a drug name']")
+  private WebElement drugNameTxtBox;
 
   @FindBy(id = "age-id")
   private WebElement ageTxtBox;
@@ -38,7 +38,7 @@ public class SearchPage
   @FindBy(id = "weight-id")
   private WebElement weightTxtBox;
 
-  @FindBy(id = "SEARCH_BTN_ID")
+  @FindBy(id = SEARCH_BTN_ID)
   private WebElement searchBtn;
 
   @FindBy(css = ".nav.nav-tabs li.active")
@@ -60,12 +60,14 @@ public class SearchPage
   private List<WebElement> activeTabContentValidation;
 
 
-  private By tabTableContentRowsLocator = By.cssSelector("ads-d-e-results-table > table > tbody > tr");
+  private By tabTableContentLoadingLocator = By.cssSelector("ads-d-e-results-table > table");
+  private By tabTableSearchResultsRowLocator = By.cssSelector(
+      "table.side-effects tr.side-effect-row, table.side-effects tr.collapse");
   private By tabSunburstContentLocator = By.cssSelector("ads-zoom-sunburst svg");
   private By tabBubbleContentLocator = By.cssSelector("ads-bubble svg.bubble");
-  private By searchResultsAlertLocator = By.cssSelector("div.alert div span");
   private final String SEARCH_BTN_ID = "reg-button-id";
   private By searchBtnLocator = By.id(SEARCH_BTN_ID);
+  private By typeaheadDropdownOptionLocator = By.cssSelector(".dropdown-menu li a");
 
   private static final Logger LOG = LoggerFactory.getLogger(SearchPage.class);
 
@@ -89,11 +91,9 @@ public class SearchPage
   public enum Gender {MALE, FEMALE};
 
   public enum DrugOptions {
-    ADVAIR_DISKUS("Advair Diskus"),
     ADVIL("Advil"),
     ALEVE("Aleve"),
     CEPACOL("Cepacol"),
-    CHILDRENS_DIMETAPP("Childrens Dimetapp"),
     CLARITIN("Claritin"),
     COLACE("Colace"),
     CORTAID("Cortaid"),
@@ -103,11 +103,9 @@ public class SearchPage
     DULCOLAX("Dulcolax"),
     EXCEDRIN("Excedrin"),
     GAVISCON("Gaviscon"),
-    LANTUS_SOLOSTAR("Lantus Solostar"),
     LYRICA("Lyrica"),
     NEXIUM("Nexium"),
     SYNTHROID("Synthroid"),
-    VENTOLIN_HFA("Ventolin HFA"),
     VYVANSE("Vyvanse");
 
     private final String value;
@@ -159,9 +157,23 @@ public class SearchPage
     super.waitForPresenceOfElement(searchBtnLocator, TIMEOUT);
   }
 
-  public SearchPage setDrug(DrugOptions option) {
-    Select dropdown = new Select(drugNameDrpDwn);
-    super.selectByVisibleText(drugNameDrpDwn, option.getValue());
+  /**
+   * Sets the drug field, and selects the option from the autocomplete list.
+   * @param option the drug option to select.
+   * @return
+   */
+  public SearchPage setDrugAndSelectFirstOption(DrugOptions option) {
+    return this.setDrugAndSelectFirstOption(option.getValue());
+  }
+
+  /**
+   * Sets the drug field, and selects the option from the autocomplete list.
+   * @param drug - string of the drug to select
+   * @return
+   */
+  public SearchPage setDrugAndSelectFirstOption(String drug) {
+    super.setValue(drugNameTxtBox, drug);
+    super.waitForPresenceOfElement(typeaheadDropdownOptionLocator, 30).click();
     return this;
   }
 
@@ -198,17 +210,11 @@ public class SearchPage
 
 
   public SearchPage waitForTabularSearchResults(){
-    super.waitForPresenceOfAllElements(tabTableContentRowsLocator, TIMEOUT);
+    super.waitForPresenceOfAllElements(tabTableContentLoadingLocator, TIMEOUT);
     return this;
   }
 
-
-  /**
-   * Returns true if there is results content. False otherwise
-   * @return
-   */
-  public boolean hasResultsContent()
-  {
+  public boolean hasResultsContent() {
     return activeTabContentValidation.size() == 1;
   }
 
@@ -230,15 +236,17 @@ public class SearchPage
 
     String reaction = "n/a";
     int count = -1;
-    for(WebElement row : webDriver.findElements(tabTableContentRowsLocator)) {
 
-      if(row.getAttribute("class").equals("collapse")) {
+    List<WebElement> rows = webDriver.findElements(tabTableSearchResultsRowLocator);
+
+    for (WebElement row : rows) {
+      if (row.getAttribute("class").equals("collapse")) {
         LOG.debug("Row hidden text: {}", getHiddenText(row));
         Map<String, Integer> outcomeTbl = new HashMap<>();
-        if(getCollapsedData) {
-          List<WebElement> collapsedRows = row.findElement(By.cssSelector("tbody")).findElements(By.cssSelector("tr"));
+        if (getCollapsedData) {
+          List<WebElement> collapsedRows = row.findElement(By.cssSelector("tbody.outcome")).findElements(By.cssSelector("tr"));
 
-          for(WebElement singleCollapseRow : collapsedRows) {
+          for (WebElement singleCollapseRow : collapsedRows) {
             List<WebElement> cols = singleCollapseRow.findElements(By.cssSelector("td"));
             outcomeTbl.put(super.getHiddenText(cols.get(OUTCOME_COL)).trim(), Integer.parseInt(super.getHiddenText(cols.get(OUTCOME_COUNT_COL)).trim()));
           }
@@ -253,32 +261,9 @@ public class SearchPage
 
     }
 
-    LOG.debug("Reactions: {}", results);
+    LOG.debug("Reactions: '{}'", results);
     return results;
   }
-
-  public String waitForSearchResultsErrorMsg() {
-    return super.waitForPresenceOfElement(searchResultsAlertLocator, TIMEOUT).getText();
-  }
-
-  /**
-   * Gets the string representation of all of the drug options, except for the first --Select-- option
-   * @return
-   */
-  public List<String> getListOfDrugs() {
-    List<String> options = new ArrayList<>();
-
-    Select drugOpts = new Select(drugNameDrpDwn);
-
-    for(WebElement opt : drugOpts.getOptions()) {
-      options.add(opt.getText());
-    }
-
-    options.remove("Select Medication");
-    LOG.debug("List of drugs: {}", options);
-    return options;
-  }
-
 
   /**
    * This will switch to the given tab. If the active tab is already the current tab, there will be no change.
