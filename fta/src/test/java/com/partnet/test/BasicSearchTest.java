@@ -48,6 +48,6 @@ public class BasicSearchTest
     searchSteps.thenIWillNotHaveAnySearchResultsContent();
     searchSteps.whenIPerformASearchWithNoResults();
     searchSteps.thenIWillReceiveANoResultErrorMessage();
-    searchSteps.thenIWillNotHaveAnySearchResultsContent();
+    searchSteps.thenIWillNotHaveSearchResults();
   }
 }

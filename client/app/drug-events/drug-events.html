@@ -9,15 +9,13 @@
     <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
       <div class="form-header">
         <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png" alt="CHECK MY MEDS">
-        <p ng-if="!drugEvents.searchSuccess">Click the arrow to view a list of popular medications. Then, select the name of the medication you want to
+        <p ng-if="!drugEvents.searchSuccess">Enter a drug name. Then, select the name of the medication you want to
           search.</p>
       </div>
       <fieldset class="search-fields">
         <div class="form-group form-header">
-          <select id="drug-id" class="form-control round" ng-model="drugEvents.drugId"
-                  ng-options="drugId as drugId for drugId in drugEvents.availableDrugIds" required>
-            <option value="">Select Medication</option>
-          </select>
+        <input type="text" ng-model="drugEvents.drugId" placeholder="Enter a drug name" typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)" typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false" class="form-control round">
+          <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
         </div>
         </fieldset>
       <hr>

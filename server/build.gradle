@@ -1,0 +1,93 @@
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
+apply plugin: 'war'
+apply plugin: 'cargo'
+apply plugin: 'idea'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+  jcenter()
+  mavenCentral()
+}
+
+dependencies {
+  providedCompile 'javax:javaee-api:7.0'
+
+  compile 'org.slf4j:slf4j-api:1.7.12'
+  compile 'org.json:org.json:2.0'
+  compile 'com.google.code.gson:gson:2.3.1'
+  compile 'org.elasticsearch:elasticsearch:1.4.2'
+
+  runtime 'org.apache.logging.log4j:log4j-api:2.3'
+  runtime 'org.apache.logging.log4j:log4j-core:2.3'
+  runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.3'
+
+  testCompile 'junit:junit:4.12'
+  testCompile 'org.mockito:mockito-all:1.10.19'
+
+  cargo 'org.wildfly:wildfly-controller-client:8.2.0.Final'
+  cargo 'org.codehaus.cargo:cargo-ant:1.4.12'
+}
+
+findbugs {
+  excludeFilter = file("$rootProject.projectDir/findbugs-exclude-filter.xml")
+}
+
+/**
+ *  Import cargo tasks
+ */
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'org.gradle.api.plugins:gradle-cargo-plugin:1.5.2'
+  }
+}
+
+
+/**
+ *  Set up wildfly connection properties
+ */
+cargo {
+  containerId = 'wildfly8x'
+
+  remote {
+    if(!project.hasProperty("wildfly_app_admin_hostname")) {
+      ext.wildfly_app_admin_hostname = 'localhost'
+    }
+    if(!project.hasProperty("wildfly_app_admin_user_name")) {
+      ext.wildfly_app_admin_user_name = 'admin'
+    }
+    if(!project.hasProperty("wildfly_app_admin_password")) {
+      ext.wildfly_app_admin_password = 'YourM0m!'
+    }
+    hostname = wildfly_app_admin_hostname
+    username = wildfly_app_admin_user_name
+    password = wildfly_app_admin_password
+  }
+}
+
+/**
+ *  This task depends on the war task and will deploy the resulting artifact to a running instance of the JBOSS Wildfly
+ */
+task deployRemote(dependsOn: ['war','cargoRedeployRemote']) {
+}
+
+test {
+  jacoco {
+    append = false
+  }
+}
+
+war.dependsOn ":client:dist"
+
+war {
+  from '../client/dist/'
+}
+
+tasks.cargoRedeployRemote.mustRunAfter(war)

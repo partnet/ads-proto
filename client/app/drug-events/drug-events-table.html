@@ -1,14 +1,25 @@
-<table class="table table-bordered table-responsive">
+<div class="summary-data">
+  <div><span>Total number of events:</span> {{drugEvents.numReports}}</div>
+  <div><span>Average treatment duration:</span>{{drugEvents.aveDuration | number:2}} days</div>
+  <div><span>Shortest treatment duration:</span>{{drugEvents.minDuration | number:0}} <ng-pluralize count="drugEvents.minDuration" when="{1: 'day', 'other':'days'}"></ng-pluralize></div>
+  <div><span>Longest treatment duration:</span>{{drugEvents.maxDuration | number:0}} days</div>
+</div>
+<table class="table table-bordered table-responsive side-effects">
   <thead>
   <tr>
     <th>Side Effects</th>
     <th>Total Number of Times Reported</th>
+    <th><span title="The proportional reporting ratio (PRR) measures how common a reaction is for a particular drug is compared to how common it is overall.
+     A PRR > 1 indicates a higher likelihood that the reaction was caused by the specific drug. "> PRR</span></th>
+    <th><span title="The Reporting Odds Ratio (ROR) is a ratio similar to the PRR"> ROR</span></th>
     <th>Outcomes of Side Effects</th>
   </tr>
-  <tbody ng-repeat="reaction in drugEvents.searchResults | orderBy:'-count'">
-    <tr>
-      <td>{{reaction.term}}</td>
+  <tbody ng-repeat="reaction in drugEvents.searchResults  | limitTo:20 | orderBy:'-count'">
+    <tr class="side-effect-row">
+      <td>{{reaction.reactionmeddrapt}}</td>
       <td>{{reaction.count}}</td>
+      <td>{{reaction.prr | number:2}}</td>
+      <td>{{reaction.ror | number:2}}</td>
       <td>
         <button class="btn btn-primary btn-outcome center-btn"
                 ng-click="drugEvents.expandOutcome($index)"
@@ -17,7 +28,7 @@
       </td>
     </tr>
     <tr collapse="drugEvents.outcomeExpanded != {{$index}}">
-      <td colspan="3">
+      <td colspan="5">
         <table class="table table-bordered table-responsive">
           <thead>
           <tr>
@@ -25,15 +36,29 @@
             <th>Outcome of Side Effect</th>
           </tr>
           </thead>
-          <tbody ng-repeat="outcome in reaction.outcomes">
-          <tr class="{{drugEvents.getOutcomeRowClass(outcome.term)}}">
+          <tbody class="outcome" ng-repeat="outcome in reaction.outcomes | orderBy:'-count'">
+          <tr class="{{drugEvents.getOutcomeRowClass(outcome.reactionoutcome)}}">
             <td>{{outcome.count}}</td>
-            <td>{{outcome.term}}</td>
+            <td>{{drugEvents.getOutcomeName(outcome.reactionoutcome)}}</td>
           </tr>
           </tbody>
         </table>
       </td>
     </tr>
   </tbody>
-  </thead>
+</table>
+
+<table class="table table-bordered">
+  <thead>
+  <tr>
+    <th>Indication</th>
+    <th>Number Reported</th>
+  </tr>
+  <tbody ng-repeat="indication in drugEvents.indicationResults | limitTo:10">
+    <tr>
+      <td><span ng-show="!indication.drugindication">TOTAL INDICATIONS</span>{{indication.drugindication}}</td>
+      <td>{{indication.count}}</td>
+    </tr>
+  </tbody>
+
 </table>

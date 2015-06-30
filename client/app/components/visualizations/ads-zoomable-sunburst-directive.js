@@ -36,19 +36,37 @@
               .range([0, radius]);
 
             var nodeColor = d3.scale.category20c();
+
             var leafColor = function (name) {
               switch (name) {
-                case 'Recovered/resolved':
-                case 'Determined an unrelated reaction to this event':
+                case 1:
+                case 4:
                   return '#dff0d8';
-                case 'Recovering/resolving':
+                case 2:
                   return '#d9edf7';
-                case 'Not recovered/not resolved':
+                case 3:
                   return '#fcf8e3';
-                case 'Fatal':
+                case 5:
                   return '#f2dede';
                 default:
                   return '#e6e6fa';
+              }
+            };
+
+            var outcomeName = function (term) {
+              switch (term) {
+                case 1:
+                  return 'Recovered';
+                case 2:
+                  return 'Recovering';
+                case 3:
+                  return 'Ongoing';
+                case 4:
+                  return 'Determined to be unrelated';
+                case 5:
+                  return 'Fatal';
+                default:
+                  return 'Unknown';
               }
             };
 
@@ -144,7 +162,7 @@
 
                 if (d.size && !d.children) {
                   scope.node = {
-                    label: d.name,
+                    label: outcomeName(d.name),
                     size: d.size,
                     isLeaf: true,
                     isRoot: false
