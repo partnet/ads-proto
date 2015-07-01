@@ -100,10 +100,6 @@
                 return Math.max(0, y(d.y + d.dy));
               });
 
-            $window.onresize = function () {
-              scope.$apply();
-            };
-
             var arcTweenZoom = function (d) {
               var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
                 yd = d3.interpolate(y.domain(), [d.y, 1]),
@@ -121,10 +117,41 @@
               };
             };
 
-            var node;
+            var addLabel = function (label) {
+              var node;
+              var isChild;
+              var className = 'ads-svg-labeled';
+              if (angular.isDefined(label)) {
+                node = svg.selectAll('g').filter(function (d) {
+                  if( d.name === label){
+                    if(!d.children) {
+                      className = 'ads-svg-labeled-leaf';
+                    }
+                    return true;
+                  }
+                });
+                isChild = true;
+              } else {
+                node = svg.select('g');
+                isChild = false;
+              }
+
+              var text = node.append('text')
+                .classed(className, true)
+                .text(function (d) {
+                  return d.name;
+                });
+
+              if(isChild){
+                text.attr('dy', '-3em');
+              }
+            };
+
+            var removeLabels = function () {
+              svg.selectAll('g').select('text').remove();
+            }
 
             var render = function (root) {
-              node = root;
               scope.node = {
                 label: root.name,
                 isLeaf: false,
@@ -152,10 +179,9 @@
                 return d.name;
               });
 
-              scope.label = svg.select('g').text();
+              addLabel();
 
               function click(d) {
-                node = d;
                 path.transition()
                   .duration(1000)
                   .attrTween('d', arcTweenZoom(d));
@@ -167,6 +193,8 @@
                     isLeaf: true,
                     isRoot: false
                   };
+                  removeLabels();
+                  addLabel(d.name);
                 } else if (d.parent) {
                   scope.node = {
                     label: d.name,
@@ -174,12 +202,16 @@
                     isLeaf: false,
                     isRoot: false
                   };
+                  removeLabels();
+                  addLabel(d.name);
                 } else {
                   scope.node = {
                     label: d.name,
                     isLeaf: false,
                     isRoot: true
                   };
+                  removeLabels();
+                  addLabel();
                 }
 
                 scope.$apply();
