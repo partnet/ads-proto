@@ -40,8 +40,8 @@
        *
        * @description
        * In an attempt to work with the request frequency limitations the openfda rest API, this recursive method was implemented to issue
-       * 'reaction outcome' requests sequentially, rather than concurrently. Requests still that fail due to server frequency
-       * constraints (429 status) will be re-tried up to 3 times.
+       * 'reaction outcome' requests sequentially, rather than concurrently. Requests that still fail, due to server frequency
+       * constraints (429 status), will be re-tried up to 3 times.
        *
        * @param deferred the deferred promise from the reaction query
        * @param outcomeQuery the query object that describes the details of this reaction/outcome request
