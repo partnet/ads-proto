@@ -104,7 +104,12 @@
               case 429:
                 if (retries++ < 3) {
                   makeRequest(thisQuery);
+                } else {
+                  issueNext();
                 }
+                break;
+              default:
+                issueNext();
             }
           });
         };
@@ -112,12 +117,25 @@
         makeRequest(calculateOutcomeQuery());
       };
 
+      var plusCharEntityRegEx = new RegExp('%2B', 'g');
+
+      /**
+       * @ngdoc function
+       * @author brandony-pn
+       *
+       * @description
+       * The openfda rest api cannot handle having the '+' character encoded. This custom serializer is necessary until
+       * the time when it properly handles the character entity for this character.
+       *
+       * @param params the map of url parameters submitted
+       * @returns {string} the uri encoded url parameters string
+       */
       var serializer = function (params) {
         var ps = '';
         var keys = Object.keys(params);
         var count = 0;
         keys.map(function (key) {
-          ps += key + '=' + params[key];
+          ps += encodeURIComponent(key) + '=' + encodeURIComponent(params[key]).replace(plusCharEntityRegEx, '+');
           if (++count < keys.length) {
             ps += '&';
           }
