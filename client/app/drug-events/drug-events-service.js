@@ -39,7 +39,7 @@
        * @author brandony-pn
        *
        * @description
-       * In an attempt to work with the limitations the openfda rest API, this recursive method was implemented to issue
+       * In an attempt to work with the request frequency limitations the openfda rest API, this recursive method was implemented to issue
        * 'reaction outcome' requests sequentially, rather than concurrently. Requests still that fail due to server frequency
        * constraints (429 status) will be re-tried up to 3 times.
        *
