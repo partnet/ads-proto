@@ -14,14 +14,14 @@
 (function () {
   'use strict';
   angular.module('components')
-    .directive('adsBubble', ['$window',
-      function ($window) {
+    .directive('adsBubble', ['$window', '$compile',
+      function ($window, $compile) {
         return {
           restrict: 'E',
           scope: {
             data: '='
           },
-          link: function (scope) {
+          link: function (scope, element) {
             var d3 = $window.d3;
 
             var diameter = 480,
@@ -40,12 +40,8 @@
               .classed('svg-container', true) //container class to make it responsive
               .append('svg')
               .attr('preserveAspectRatio', 'xMinYMin meet')
-              .attr('viewBox', '0 0 640 467')
+              .attr('viewBox', '0 0 480 480')
               .classed('svg-content-responsive', true);
-              //.append('svg')
-              //.attr('width', diameter)
-              //.attr('height', diameter)
-              //.attr('class', 'bubble');
 
             $window.onresize = function () {
               scope.$apply();
@@ -65,6 +61,21 @@
               return {children: classes};
             };
 
+            var insertFormattedName = function (d) {
+              if (d.r >= 35) {
+                var el = d3.select(this);
+                var words = d.className.split(' ');
+                el.text('');
+
+                var axisYAdj = words.length > 1 ? (words.length - 1) * -5 : 0;
+
+                for (var i = 0; i < words.length; i++) {
+                  var tspan = el.append('tspan').text(words[i]);
+                  tspan.attr('x', 0).attr('dy', i == 0 ? axisYAdj : 15);
+                }
+              }
+            };
+
             scope.render = function (data) {
               var node = svg.selectAll('.node')
                 .data(bubble.nodes(classes(data))
@@ -75,7 +86,9 @@
                 .attr('class', 'node')
                 .attr('transform', function (d) {
                   return 'translate(' + d.x + ',' + d.y + ')';
-                });
+                }).attr('popover', function(d) {
+                  return d.className + ': ' + format(d.value);
+                }).attr('popover-append-to-body', true);
 
               node.append('title')
                 .text(function (d) {
@@ -92,13 +105,13 @@
 
               node.append('text')
                 .attr('dy', '.3em')
-                .style('text-anchor', 'middle')
-                .text(function (d) {
-                  return d.className.substring(0, d.r / 3);
-                });
+                .style('text-anchor', 'middle');
             };
 
             scope.render(scope.data);
+            svg.selectAll('g text').each(insertFormattedName);
+
+            $compile(element.contents())(scope);
           }
         }
       }]);

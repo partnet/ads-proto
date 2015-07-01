@@ -17,3 +17,4 @@ fta/selenium-drivers
 .settings
 .vagrant
 build/
+classes/
