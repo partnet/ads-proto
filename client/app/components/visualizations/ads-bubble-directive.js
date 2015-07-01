@@ -43,10 +43,6 @@
               .attr('viewBox', '0 0 480 480')
               .classed('svg-content-responsive', true);
 
-            $window.onresize = function () {
-              scope.$apply();
-            };
-
             var classes = function (root) {
               var classes = [];
 
