@@ -75,20 +75,30 @@
         _this.runningQuery = true;
         resetSearch();
 
-
         var drugQuery = {
           drug: _this.drugId.toLowerCase()
         };
 
         var reactionQuery = {
           drug: _this.drugId.toLowerCase(),
-          'patient.sex': _this.gender,
-          'patient.age.low': _this.age - 10 >= 0 ? _this.age - 10 : 0,
-          'patient.age.high': _this.age + 10 <= 120 ? _this.age + 10 : 120,
-          'patient.weight.low': _this.weight - 10 >= 0 ? _this.weight - 10 : 0,
-          'patient.weight.high': _this.weight + 10
+          'patient.sex': _this.gender
         };
 
+        if (_this.age !== null) {
+          console.log('Setting AGE: ' + _this.age);
+          reactionQuery.patient = {
+            'age.low': _this.age - 10 >= 0 ? _this.age - 10 : 0,
+            'age.high': _this.age + 10 <= 120 ? _this.age + 10 : 120
+          }
+        }
+
+        if (_this.weight !== null) {
+          console.log('Setting Weight: ' + _this.weight);
+          reactionQuery.patient = {
+            'weight.low': _this.weight - 10 >= 0 ? _this.weight - 10 : 0,
+            'weight.high': _this.weight + 10
+          }
+        }
 
         DrugEventsService.searchEvents(reactionQuery).then(function () {
           reactionQuery.count = 'patient.reaction.reactionoutcome';
@@ -122,6 +132,12 @@
               _this.searchAlerts.splice(0, 1, {
                 type: 'danger',
                 msg: 'No results were found for the search criteria submitted.'
+              });
+              break;
+            default:
+              _this.searchAlerts.splice(0, 1, {
+                type: 'danger',
+                msg: 'Oops! Something bad happened and we cannot show any results. Please try again later.'
               });
           }
         });

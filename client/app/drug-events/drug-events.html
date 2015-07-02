@@ -20,11 +20,12 @@
                    typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)"
                    typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false"
                    class="form-control round" required>
-            <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh infield-search-icon glyphicon-refresh-animate"></i>
+            <i ng-show="loadingLocations"
+               class="glyphicon glyphicon-refresh infield-search-icon glyphicon-refresh-animate"></i>
           </div>
         </fieldset>
         <hr>
-        <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png" alt="">
+        <h2 class="demographic-details"><img class="ads-person img-responsive" src="images/person.png" alt="">
           Demographic Details</h2>
         <hr>
         <fieldset>
@@ -33,29 +34,30 @@
             <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="2">Female</label>
           </div>
           <div class="form-horizontal">
-            <div class="form-group">
-              <label for="age-id" class="age-label col-sm-3 col-xs-3 control-label">Age:</label>
+            <div class="form-horizontal">
+              <div class="form-group">
+                <label for="age-id" class="age-label col-sm-3 col-xs-3 control-label">Age:</label>
 
-              <div class="col-sm-6 col-xs-6">
-                <input id="age-id" class="form-control round" type="number" step="any" min="0" max="120" name="age"
-                       type="text" value="" ng-model="drugEvents.age">
+                <div class="col-sm-6 col-xs-6">
+                  <input id="age-id" class="form-control round" type="number" step="any" min="0" max="120" name="age"
+                         type="text" value="" ng-model="drugEvents.age">
+                </div>
+                <div ng-show="adeSearchForm.age.$invalid">
+                  <div class="help-block">Age must be between 0-120.</div>
+                </div>
               </div>
-              <div ng-show="adeSearchForm.age.$invalid">
-                <div class="help-block">Age must be between 0-120.</div>
+              <div class="form-group">
+                <label for="weight-id" class="weight-label col-sm-3 col-xs-3 control-label">Weight:</label>
+
+                <div class="col-sm-6 col-xs-6">
+                  <input id="weight-id" class="form-control round" type="number" step="any" min="0" name="weight"
+                         type="text" value="" ng-model="drugEvents.weight">
+                </div>
+                <div ng-show="adeSearchForm.weight.$invalid">
+                  <div class="help-block">Weight must be a positive number.</div>
+                </div>
               </div>
             </div>
-            <div class="form-group">
-              <label for="weight-id" class="weight-label col-sm-3 col-xs-3 control-label">Weight:</label>
-
-              <div class="col-sm-6 col-xs-6">
-                <input id="weight-id" class="form-control round" type="number" step="any" min="0" name="weight"
-                       type="text" value="" ng-model="drugEvents.weight">
-              </div>
-              <div ng-show="adeSearchForm.weight.$invalid">
-                <div class="help-block">Weight must be a positive number.</div>
-              </div>
-            </div>
-          </div>
         </fieldset>
         <div class="btn-holder">
           <button id="reg-button-id" type="submit" class="round center-btn btn btn-primary"
@@ -143,4 +145,3 @@
     </div>
   </div>
 </div>
-
