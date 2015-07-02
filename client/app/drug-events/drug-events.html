@@ -5,120 +5,142 @@
     <img src="images/medical_background.jpg" alt="">
   </div>
   <div class="container">
-  <div class="" ng-class="{'col-sm-4 col-md-3': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
-    <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
-      <div class="form-header">
-        <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png" alt="CHECK MY MEDS">
-        <p>Enter a drug name. Then, select the name of the medication you want to
-          search.</p>
-      </div>
-      <fieldset class="search-fields">
-        <div class="form-group form-header">
-        <input type="text" ng-model="drugEvents.drugId" placeholder="Enter a drug name" typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)" typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false" class="form-control round">
-          <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
+    <div class=""
+         ng-class="{'col-sm-4 col-md-3': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
+      <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
+        <div class="form-header">
+          <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png" alt="CHECK MY MEDS">
+
+          <p>Enter a drug name. Then, select the name of the medication you want to
+            search.</p>
         </div>
+        <fieldset class="search-fields">
+          <div id="search-div" class="form-group form-header">
+            <input type="text" ng-model="drugEvents.drugId" placeholder="Enter a drug name"
+                   typeahead="drugId as drugId for drugId in drugEvents.searchDrugs($viewValue)"
+                   typeahead-min-length="3" typeahead-loading="loadingLocations" typeahead-editable="false"
+                   class="form-control round" required>
+            <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh infield-search-icon glyphicon-refresh-animate"></i>
+          </div>
         </fieldset>
-      <hr>
-      <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png" alt=""> Demographic Details</h2>
-      <hr>
-      <fieldset>
-        <div class="btn-group form-group text-center center-btn">
-          <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="1">Male</label>
-          <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="2">Female</label>
-        </div>
-        <div class="form-horizontal">
-          <div class="form-group">
-            <label for="age-id" class="age-label col-sm-3 col-xs-3 control-label">Age:</label>
-            <div class="col-sm-6 col-xs-6">
-              <input id="age-id" class="form-control round" type="number" step="any" min="0" max="120" name="age" type="text" value="" ng-model="drugEvents.age">
+        <hr>
+        <h2 class="demographic-details"><img class="ads-person img-responsive" src="../images/person.png" alt="">
+          Demographic Details</h2>
+        <hr>
+        <fieldset>
+          <div class="btn-group form-group text-center center-btn">
+            <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="1">Male</label>
+            <label class="btn btn-primary round" ng-model="drugEvents.gender" btn-radio="2">Female</label>
+          </div>
+          <div class="form-horizontal">
+            <div class="form-group">
+              <label for="age-id" class="age-label col-sm-3 col-xs-3 control-label">Age:</label>
+
+              <div class="col-sm-6 col-xs-6">
+                <input id="age-id" class="form-control round" type="number" step="any" min="0" max="120" name="age"
+                       type="text" value="" ng-model="drugEvents.age">
+              </div>
+              <div ng-show="adeSearchForm.age.$invalid">
+                <div class="help-block">Age must be between 0-120.</div>
+              </div>
             </div>
-            <div ng-show="adeSearchForm.age.$invalid">
-              <div class="help-block">Age must be between 0-120.</div>
+            <div class="form-group">
+              <label for="weight-id" class="weight-label col-sm-3 col-xs-3 control-label">Weight:</label>
+
+              <div class="col-sm-6 col-xs-6">
+                <input id="weight-id" class="form-control round" type="number" step="any" min="0" name="weight"
+                       type="text" value="" ng-model="drugEvents.weight">
+              </div>
+              <div ng-show="adeSearchForm.weight.$invalid">
+                <div class="help-block">Weight must be a positive number.</div>
+              </div>
             </div>
           </div>
-          <div class="form-group">
-            <label for="weight-id" class="weight-label col-sm-3 col-xs-3 control-label">Weight:</label>
-            <div class="col-sm-6 col-xs-6">
-              <input id="weight-id" class="form-control round" type="number" step="any" min="0" name="weight" type="text" value="" ng-model="drugEvents.weight">
-            </div>
-            <div ng-show="adeSearchForm.weight.$invalid">
-              <div class="help-block">Weight must be a positive number.</div>
-            </div>
-          </div>
+        </fieldset>
+        <div class="btn-holder">
+          <button id="reg-button-id" type="submit" class="round center-btn btn btn-primary"
+                  ng-disabled="!adeSearchForm.$valid"
+                  ng-if="!drugEvents.runningQuery">GO
+          </button>
+          <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span
+              class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Working...
+          </button>
         </div>
-      </fieldset>
-      <div class="btn-holder">
-        <button id="reg-button-id" type="submit" class="round center-btn btn btn-primary"
-                ng-disabled="!adeSearchForm.$valid" ng-if="!drugEvents.runningQuery">GO</button>
-        <button class="round btn btn-primary center-btn" ng-if="drugEvents.runningQuery" ng-disabled="true"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Working...</button>
+      </form>
+    </div>
+    <div ng-class="{'hidden': !drugEvents.searchAlerts.length, 'col-sm-7 col-md-8': drugEvents.searchAlerts.length}"
+         ng-if="drugEvents.searchAlerts.length">
+      <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}" close="drugEvents.closeAlert()">
+        <span>{{alert.msg}}</span>
+      </alert>
+    </div>
+    <div class="lg-landing-overlay round hidden-xs"
+         ng-class="{'hidden': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-7 col-md-8': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
+      <div class="welcome-section">
+        <h2>Welcome</h2>
+        <hr>
+        <div>
+          Find info on your medications fast! View drug reactions and details. Learn the side effects that others
+          like you have experienced.
+        </div>
       </div>
-    </form>
-  </div>
-  <div ng-class="{'hidden': !drugEvents.searchAlerts.length, 'col-sm-7 col-md-8': drugEvents.searchAlerts.length}" ng-if="drugEvents.searchAlerts.length">
-    <alert ng-repeat="alert in drugEvents.searchAlerts" type="{{alert.type}}" close="drugEvents.closeAlert()">
-      <span>{{alert.msg}}</span>
-    </alert>
-  </div>
-  <div class="lg-landing-overlay round hidden-xs" ng-class="{'hidden': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-7 col-md-8': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
-    <div class="welcome-section">
-      <h2>Welcome</h2>
-      <hr>
-      <div>
-        Find info on your medications fast! View drug reactions and details. Learn the side effects that others
-        like you have experienced.
+
+      <div class="testimonials-section">
+        <hr>
+        <h2><img src="images/medical_comment.png" alt="">TESTIMONIALS</h2>
+        <hr>
+        <div>
+          <img class="img-responsive quote-img" src="images/medical_quote.png" alt="">
+
+          <div class="testimonial-testimony">
+            I like using Check My Meds to view side effects and the outcomes
+            that others have experienced. I’m a visual person, so the interactive
+            graphics are wonderful!<br>
+            —Michelle, Salt Lake City, Utah
+          </div>
+
+        </div>
       </div>
     </div>
 
-    <div class="testimonials-section">
-      <hr>
-      <h2><img src="images/medical_comment.png" alt="">TESTIMONIALS</h2>
-      <hr>
-      <div>
-        <img class="img-responsive quote-img" src="images/medical_quote.png" alt="">
-        <div class="testimonial-testimony">
-          I like using Check My Meds to view side effects and the outcomes
-          that others have experienced. I’m a visual person, so the interactive
-          graphics are wonderful!<br>
-          —Michelle, Salt Lake City, Utah
-        </div>
+    <div class="col-sm-8 col-md-9" ng-if="drugEvents.svgResult">
+      <div class="results">
+        <tabset justified="true">
+          <tab heading="Side Effects and Outcomes List">
+            <div class="tab-instructions">
+              <p>This list displays a medication, its common side effects, and what happened as a result of those side
+                effects.</p>
+            </div>
+            <ads-d-e-results-table></ads-d-e-results-table>
+          </tab>
+          <tab heading="Side Effects and Outcomes Interactive Graphic">
+            <div class="tab-instructions">
+              <p>This starburst interactive graphic displays a medication, its common side effects, and what happened as
+                a result of those side effects.</p>
+            </div>
+            <div class="text-center">
+              <h2 ng-if="node.isRoot">{{node.label}}</h2>
 
+              <h2 ng-if="node.isLeaf">{{node.size}} {{node.label}} reaction outcomes</h2>
+
+              <h2 ng-if="!node.isLeaf && !node.isRoot">{{node.size}} reactions reported for {{node.label}}</h2>
+            </div>
+            <div class="text-center">
+              <ads-zoom-sunburst data="drugEvents.svgResult" node="node"></ads-zoom-sunburst>
+            </div>
+          </tab>
+          <tab heading="Most Common Side Effects Graphic">
+            <div class="tab-instructions">
+              <p>This bubble graphic displays the most common side effects from taking this medication. Larger bubbles
+                indicate a more frequent occurrence of the side effect.</p>
+            </div>
+            <div class="text-center">
+              <ads-bubble data="drugEvents.svgBubbleResult"></ads-bubble>
+            </div>
+          </tab>
+        </tabset>
       </div>
     </div>
   </div>
-
-  <div class="col-sm-8 col-md-9" ng-if="drugEvents.svgResult">
-    <div class="results">
-      <tabset justified="true">
-        <tab heading="Side Effects and Outcomes List">
-          <div class="tab-instructions">
-            <p>This list displays a medication, its common side effects, and what happened as a result of those side effects.</p>
-          </div>
-          <ads-d-e-results-table></ads-d-e-results-table>
-        </tab>
-        <tab heading="Side Effects and Outcomes Interactive Graphic">
-          <div class="tab-instructions">
-            <p>This starburst interactive graphic displays a medication, its common side effects, and what happened as a result of those side effects.</p>
-          </div>
-          <div class="text-center">
-            <h2 ng-if="node.isRoot">{{node.label}}</h2>
-            <h2 ng-if="node.isLeaf">{{node.size}} {{node.label}} reaction outcomes</h2>
-            <h2 ng-if="!node.isLeaf && !node.isRoot">{{node.size}} reactions reported for {{node.label}}</h2>
-          </div>
-          <div class="text-center">
-            <ads-zoom-sunburst data="drugEvents.svgResult" node="node"></ads-zoom-sunburst>
-          </div>
-        </tab>
-        <tab heading="Most Common Side Effects Graphic">
-          <div class="tab-instructions">
-            <p>This bubble graphic displays the most common side effects from taking this medication. Larger bubbles indicate a more frequent occurrence of the side effect.</p>
-          </div>
-          <div class="text-center">
-            <ads-bubble data="drugEvents.svgBubbleResult"></ads-bubble>
-          </div>
-        </tab>
-      </tabset>
-    </div>
-  </div>
-</div>
 </div>
 
