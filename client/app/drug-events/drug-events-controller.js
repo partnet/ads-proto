@@ -67,11 +67,11 @@
 
         var searchParam = 'patient.drug.openfda.brand_name:' + _this.drugId + '+AND+patient.patientsex:' + _this.gender;
 
-        if (!isNaN(_this.age)) {
+        if (_this.age !== null && !isNaN(_this.age)) {
           searchParam += '+AND+patient.patientonsetage:[' + (_this.age - 10 >= 0 ? _this.age - 10 : 0) + '+TO+' + (_this.age + 10 <= 120 ? _this.age + 10 : 120) + ']';
         }
 
-        if (!isNaN(_this.weight)) {
+        if (_this.weight !== null && !isNaN(_this.weight)) {
           var weightKgs = _this.weight / 2.2046;
           searchParam += '+AND+patient.patientweight:[' + (weightKgs - 10 >= 0 ? weightKgs - 10 : 0) + '+TO+' + (weightKgs + 10) + ']';
         }
@@ -102,6 +102,12 @@
               _this.searchAlerts.splice(0, 1, {
                 type: 'danger',
                 msg: 'No results were found for the search criteria submitted.'
+              });
+              break;
+            default:
+              _this.searchAlerts.splice(0, 1, {
+                type: 'danger',
+                msg: 'Oops! Something bad happened and we cannot show any results. Please try again later.'
               });
           }
         });
