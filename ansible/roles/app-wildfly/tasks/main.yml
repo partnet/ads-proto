@@ -40,7 +40,7 @@
 
 - name: Wait for Wildfly server to be ready for admin commands
   wait_for: host={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}} port=9990 delay=10
-  
+
 - name: Add admin user
   shell: "/home/{{CFG_USER}}/wildfly/current/bin/add-user.sh --silent {{WILDFLY_APP_ADMIN_USER_NAME}} {{wildfly_app_admin_password}}"
   environment: "{{wildfly_env}}"
@@ -57,4 +57,6 @@
     creates: "/home/{{CFG_USER}}/wildfly/current/bin/startWildfly.out"
   async: 31536000
   poll: 0
-  
+
+- name: Wait for Wildfly server to be ready for admin commands
+  wait_for: host={{'localhost' if wildfly_bind_addr == '0.0.0.0' else wildfly_bind_addr}} port=9990 delay=10
