@@ -1,8 +1,8 @@
 <div class="summary-data">
   <div><span>Total number of events:</span> {{drugEvents.numReports}}</div>
-  <div><span>Average treatment duration:</span>{{drugEvents.aveDuration | number:2}} days</div>
-  <div><span>Shortest treatment duration:</span>{{drugEvents.minDuration | number:0}} <ng-pluralize count="drugEvents.minDuration" when="{1: 'day', 'other':'days'}"></ng-pluralize></div>
-  <div><span>Longest treatment duration:</span>{{drugEvents.maxDuration | number:0}} days</div>
+  <div><span>Average treatment duration:</span> {{(drugEvents.aveDuration | number:2) || 'N/A'}} <ng-pluralize count="drugEvents.aveDuration" when="{1: 'day', 'other':'days'}"></ng-pluralize></div>
+  <div><span>Shortest treatment duration:</span> {{(drugEvents.minDuration | number:0) || 'N/A'}} <ng-pluralize count="drugEvents.minDuration" when="{1: 'day', 'other':'days'}"></ng-pluralize></div>
+  <div><span>Longest treatment duration:</span> {{(drugEvents.maxDuration | number:0) || 'N/A'}} <ng-pluralize count="drugEvents.maxDuration" when="{1: 'day', 'other':'days'}"></ng-pluralize></div>
 </div>
 <table class="table table-bordered table-responsive side-effects">
   <thead>
