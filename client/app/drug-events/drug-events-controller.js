@@ -85,19 +85,13 @@
         };
 
         if (_this.age !== null) {
-          console.log('Setting AGE: ' + _this.age);
-          reactionQuery.patient = {
-            'age.low': _this.age - 10 >= 0 ? _this.age - 10 : 0,
-            'age.high': _this.age + 10 <= 120 ? _this.age + 10 : 120
-          }
+          reactionQuery['patient.age.low'] = _this.age - 10 >= 0 ? _this.age - 10 : 0;
+          reactionQuery['patient.age.high'] = _this.age + 10 <= 120 ? _this.age + 10 : 120;
         }
 
         if (_this.weight !== null) {
-          console.log('Setting Weight: ' + _this.weight);
-          reactionQuery.patient = {
-            'weight.low': _this.weight - 10 >= 0 ? _this.weight - 10 : 0,
-            'weight.high': _this.weight + 10
-          }
+          reactionQuery['patient.weight.low'] = _this.weight - 10 >= 0 ? _this.weight - 10 : 0;
+          reactionQuery['patient.weight.high'] = _this.weight + 10;
         }
 
         DrugEventsService.searchEvents(reactionQuery).then(function () {
