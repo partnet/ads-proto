@@ -139,7 +139,11 @@
               var text = node.append('text')
                 .classed(className, true)
                 .text(function (d) {
-                  return d.name;
+                  if(!d.children) {
+                    return outcomeName(d.name);
+                  } else {
+                    return d.name;
+                  }
                 });
 
               if(isChild){
@@ -149,7 +153,7 @@
 
             var removeLabels = function () {
               svg.selectAll('g').select('text').remove();
-            }
+            };
 
             var render = function (root) {
               scope.node = {
