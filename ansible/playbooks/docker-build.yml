@@ -1,0 +1,9 @@
+---
+- hosts: app-servers
+  connection: local
+  gather_facts: no
+  roles:
+    - app-common
+    - app-es
+    - app-wildfly
+    - app-app-deploy
