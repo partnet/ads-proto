@@ -5,8 +5,7 @@
     <img src="images/medical_background.jpg" alt="">
   </div>
   <div class="container">
-    <div class=""
-         ng-class="{'col-sm-4 col-md-3': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
+    <div ng-class="{'col-sm-4 col-md-3': (drugEvents.searchSuccess || drugEvents.searchAlerts.length), 'col-sm-3 form-fixed-width': !(drugEvents.searchSuccess || drugEvents.searchAlerts.length)}">
       <form class="adeSearchForm round" name="adeSearchForm" ng-submit="drugEvents.doSearch()">
         <div class="form-header">
           <img class="check-meds-text img-responsive" src="images/medical_check_meds_logo.png" alt="CHECK MY MEDS">
@@ -58,6 +57,7 @@
                 </div>
               </div>
             </div>
+          </div>
         </fieldset>
         <div class="btn-holder">
           <button id="reg-button-id" type="submit" class="round center-btn btn btn-primary"

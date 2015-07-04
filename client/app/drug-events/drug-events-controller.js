@@ -95,45 +95,44 @@
         }
 
         DrugEventsService.searchEvents(reactionQuery).then(function () {
-          reactionQuery.count = 'patient.reaction.reactionoutcome';
-          DrugEventsService.searchIndications(drugQuery).then(function () {
-            _this.searchResults = DrugEventsService.reactionResults;
-            _this.indicationResults = DrugEventsService.indicationResults;
-            _this.numReports = DrugEventsService.numReports;
-            _this.aveDuration = DrugEventsService.aveDuration;
-            _this.minDuration = DrugEventsService.minDuration;
-            _this.maxDuration = DrugEventsService.maxDuration;
-            _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults, _this.drugId);
-            _this.searchSuccess = true;
-
-            var sbr = angular.copy(_this.svgResult);
-            var zeroPrrs = sbr.children.filter(function (events) {
-              return events.prr === 0;
+          if(DrugEventsService.reactionResults.length < 1) {
+            _this.searchAlerts.splice(0, 1, {
+              type: 'danger',
+              msg: 'No results were found for the search criteria submitted.'
             });
-            Object.keys(sbr.children).map(function (key) {
-              delete sbr.children[key].children;
-              if(zeroPrrs.length <= 0) {
-                sbr.children.size = sbr.children.prr;
-              }
-            });
-            _this.svgBubbleResult = sbr;
             _this.runningQuery = false;
-          });
-        }, function (response) {
-          _this.runningQuery = false;
-          switch (response.status) {
-            case 404:
-              _this.searchAlerts.splice(0, 1, {
-                type: 'danger',
-                msg: 'No results were found for the search criteria submitted.'
+          } else{
+            reactionQuery.count = 'patient.reaction.reactionoutcome';
+            DrugEventsService.searchIndications(drugQuery).then(function () {
+              _this.searchResults = DrugEventsService.reactionResults;
+              _this.indicationResults = DrugEventsService.indicationResults;
+              _this.numReports = DrugEventsService.numReports;
+              _this.aveDuration = DrugEventsService.aveDuration;
+              _this.minDuration = DrugEventsService.minDuration;
+              _this.maxDuration = DrugEventsService.maxDuration;
+              _this.svgResult = DrugEventsService.calculateSVGJson(_this.searchResults, _this.drugId);
+              _this.searchSuccess = true;
+
+              var sbr = angular.copy(_this.svgResult);
+              var zeroPrrs = sbr.children.filter(function (events) {
+                return events.prr === 0;
               });
-              break;
-            default:
-              _this.searchAlerts.splice(0, 1, {
-                type: 'danger',
-                msg: 'Oops! Something bad happened and we cannot show any results. Please try again later.'
+              Object.keys(sbr.children).map(function (key) {
+                delete sbr.children[key].children;
+                if(zeroPrrs.length <= 0) {
+                  sbr.children.size = sbr.children.prr;
+                }
               });
+              _this.svgBubbleResult = sbr;
+              _this.runningQuery = false;
+            });
           }
+        }, function () {
+          _this.runningQuery = false;
+          _this.searchAlerts.splice(0, 1, {
+            type: 'danger',
+            msg: 'Oops! Something bad happened and we cannot show any results. Please try again later.'
+          });
         });
       };
 
