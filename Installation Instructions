@@ -1,0 +1,74 @@
+Partnet Pool-1 Design: Installation Instructions
+
+The Partnet pool-1 design prototype is a Javascript-based AngularJS application. It employs a
+number of commonly used Javascript libraries and utilities. The prototype presumes a modern
+“evergreen” browser is being used. Google Chrome is recommended.
+
+The following instructions assume a Unix like (Linux/OS X) environment will be targeted. The tooli
+set is compatible with other systems, but some translation to equivalent commands may be required.
+
+
+Install Git
+-------------
+To install the prototype on another system, one will need to first install Git for the relevant
+platform. The latest source release is available here: https://git-scm.com/downloads
+
+For Linux, git is commonly available through the relevant package manager.
+
+For OS X users, git is also available via homebrew (brew install git)
+
+
+Install Node.js
+-------------------
+Installation may vary according to your platform. The latest source release is available
+here: https://nodejs.org/
+
+For Linux, node is commonly available through the relevant package manager.
+
+For OS X users, node is also available via homebrew (brew install node)
+
+The installation of node includes the node package management utility, npm
+
+npm is used to install a number of secondary javascript libraries.
+
+
+Install Grunt
+----------------
+Grunt is a Javascript build utility. It is installed with npm.
+
+npm install -g grunt-cli
+
+
+Install Bower
+----------------
+Bower is a Javascript dependency management utility. It is installed with npm.
+
+npm install -g bower
+
+
+Clone the Repository
+----------------------------
+Change to what should be the parent directory of the repository and clone it.
+
+cd path/to/parent/repository/directory
+git clone https://github.com/partnet/ads-proto
+git checkout pool1-dev
+
+
+Install Supporting Javascript Libraries
+--------------------------------------------------
+cd ads-proto/client
+npm install
+bower install
+
+These commands read the associated package.json and bower.json files and stage the additional
+Javascript libraries identified therein.
+
+Build and Deploy the Prototype to a Local Web Server
+----------------------------------------------------------------------
+grunt serve
+
+This will perform a full build of the prototype, start a local web server, and host the built
+application.
+
+Start a browser and visit http://localhost:9000/#/
