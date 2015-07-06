@@ -107,13 +107,6 @@ builds.<sup>(l)</sup>
 The Q4 2014 FAERS data set (ADR14Q4.xml) was downloaded and indexed into an Elasticsearch instance
 after validating numeric data fields and and normalizing units of measure.
 
-A modified agile scrum process was followed for Pool 3 development to enable iterative development.
-The Technical Architect conducted daily stand-up meetings as well as planning meetings for each
-Sprint. The sprint duration lasted one day. Seven sprints were completed.  Bugs were filed and
-assigned to sprints using milestones. See repository issues labeled pool3.  Pool3 design was
-updated after the User Co-Creation session to include drug typeahead feature which was completed in
-Sprint 6. See the “Co-Creation Session” document.<sup>(g)</sup>
-
 Unit tests can be found in the repository under client/test and server/src/test.<sup>(k)</sup>
 
 The prototype is deployed to an Amazon EC2 instance running a CentOS 6.6 image.<sup>(j)</sup>
