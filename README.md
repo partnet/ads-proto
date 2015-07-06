@@ -2,7 +2,7 @@
 
 *Repository Branch: pool1-dev*
 
-*Prototype URL: http://ads-pool1.part.net/#/client*
+*Prototype URL: http://ads-pool1.part.net/#*
 
 The following description makes references to evidence within the repository of Partnet's adherence
 to the Playbook guidance. Paths to referenced documents can be found in the Attachment E submitted
