@@ -57,10 +57,10 @@ Interaction Design, and Usability Testing directory for the “Co-Creation Sessi
 Once user pain points and preferences were identified, the team outlined and created a
 user-friendly, responsive site to address their needs. We designed the site with a mobile-first
 mindset, meaning that the user experience is high on any device or viewport (from mobile phone or
-tablet, to full-screen desktop monitor and laptop experiences). 
+tablet, to full-screen desktop monitor and laptop experiences).<sup>h</sup>
 
 To tailor our site to our users, we used numerous human-centered design techniques<sup>(d)</sup>
-and tools, including iterative design (see “Iterative Design Process” document)<sup>(h)</sup>,
+and tools, including iterative design (see “Iterative Design Process” document)<sup>(g)</sup>,
 focus groups (see “Focus Group 50 and Over Users and Paper Prototyping” document), prototyping (see
 “Co-Creation Session” document), participatory design (see “Co-Creation Session” document),
 task analysis (see “Task Analysis” document), and usability testing (see “Usability Testing
