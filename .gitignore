@@ -4,7 +4,8 @@ client/dist/
 client/node_modules/
 client/bower_components/
 client/.tmp/
-client/mobile/
+client/mobile/*
+!client/mobile/ads-proto-pool1.apk
 .idea
 .project
 .classpath
