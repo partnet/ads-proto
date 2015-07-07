@@ -1,0 +1,15 @@
+Docker Installation
+-------------------
+Install docker according to your target platform
+https://docs.docker.com/installation/
+
+Retrieve the Published Docker Prototype Image
+---------------------------------------------
+docker pull partnet/ads-pool3
+
+Run Docker
+----------
+docker run -d -p 8080:8080 partnet/ads-pool3
+
+A typical "docker run" command takes approximately 30+ seconds for
+the application to initialize and the site is available.
