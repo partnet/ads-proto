@@ -32,7 +32,7 @@ The prototype user interface includes a table highlighting information from the 
 * Indications and counts were added for each drug.
 * Average, minimum, and maximum time of onset of reaction were added.
 
-A multi-disciplinary team, led by our Product Manager <sup>(a)</sup>, was assembled to include an
+A multi-disciplinary team, led by our Product Manager<sup>(a)</sup>, was assembled to include an
 Interaction Designer / User Researcher / Usability Tester, Visual Designer, a Technical Architect, 
 Frontend and Backend developers, and DevOps engineers. In addition, staff that were not related
 to the project were engaged to serve as the end users (i.e., People). Please reference the document
@@ -57,7 +57,7 @@ Interaction Design, and Usability Testing directory for the “Co-Creation Sessi
 Once user pain points and preferences were identified, the team outlined and created a
 user-friendly, responsive site to address their needs. We designed the site with a mobile-first
 mindset, meaning that the user experience is high on any device or viewport (from mobile phone or
-tablet, to full-screen desktop monitor and laptop experiences).<sup>h</sup>
+tablet, to full-screen desktop monitor and laptop experiences).<sup>(h)</sup>
 
 To tailor our site to our users, we used numerous human-centered design techniques<sup>(d)</sup>
 and tools, including iterative design (see “Iterative Design Process” document)<sup>(g)</sup>,
