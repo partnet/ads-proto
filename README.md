@@ -32,9 +32,10 @@ The prototype user interface includes a table highlighting information from the 
 * Indications and counts were added for each drug.
 * Average, minimum, and maximum time of onset of reaction were added.
 
-A multi-disciplinary team, led by our Product Manager<sup>(a)</sup>, was assembled to include an
-Interaction Designer / User Researcher / Usability Tester, Visual Designer, a Technical Architect, 
-Frontend and Backend developers, and DevOps engineers. In addition, staff that were not related
+A multi-disciplinary team, led by our Product Manager<sup>(a)</sup>,was assembled to include an
+Interaction Designer / User Researcher / Usability Tester, Visual Designer, a Technical Architect,
+Frontend and Backend developers, Writer / Content Designer / Content Strategist, Security Engineer,
+Delivery Manager, Business Analyst, and DevOps engineers.  In addition, staff that were not related
 to the project were engaged to serve as the end users (i.e., People). Please reference the document
 “Pool 3 Team Roster”.<sup>(b)</sup>
 
